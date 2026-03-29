@@ -1,5 +1,6 @@
-import { forwardRef, useState } from "react";
+import { forwardRef, useMemo, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { createPortal } from "react-dom";
 import { Clock, Check, Trash2 } from "lucide-react";
 import { PantryItem } from "@/types/pantry";
 import { Button } from "@/components/ui/button";
@@ -47,6 +48,72 @@ export const InventoryItem = forwardRef<HTMLDivElement, InventoryItemProps>(func
     }
   };
 
+  const tossPrompt = useMemo(() => {
+    if (!showTossPrompt || typeof document === "undefined") return null;
+
+    return createPortal(
+      <>
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          className="fixed inset-0 bg-foreground/20 backdrop-blur-sm z-40"
+          onClick={() => setShowTossPrompt(false)}
+        />
+        <motion.div
+          initial={{ opacity: 0, y: 24, scale: 0.97 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          exit={{ opacity: 0, y: 16, scale: 0.97 }}
+          transition={{ type: "spring", damping: 28, stiffness: 320 }}
+          className="fixed z-50 inset-x-4 top-1/2 -translate-y-1/2 sm:inset-auto sm:left-1/2 sm:-translate-x-1/2 sm:w-full sm:max-w-sm"
+        >
+          <div className="bg-card rounded-2xl border shadow-xl p-6">
+            <div className="flex items-center gap-2 mb-4">
+              <div className="rounded-full bg-destructive/10 p-2">
+                <Trash2 className="h-4 w-4 text-destructive" />
+              </div>
+              <h3 className="font-serif font-bold text-foreground text-lg">Toss "{item.name}"</h3>
+            </div>
+
+            <p className="text-sm text-muted-foreground mb-4">
+              How much are you tossing? (Total: {item.weightKg} kg)
+            </p>
+
+            <div className="space-y-2 mb-5">
+              <Label htmlFor={`toss-amount-${item.id}`}>Amount to toss (kg)</Label>
+              <Input
+                id={`toss-amount-${item.id}`}
+                type="number"
+                min="0.01"
+                max={item.weightKg}
+                step="any"
+                value={tossAmount}
+                onChange={(e) => setTossAmount(e.target.value)}
+                autoFocus
+              />
+            </div>
+
+            <div className="flex gap-3">
+              <Button type="button" variant="outline" className="flex-1" onClick={() => setShowTossPrompt(false)}>
+                Cancel
+              </Button>
+              <Button
+                type="button"
+                variant="destructive"
+                className="flex-1"
+                disabled={tossing || !parseFloat(tossAmount) || parseFloat(tossAmount) <= 0 || parseFloat(tossAmount) > item.weightKg}
+                onClick={handleTossConfirm}
+              >
+                {tossing ? "Tossing…" : "Confirm toss"}
+              </Button>
+            </div>
+          </div>
+        </motion.div>
+      </>,
+      document.body
+    );
+  }, [handleTossConfirm, item.id, item.name, item.weightKg, showTossPrompt, tossAmount, tossing]);
+
   return (
     <>
       <motion.div
@@ -78,6 +145,7 @@ export const InventoryItem = forwardRef<HTMLDivElement, InventoryItemProps>(func
 
         <div className="flex gap-1.5">
           <Button
+            type="button"
             size="sm"
             variant="outline"
             className="h-8 w-8 p-0 border-success/30 text-success hover:bg-success hover:text-success-foreground"
@@ -87,6 +155,7 @@ export const InventoryItem = forwardRef<HTMLDivElement, InventoryItemProps>(func
             <Check className="h-4 w-4" />
           </Button>
           <Button
+            type="button"
             size="sm"
             variant="outline"
             className="h-8 w-8 p-0 border-destructive/30 text-destructive hover:bg-destructive hover:text-destructive-foreground"
@@ -102,67 +171,7 @@ export const InventoryItem = forwardRef<HTMLDivElement, InventoryItemProps>(func
       </motion.div>
 
       {/* Toss amount prompt */}
-      <AnimatePresence>
-        {showTossPrompt && (
-          <>
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="fixed inset-0 bg-foreground/20 backdrop-blur-sm z-40"
-              onClick={() => setShowTossPrompt(false)}
-            />
-            <motion.div
-              initial={{ opacity: 0, y: 24, scale: 0.97 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: 16, scale: 0.97 }}
-              transition={{ type: "spring", damping: 28, stiffness: 320 }}
-              className="fixed z-50 inset-x-4 top-1/2 -translate-y-1/2 sm:inset-auto sm:left-1/2 sm:-translate-x-1/2 sm:w-full sm:max-w-sm"
-            >
-              <div className="bg-card rounded-2xl border shadow-xl p-6">
-                <div className="flex items-center gap-2 mb-4">
-                  <div className="rounded-full bg-destructive/10 p-2">
-                    <Trash2 className="h-4 w-4 text-destructive" />
-                  </div>
-                  <h3 className="font-serif font-bold text-foreground text-lg">Toss "{item.name}"</h3>
-                </div>
-
-                <p className="text-sm text-muted-foreground mb-4">
-                  How much are you tossing? (Total: {item.weightKg} kg)
-                </p>
-
-                <div className="space-y-2 mb-5">
-                  <Label htmlFor="toss-amount">Amount to toss (kg)</Label>
-                  <Input
-                    id="toss-amount"
-                    type="number"
-                    min="0.01"
-                    max={item.weightKg}
-                    step="any"
-                    value={tossAmount}
-                    onChange={(e) => setTossAmount(e.target.value)}
-                    autoFocus
-                  />
-                </div>
-
-                <div className="flex gap-3">
-                  <Button variant="outline" className="flex-1" onClick={() => setShowTossPrompt(false)}>
-                    Cancel
-                  </Button>
-                  <Button
-                    variant="destructive"
-                    className="flex-1"
-                    disabled={tossing || !parseFloat(tossAmount) || parseFloat(tossAmount) <= 0 || parseFloat(tossAmount) > item.weightKg}
-                    onClick={handleTossConfirm}
-                  >
-                    {tossing ? "Tossing…" : "Confirm toss"}
-                  </Button>
-                </div>
-              </div>
-            </motion.div>
-          </>
-        )}
-      </AnimatePresence>
+      <AnimatePresence>{tossPrompt}</AnimatePresence>
     </>
   );
 });
