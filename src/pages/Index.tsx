@@ -144,6 +144,11 @@ const Index = () => {
                 <AddItemForm onAdd={addItem} />
               </section>
 
+              {/* Community Impact */}
+              <section>
+                <CommunityImpact />
+              </section>
+
               {/* Inventory */}
               <section>
                 <div className="flex items-center justify-between mb-4">
