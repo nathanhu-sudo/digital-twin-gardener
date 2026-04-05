@@ -55,7 +55,17 @@ export type Database = {
       }
     }
     Views: {
-      [_ in never]: never
+      community_impact: {
+        Row: {
+          total_co2_saved_kg: number | null
+          total_co2_wasted_kg: number | null
+          total_items: number | null
+          total_saved_kg: number | null
+          total_users: number | null
+          total_wasted_kg: number | null
+        }
+        Relationships: []
+      }
     }
     Functions: {
       [_ in never]: never
