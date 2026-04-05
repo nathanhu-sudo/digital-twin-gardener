@@ -11,6 +11,7 @@ import { Button } from "@/components/ui/button";
 import heroImage from "@/assets/hero-illustration.jpg";
 import ChartsPage from "./ChartsPage";
 import ScannerPage from "./ScannerPage";
+import { CommunityImpact } from "@/components/CommunityImpact";
 
 type Tab = "home" | "charts" | "scanner";
 
@@ -141,6 +142,11 @@ const Index = () => {
                   <h2 className="text-lg font-bold text-foreground font-serif">Add to Pantry</h2>
                 </div>
                 <AddItemForm onAdd={addItem} />
+              </section>
+
+              {/* Community Impact */}
+              <section>
+                <CommunityImpact />
               </section>
 
               {/* Inventory */}

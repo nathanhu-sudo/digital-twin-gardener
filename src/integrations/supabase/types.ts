@@ -58,7 +58,17 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      get_community_impact: {
+        Args: never
+        Returns: {
+          total_co2_saved_kg: number
+          total_co2_wasted_kg: number
+          total_items: number
+          total_saved_kg: number
+          total_users: number
+          total_wasted_kg: number
+        }[]
+      }
     }
     Enums: {
       [_ in never]: never
