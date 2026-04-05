@@ -11,6 +11,7 @@ import { Button } from "@/components/ui/button";
 import heroImage from "@/assets/hero-illustration.jpg";
 import ChartsPage from "./ChartsPage";
 import ScannerPage from "./ScannerPage";
+import { CommunityImpact } from "@/components/CommunityImpact";
 
 type Tab = "home" | "charts" | "scanner";
 
