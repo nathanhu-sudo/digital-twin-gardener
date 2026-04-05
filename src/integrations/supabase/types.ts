@@ -55,20 +55,20 @@ export type Database = {
       }
     }
     Views: {
-      community_impact: {
-        Row: {
-          total_co2_saved_kg: number | null
-          total_co2_wasted_kg: number | null
-          total_items: number | null
-          total_saved_kg: number | null
-          total_users: number | null
-          total_wasted_kg: number | null
-        }
-        Relationships: []
-      }
+      [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      get_community_impact: {
+        Args: never
+        Returns: {
+          total_co2_saved_kg: number
+          total_co2_wasted_kg: number
+          total_items: number
+          total_saved_kg: number
+          total_users: number
+          total_wasted_kg: number
+        }[]
+      }
     }
     Enums: {
       [_ in never]: never
