@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Footer from "@/components/Footer";
 import { motion, AnimatePresence } from "framer-motion";
-import { Leaf, LogOut, Package, TrendingUp, Sparkles, BarChart2, ScanLine, Home } from "lucide-react";
+import { Leaf, LogOut, Package, TrendingUp, Sparkles, BarChart2, ScanLine, Home, Shield } from "lucide-react";
 import { Dashboard } from "@/components/Dashboard";
 import { InventoryList } from "@/components/InventoryList";
 import { AddItemForm } from "@/components/AddItemForm";
