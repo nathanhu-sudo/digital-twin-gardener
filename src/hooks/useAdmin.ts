@@ -15,7 +15,7 @@ export interface AdminUser {
 }
 
 export function useAdmin() {
-  const { user } = useAuth();
+  const { user, loading: authLoading } = useAuth();
   const [isAdmin, setIsAdmin] = useState(false);
   const [adminLoading, setAdminLoading] = useState(true);
   const [users, setUsers] = useState<AdminUser[]>([]);
@@ -23,15 +23,18 @@ export function useAdmin() {
 
   useEffect(() => {
     if (!user) {
-      setIsAdmin(false);
-      setAdminLoading(false);
+      if (!authLoading) {
+        setIsAdmin(false);
+        setAdminLoading(false);
+      }
       return;
     }
+    setAdminLoading(true);
     supabase.rpc("is_admin").then(({ data, error }) => {
       setIsAdmin(!error && data === true);
       setAdminLoading(false);
     });
-  }, [user]);
+  }, [user, authLoading]);
 
   const fetchUsers = async () => {
     setUsersLoading(true);
