@@ -15,7 +15,7 @@ export interface AdminUser {
 }
 
 export function useAdmin() {
-  const { user } = useAuth();
+  const { user, loading: authLoading } = useAuth();
   const [isAdmin, setIsAdmin] = useState(false);
   const [adminLoading, setAdminLoading] = useState(true);
   const [users, setUsers] = useState<AdminUser[]>([]);
@@ -23,8 +23,7 @@ export function useAdmin() {
 
   useEffect(() => {
     if (!user) {
-      // Don't set adminLoading=false if auth is still loading
-      if (!loading) {
+      if (!authLoading) {
         setIsAdmin(false);
         setAdminLoading(false);
       }
@@ -35,7 +34,7 @@ export function useAdmin() {
       setIsAdmin(!error && data === true);
       setAdminLoading(false);
     });
-  }, [user, loading]);
+  }, [user, authLoading]);
 
   const fetchUsers = async () => {
     setUsersLoading(true);
