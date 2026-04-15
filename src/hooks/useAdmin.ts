@@ -23,15 +23,19 @@ export function useAdmin() {
 
   useEffect(() => {
     if (!user) {
-      setIsAdmin(false);
-      setAdminLoading(false);
+      // Don't set adminLoading=false if auth is still loading
+      if (!loading) {
+        setIsAdmin(false);
+        setAdminLoading(false);
+      }
       return;
     }
+    setAdminLoading(true);
     supabase.rpc("is_admin").then(({ data, error }) => {
       setIsAdmin(!error && data === true);
       setAdminLoading(false);
     });
-  }, [user]);
+  }, [user, loading]);
 
   const fetchUsers = async () => {
     setUsersLoading(true);
