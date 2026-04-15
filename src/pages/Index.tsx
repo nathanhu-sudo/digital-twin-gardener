@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Footer from "@/components/Footer";
 import { motion, AnimatePresence } from "framer-motion";
 import { Leaf, LogOut, Package, TrendingUp, Sparkles, BarChart2, ScanLine, Home } from "lucide-react";
@@ -12,6 +13,7 @@ import heroImage from "@/assets/hero-illustration.jpg";
 import ChartsPage from "./ChartsPage";
 import ScannerPage from "./ScannerPage";
 import { CommunityImpact } from "@/components/CommunityImpact";
+import { useAdmin } from "@/hooks/useAdmin";
 
 type Tab = "home" | "charts" | "scanner";
 
@@ -25,6 +27,8 @@ const Index = () => {
   const [activeTab, setActiveTab] = useState<Tab>("home");
   const { activeItems, impact, loading, getDaysRemaining, addItem, consumeItem, tossItem } = usePantry();
   const { user, signOut } = useAuth();
+  const { isAdmin } = useAdmin();
+  const navigate = useNavigate();
 
   const expiringCount = activeItems.filter((i) => getDaysRemaining(i) <= 3).length;
 
@@ -45,6 +49,12 @@ const Index = () => {
               <span className="hidden sm:block text-xs text-muted-foreground bg-background/80 border rounded-full px-3 py-1">
                 {user.email}
               </span>
+            )}
+            {isAdmin && (
+              <Button variant="outline" size="sm" onClick={() => navigate("/admin")} className="gap-1 text-xs">
+                <Shield className="h-3.5 w-3.5" />
+                Admin
+              </Button>
             )}
             <Button variant="ghost" size="sm" onClick={signOut} className="gap-1 text-muted-foreground">
               <LogOut className="h-4 w-4" />
