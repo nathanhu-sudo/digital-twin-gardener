@@ -14,6 +14,45 @@ export type Database = {
   }
   public: {
     Tables: {
+      achievements: {
+        Row: {
+          created_at: string
+          criteria: Json
+          description: string
+          icon: string
+          id: string
+          key: string
+          name: string
+          sort_order: number
+          tier: string
+          xp_reward: number
+        }
+        Insert: {
+          created_at?: string
+          criteria: Json
+          description: string
+          icon: string
+          id?: string
+          key: string
+          name: string
+          sort_order?: number
+          tier?: string
+          xp_reward?: number
+        }
+        Update: {
+          created_at?: string
+          criteria?: Json
+          description?: string
+          icon?: string
+          id?: string
+          key?: string
+          name?: string
+          sort_order?: number
+          tier?: string
+          xp_reward?: number
+        }
+        Relationships: []
+      }
       pantry_items: {
         Row: {
           added_at: string
@@ -53,6 +92,35 @@ export type Database = {
         }
         Relationships: []
       }
+      user_achievements: {
+        Row: {
+          achievement_id: string
+          id: string
+          unlocked_at: string
+          user_id: string
+        }
+        Insert: {
+          achievement_id: string
+          id?: string
+          unlocked_at?: string
+          user_id: string
+        }
+        Update: {
+          achievement_id?: string
+          id?: string
+          unlocked_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "user_achievements_achievement_id_fkey"
+            columns: ["achievement_id"]
+            isOneToOne: false
+            referencedRelation: "achievements"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       user_roles: {
         Row: {
           created_at: string
@@ -74,11 +142,63 @@ export type Database = {
         }
         Relationships: []
       }
+      user_stats: {
+        Row: {
+          current_streak: number
+          items_consumed: number
+          items_tossed: number
+          kg_saved: number
+          kg_wasted: number
+          last_activity_date: string | null
+          level: number
+          longest_streak: number
+          updated_at: string
+          user_id: string
+          xp: number
+        }
+        Insert: {
+          current_streak?: number
+          items_consumed?: number
+          items_tossed?: number
+          kg_saved?: number
+          kg_wasted?: number
+          last_activity_date?: string | null
+          level?: number
+          longest_streak?: number
+          updated_at?: string
+          user_id: string
+          xp?: number
+        }
+        Update: {
+          current_streak?: number
+          items_consumed?: number
+          items_tossed?: number
+          kg_saved?: number
+          kg_wasted?: number
+          last_activity_date?: string | null
+          level?: number
+          longest_streak?: number
+          updated_at?: string
+          user_id?: string
+          xp?: number
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
+      check_and_unlock_achievements: {
+        Args: { _user_id: string }
+        Returns: {
+          icon: string
+          key: string
+          name: string
+          tier: string
+          xp_reward: number
+        }[]
+      }
       get_admin_users_overview: {
         Args: never
         Returns: {
@@ -104,6 +224,16 @@ export type Database = {
           total_wasted_kg: number
         }[]
       }
+      get_leaderboard: {
+        Args: { _period: string }
+        Returns: {
+          email: string
+          items_consumed: number
+          kg_saved: number
+          rank: number
+          user_id: string
+        }[]
+      }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]
@@ -112,6 +242,7 @@ export type Database = {
         Returns: boolean
       }
       is_admin: { Args: never; Returns: boolean }
+      recompute_user_stats: { Args: { _user_id: string }; Returns: undefined }
     }
     Enums: {
       app_role: "admin" | "moderator" | "user"
