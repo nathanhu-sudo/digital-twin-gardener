@@ -5,6 +5,7 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Progress } from "@/components/ui/progress";
 import { useGamification, useLeaderboard, levelTitle, XP_PER_LEVEL } from "@/hooks/useGamification";
 import { AchievementBadge } from "@/components/AchievementBadge";
+import { WeeklyChallengeList } from "@/components/WeeklyChallengeList";
 import { useAuth } from "@/hooks/useAuth";
 import { cn } from "@/lib/utils";
 
@@ -50,6 +51,8 @@ export default function AchievementsPage() {
           </div>
         </motion.div>
       )}
+
+      <WeeklyChallengeList />
 
       <Tabs defaultValue="badges">
         <TabsList className="grid grid-cols-2 w-full">
