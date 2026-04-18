@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Footer from "@/components/Footer";
 import { motion, AnimatePresence } from "framer-motion";
-import { Leaf, LogOut, Package, TrendingUp, Sparkles, BarChart2, ScanLine, Home, Shield } from "lucide-react";
+import { Leaf, LogOut, Package, TrendingUp, Sparkles, BarChart2, ScanLine, Home, Shield, Trophy } from "lucide-react";
 import { Dashboard } from "@/components/Dashboard";
 import { InventoryList } from "@/components/InventoryList";
 import { AddItemForm } from "@/components/AddItemForm";
@@ -12,15 +12,19 @@ import { Button } from "@/components/ui/button";
 import heroImage from "@/assets/hero-illustration.jpg";
 import ChartsPage from "./ChartsPage";
 import ScannerPage from "./ScannerPage";
+import AchievementsPage from "./AchievementsPage";
 import { CommunityImpact } from "@/components/CommunityImpact";
+import { GamificationCard } from "@/components/GamificationCard";
 import { useAdmin } from "@/hooks/useAdmin";
+import { useGamification } from "@/hooks/useGamification";
 
-type Tab = "home" | "charts" | "scanner";
+type Tab = "home" | "charts" | "scanner" | "achievements";
 
 const TABS: { id: Tab; label: string; icon: typeof Home }[] = [
   { id: "home", label: "Home", icon: Home },
   { id: "charts", label: "Charts", icon: BarChart2 },
   { id: "scanner", label: "Scanner", icon: ScanLine },
+  { id: "achievements", label: "Rewards", icon: Trophy },
 ];
 
 const Index = () => {
