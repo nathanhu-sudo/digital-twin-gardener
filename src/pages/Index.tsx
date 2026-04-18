@@ -15,8 +15,10 @@ import ScannerPage from "./ScannerPage";
 import AchievementsPage from "./AchievementsPage";
 import { CommunityImpact } from "@/components/CommunityImpact";
 import { GamificationCard } from "@/components/GamificationCard";
+import { WeeklyChallengeCard } from "@/components/WeeklyChallengeCard";
 import { useAdmin } from "@/hooks/useAdmin";
 import { useGamification } from "@/hooks/useGamification";
+import { useWeeklyChallenges } from "@/hooks/useWeeklyChallenges";
 
 type Tab = "home" | "charts" | "scanner" | "achievements";
 
@@ -33,14 +35,15 @@ const Index = () => {
   const { user, signOut } = useAuth();
   const { isAdmin } = useAdmin();
   const { refresh: refreshGamification } = useGamification();
+  const { refresh: refreshChallenges } = useWeeklyChallenges();
   const navigate = useNavigate();
 
   const expiringCount = activeItems.filter((i) => getDaysRemaining(i) <= 3).length;
 
-  // Refresh gamification stats whenever inventory mutates
-  const wrappedConsume = async (id: string) => { await consumeItem(id); refreshGamification(); };
-  const wrappedToss = async (id: string, kg?: number) => { await tossItem(id, kg); refreshGamification(); };
-  const wrappedAdd: typeof addItem = async (data) => { const r = await addItem(data); refreshGamification(); return r; };
+  // Refresh gamification + challenges whenever inventory mutates
+  const wrappedConsume = async (id: string) => { await consumeItem(id); refreshGamification(); refreshChallenges(); };
+  const wrappedToss = async (id: string, kg?: number) => { await tossItem(id, kg); refreshGamification(); refreshChallenges(); };
+  const wrappedAdd: typeof addItem = async (data) => { const r = await addItem(data); refreshGamification(); refreshChallenges(); return r; };
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
@@ -158,6 +161,11 @@ const Index = () => {
               {/* Gamification preview */}
               <section>
                 <GamificationCard onOpen={() => setActiveTab("achievements")} />
+              </section>
+
+              {/* Weekly challenges preview */}
+              <section>
+                <WeeklyChallengeCard onOpen={() => setActiveTab("achievements")} />
               </section>
 
               {/* Add Items */}
