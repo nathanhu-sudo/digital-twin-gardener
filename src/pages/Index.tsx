@@ -32,9 +32,15 @@ const Index = () => {
   const { activeItems, impact, loading, getDaysRemaining, addItem, consumeItem, tossItem } = usePantry();
   const { user, signOut } = useAuth();
   const { isAdmin } = useAdmin();
+  const { refresh: refreshGamification } = useGamification();
   const navigate = useNavigate();
 
   const expiringCount = activeItems.filter((i) => getDaysRemaining(i) <= 3).length;
+
+  // Refresh gamification stats whenever inventory mutates
+  const wrappedConsume = async (id: string) => { await consumeItem(id); refreshGamification(); };
+  const wrappedToss = async (id: string, kg?: number) => { await tossItem(id, kg); refreshGamification(); };
+  const wrappedAdd: typeof addItem = async (data) => { const r = await addItem(data); refreshGamification(); return r; };
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
@@ -149,13 +155,18 @@ const Index = () => {
                 <Dashboard impact={impact} />
               </section>
 
+              {/* Gamification preview */}
+              <section>
+                <GamificationCard onOpen={() => setActiveTab("achievements")} />
+              </section>
+
               {/* Add Items */}
               <section className="flex flex-col gap-3">
                 <div className="flex items-center gap-2 mb-1">
                   <Package className="h-4 w-4 text-primary" />
                   <h2 className="text-lg font-bold text-foreground font-serif">Add to Pantry</h2>
                 </div>
-                <AddItemForm onAdd={addItem} />
+                <AddItemForm onAdd={wrappedAdd} />
               </section>
 
               {/* Community Impact */}
@@ -185,8 +196,8 @@ const Index = () => {
                   <InventoryList
                     items={activeItems}
                     getDaysRemaining={getDaysRemaining}
-                    onConsume={consumeItem}
-                    onToss={tossItem}
+                    onConsume={wrappedConsume}
+                    onToss={wrappedToss}
                   />
                 )}
               </section>
