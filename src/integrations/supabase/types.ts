@@ -53,6 +53,48 @@ export type Database = {
         }
         Relationships: []
       }
+      challenge_definitions: {
+        Row: {
+          active: boolean
+          created_at: string
+          description: string
+          icon: string
+          id: string
+          key: string
+          name: string
+          sort_order: number
+          target: number
+          type: string
+          xp_reward: number
+        }
+        Insert: {
+          active?: boolean
+          created_at?: string
+          description: string
+          icon: string
+          id?: string
+          key: string
+          name: string
+          sort_order?: number
+          target: number
+          type: string
+          xp_reward?: number
+        }
+        Update: {
+          active?: boolean
+          created_at?: string
+          description?: string
+          icon?: string
+          id?: string
+          key?: string
+          name?: string
+          sort_order?: number
+          target?: number
+          type?: string
+          xp_reward?: number
+        }
+        Relationships: []
+      }
       pantry_items: {
         Row: {
           added_at: string
@@ -120,6 +162,57 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      user_challenge_bonuses: {
+        Row: {
+          bonus_xp: number
+          claimed_at: string
+          id: string
+          user_id: string
+          week_start: string
+          week_streak: number
+          xp_awarded: number
+        }
+        Insert: {
+          bonus_xp: number
+          claimed_at?: string
+          id?: string
+          user_id: string
+          week_start: string
+          week_streak: number
+          xp_awarded: number
+        }
+        Update: {
+          bonus_xp?: number
+          claimed_at?: string
+          id?: string
+          user_id?: string
+          week_start?: string
+          week_streak?: number
+          xp_awarded?: number
+        }
+        Relationships: []
+      }
+      user_challenge_streaks: {
+        Row: {
+          last_completed_week: string | null
+          updated_at: string
+          user_id: string
+          week_streak: number
+        }
+        Insert: {
+          last_completed_week?: string | null
+          updated_at?: string
+          user_id: string
+          week_streak?: number
+        }
+        Update: {
+          last_completed_week?: string | null
+          updated_at?: string
+          user_id?: string
+          week_streak?: number
+        }
+        Relationships: []
       }
       user_roles: {
         Row: {
@@ -199,6 +292,15 @@ export type Database = {
           xp_reward: number
         }[]
       }
+      claim_weekly_bonus: {
+        Args: { _user_id: string }
+        Returns: {
+          awarded: boolean
+          bonus_xp: number
+          message: string
+          week_streak: number
+        }[]
+      }
       get_admin_users_overview: {
         Args: never
         Returns: {
@@ -232,6 +334,27 @@ export type Database = {
           kg_saved: number
           rank: number
           user_id: string
+        }[]
+      }
+      get_weekly_challenges: {
+        Args: { _user_id: string }
+        Returns: {
+          all_completed: boolean
+          bonus_claimed: boolean
+          bonus_xp: number
+          completed: boolean
+          description: string
+          icon: string
+          key: string
+          name: string
+          progress: number
+          sort_order: number
+          target: number
+          type: string
+          week_end: string
+          week_start: string
+          week_streak: number
+          xp_reward: number
         }[]
       }
       has_role: {
