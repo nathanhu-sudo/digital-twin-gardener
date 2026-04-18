@@ -227,6 +227,18 @@ const Index = () => {
               <ScannerPage />
             </motion.div>
           )}
+
+          {activeTab === "achievements" && (
+            <motion.div
+              key="achievements"
+              initial={{ opacity: 0, x: 16 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -16 }}
+              transition={{ duration: 0.2 }}
+            >
+              <AchievementsPage />
+            </motion.div>
+          )}
         </AnimatePresence>
       </main>
 
