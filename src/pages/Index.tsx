@@ -6,7 +6,6 @@ import { Leaf, LogOut, Package, TrendingUp, Sparkles, BarChart2, ScanLine, Home,
 import { Dashboard } from "@/components/Dashboard";
 import { InventoryList } from "@/components/InventoryList";
 import { AddItemForm } from "@/components/AddItemForm";
-import { usePantry } from "@/hooks/usePantry";
 import { useAuth } from "@/hooks/useAuth";
 import { Button } from "@/components/ui/button";
 import heroImage from "@/assets/hero-illustration.jpg";
@@ -17,8 +16,7 @@ import { CommunityImpact } from "@/components/CommunityImpact";
 import { GamificationCard } from "@/components/GamificationCard";
 import { WeeklyChallengeCard } from "@/components/WeeklyChallengeCard";
 import { useAdmin } from "@/hooks/useAdmin";
-import { useGamification } from "@/hooks/useGamification";
-import { useWeeklyChallenges } from "@/hooks/useWeeklyChallenges";
+import { usePantryData } from "@/context/PantryDataContext";
 
 type Tab = "home" | "charts" | "scanner" | "achievements";
 
@@ -31,11 +29,12 @@ const TABS: { id: Tab; label: string; icon: typeof Home }[] = [
 
 const Index = () => {
   const [activeTab, setActiveTab] = useState<Tab>("home");
-  const { activeItems, impact, loading, getDaysRemaining, addItem, consumeItem, tossItem } = usePantry();
+  const { pantry, gamification, challenges } = usePantryData();
+  const { activeItems, impact, loading, getDaysRemaining, addItem, consumeItem, tossItem } = pantry;
   const { user, signOut } = useAuth();
   const { isAdmin } = useAdmin();
-  const { refresh: refreshGamification } = useGamification();
-  const { refresh: refreshChallenges } = useWeeklyChallenges();
+  const refreshGamification = gamification.refresh;
+  const refreshChallenges = challenges.refresh;
   const navigate = useNavigate();
 
   const expiringCount = activeItems.filter((i) => getDaysRemaining(i) <= 3).length;

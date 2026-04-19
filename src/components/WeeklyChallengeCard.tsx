@@ -2,14 +2,14 @@ import { motion } from "framer-motion";
 import { Target, Flame, ChevronRight, Gift, Check } from "lucide-react";
 import { Progress } from "@/components/ui/progress";
 import { Button } from "@/components/ui/button";
-import { useWeeklyChallenges } from "@/hooks/useWeeklyChallenges";
+import { usePantryData } from "@/context/PantryDataContext";
 
 interface Props {
   onOpen: () => void;
 }
 
 export function WeeklyChallengeCard({ onOpen }: Props) {
-  const { challenges, loading, allCompleted, bonusClaimed, bonusXp, weekStreak } = useWeeklyChallenges();
+  const { challenges, loading, allCompleted, bonusClaimed, bonusXp, weekStreak } = usePantryData().challenges;
 
   if (loading) {
     return <div className="rounded-xl bg-card border p-5 h-32 animate-pulse" />;

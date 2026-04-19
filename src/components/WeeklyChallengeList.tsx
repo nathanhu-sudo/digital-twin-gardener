@@ -3,13 +3,12 @@ import * as Icons from "lucide-react";
 import { Target, Flame, Gift, Check, Lock } from "lucide-react";
 import { Progress } from "@/components/ui/progress";
 import { Button } from "@/components/ui/button";
-import { useWeeklyChallenges } from "@/hooks/useWeeklyChallenges";
-import { useGamification } from "@/hooks/useGamification";
+import { usePantryData } from "@/context/PantryDataContext";
 
 export function WeeklyChallengeList() {
-  const { challenges, loading, claimBonus, claiming, allCompleted, bonusClaimed, bonusXp, weekStreak } =
-    useWeeklyChallenges();
-  const { refresh: refreshGamification } = useGamification();
+  const { challenges, gamification } = usePantryData();
+  const { challenges: challengesData, loading, claimBonus, claiming, allCompleted, bonusClaimed, bonusXp, weekStreak } = challenges;
+  const refreshGamification = gamification.refresh;
 
   if (loading) {
     return <div className="rounded-xl border p-5 h-48 animate-pulse bg-card" />;

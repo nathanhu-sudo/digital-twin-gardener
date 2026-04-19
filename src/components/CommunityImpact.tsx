@@ -1,9 +1,9 @@
 import { motion } from "framer-motion";
 import { Globe, Users, Leaf, TrendingDown } from "lucide-react";
-import { useCommunityImpact } from "@/hooks/useCommunityImpact";
+import { usePantryData } from "@/context/PantryDataContext";
 
 export function CommunityImpact() {
-  const { data, loading } = useCommunityImpact();
+  const { data, loading } = usePantryData().community;
 
   if (loading) {
     return (

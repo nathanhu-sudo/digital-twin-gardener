@@ -2,14 +2,15 @@ import { motion } from "framer-motion";
 import { Flame, Trophy, Zap, ChevronRight } from "lucide-react";
 import { Progress } from "@/components/ui/progress";
 import { Button } from "@/components/ui/button";
-import { useGamification, levelTitle, XP_PER_LEVEL } from "@/hooks/useGamification";
+import { levelTitle, XP_PER_LEVEL } from "@/hooks/useGamification";
+import { usePantryData } from "@/context/PantryDataContext";
 
 interface Props {
   onOpen: () => void;
 }
 
 export function GamificationCard({ onOpen }: Props) {
-  const { stats, achievements, unlocked, loading } = useGamification();
+  const { stats, achievements, unlocked, loading } = usePantryData().gamification;
 
   if (loading || !stats) {
     return <div className="rounded-xl bg-card border p-5 h-32 animate-pulse" />;
