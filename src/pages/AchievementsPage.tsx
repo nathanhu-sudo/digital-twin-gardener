@@ -3,14 +3,15 @@ import { motion } from "framer-motion";
 import { Trophy, Flame, Zap, Medal, Crown, Award } from "lucide-react";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Progress } from "@/components/ui/progress";
-import { useGamification, useLeaderboard, levelTitle, XP_PER_LEVEL } from "@/hooks/useGamification";
+import { useLeaderboard, levelTitle, XP_PER_LEVEL } from "@/hooks/useGamification";
 import { AchievementBadge } from "@/components/AchievementBadge";
 import { WeeklyChallengeList } from "@/components/WeeklyChallengeList";
 import { useAuth } from "@/hooks/useAuth";
+import { usePantryData } from "@/context/PantryDataContext";
 import { cn } from "@/lib/utils";
 
 export default function AchievementsPage() {
-  const { stats, achievements, unlocked, loading } = useGamification();
+  const { stats, achievements, unlocked, loading } = usePantryData().gamification;
   const [period, setPeriod] = useState<"week" | "month">("week");
   const { rows, loading: lbLoading } = useLeaderboard(period);
   const { user } = useAuth();

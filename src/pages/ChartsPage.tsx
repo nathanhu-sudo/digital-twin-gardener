@@ -1,12 +1,12 @@
 import { motion } from "framer-motion";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, PieChart, Pie, Cell, Legend } from "recharts";
-import { usePantry } from "@/hooks/usePantry";
+import { usePantryData } from "@/context/PantryDataContext";
 import { CO2_MULTIPLIERS } from "@/types/pantry";
 
 const COLORS = ["hsl(152,45%,32%)", "hsl(4,60%,52%)", "hsl(38,65%,55%)"];
 
 export default function ChartsPage() {
-  const { items } = usePantry();
+  const { items } = usePantryData().pantry;
 
   const consumed = items.filter((i) => i.status === "consumed");
   const tossed = items.filter((i) => i.status === "tossed");

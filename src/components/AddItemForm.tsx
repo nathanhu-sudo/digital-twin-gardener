@@ -7,6 +7,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -71,6 +72,9 @@ export function AddItemForm({ onAdd }: AddItemFormProps) {
             </div>
             Add to pantry
           </DialogTitle>
+          <DialogDescription>
+            Enter item details to track shelf life and CO₂ impact.
+          </DialogDescription>
         </DialogHeader>
 
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">

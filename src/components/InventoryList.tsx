@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { AnimatePresence } from "framer-motion";
 import { Package } from "lucide-react";
 import { PantryItem } from "@/types/pantry";
@@ -11,7 +12,10 @@ interface InventoryListProps {
 }
 
 export function InventoryList({ items, getDaysRemaining, onConsume, onToss }: InventoryListProps) {
-  const sorted = [...items].sort((a, b) => getDaysRemaining(a) - getDaysRemaining(b));
+  const sorted = useMemo(
+    () => [...items].sort((a, b) => getDaysRemaining(a) - getDaysRemaining(b)),
+    [items, getDaysRemaining]
+  );
 
   if (items.length === 0) {
     return (

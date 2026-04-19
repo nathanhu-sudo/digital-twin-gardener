@@ -3,25 +3,24 @@ import * as Icons from "lucide-react";
 import { Target, Flame, Gift, Check, Lock } from "lucide-react";
 import { Progress } from "@/components/ui/progress";
 import { Button } from "@/components/ui/button";
-import { useWeeklyChallenges } from "@/hooks/useWeeklyChallenges";
-import { useGamification } from "@/hooks/useGamification";
+import { usePantryData } from "@/context/PantryDataContext";
 
 export function WeeklyChallengeList() {
-  const { challenges, loading, claimBonus, claiming, allCompleted, bonusClaimed, bonusXp, weekStreak } =
-    useWeeklyChallenges();
-  const { refresh: refreshGamification } = useGamification();
+  const { challenges, gamification } = usePantryData();
+  const { challenges: challengesData, loading, claimBonus, claiming, allCompleted, bonusClaimed, bonusXp, weekStreak } = challenges;
+  const refreshGamification = gamification.refresh;
 
   if (loading) {
     return <div className="rounded-xl border p-5 h-48 animate-pulse bg-card" />;
   }
-  if (!challenges.length) return null;
+  if (!challengesData.length) return null;
 
   const handleClaim = async () => {
     const res = await claimBonus();
     if (res?.awarded) refreshGamification();
   };
 
-  const weekEnd = new Date(challenges[0].week_end);
+  const weekEnd = new Date(challengesData[0].week_end);
   const weekEndLabel = weekEnd.toLocaleDateString(undefined, { month: "short", day: "numeric" });
 
   return (
@@ -47,7 +46,7 @@ export function WeeklyChallengeList() {
       )}
 
       <div className="flex flex-col gap-3">
-        {challenges.map((c, i) => {
+        {challengesData.map((c, i) => {
           const Icon = (Icons as any)[c.icon] ?? Target;
           const pct = Math.min(100, (Number(c.progress) / Number(c.target)) * 100);
           const fmt = (n: number) => Number(n).toFixed(c.type === "kg_saved" ? 1 : 0);
