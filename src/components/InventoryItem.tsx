@@ -114,7 +114,8 @@ export const InventoryItem = forwardRef<HTMLDivElement, InventoryItemProps>(func
       </motion.div>
 
       <Dialog open={showTossPrompt} onOpenChange={setShowTossPrompt}>
-        <DialogContent className="sm:max-w-sm">
+        {showTossPrompt && (
+        <DialogContent className="sm:max-w-sm" aria-describedby={`toss-desc-${item.id}`}>
           <DialogHeader>
             <div className="flex items-center gap-2">
               <div className="rounded-full bg-destructive/10 p-2">
@@ -122,7 +123,7 @@ export const InventoryItem = forwardRef<HTMLDivElement, InventoryItemProps>(func
               </div>
               <DialogTitle className="font-serif">Toss "{item.name}"</DialogTitle>
             </div>
-            <DialogDescription>
+            <DialogDescription id={`toss-desc-${item.id}`}>
               How much are you tossing? (Total: {item.weightKg} kg)
               {item.weightKg > parseFloat(tossAmount || "0") && parseFloat(tossAmount || "0") > 0 && (
                 <span className="block mt-1 text-success">
