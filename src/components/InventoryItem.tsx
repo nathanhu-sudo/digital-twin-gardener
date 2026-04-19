@@ -114,55 +114,55 @@ export const InventoryItem = forwardRef<HTMLDivElement, InventoryItemProps>(func
       </motion.div>
 
       <Dialog open={showTossPrompt} onOpenChange={setShowTossPrompt}>
-        {showTossPrompt && (
-        <DialogContent className="sm:max-w-sm" aria-describedby={`toss-desc-${item.id}`}>
-          <DialogHeader>
-            <div className="flex items-center gap-2">
-              <div className="rounded-full bg-destructive/10 p-2">
-                <Trash2 className="h-4 w-4 text-destructive" />
+        {showTossPrompt ? (
+          <DialogContent className="sm:max-w-sm" aria-describedby={`toss-desc-${item.id}`}>
+            <DialogHeader>
+              <div className="flex items-center gap-2">
+                <div className="rounded-full bg-destructive/10 p-2">
+                  <Trash2 className="h-4 w-4 text-destructive" />
+                </div>
+                <DialogTitle className="font-serif">Toss "{item.name}"</DialogTitle>
               </div>
-              <DialogTitle className="font-serif">Toss "{item.name}"</DialogTitle>
+              <DialogDescription id={`toss-desc-${item.id}`}>
+                How much are you tossing? (Total: {item.weightKg} kg)
+                {item.weightKg > parseFloat(tossAmount || "0") && parseFloat(tossAmount || "0") > 0 && (
+                  <span className="block mt-1 text-success">
+                    Remaining {(item.weightKg - parseFloat(tossAmount || "0")).toFixed(2)} kg will count as food saved!
+                  </span>
+                )}
+              </DialogDescription>
+            </DialogHeader>
+
+            <div className="space-y-2">
+              <Label htmlFor={`toss-amount-${item.id}`}>Amount to toss (kg)</Label>
+              <Input
+                id={`toss-amount-${item.id}`}
+                type="number"
+                min="0.01"
+                max={item.weightKg}
+                step="any"
+                value={tossAmount}
+                onChange={(e) => setTossAmount(e.target.value)}
+                autoFocus
+              />
             </div>
-            <DialogDescription id={`toss-desc-${item.id}`}>
-              How much are you tossing? (Total: {item.weightKg} kg)
-              {item.weightKg > parseFloat(tossAmount || "0") && parseFloat(tossAmount || "0") > 0 && (
-                <span className="block mt-1 text-success">
-                  Remaining {(item.weightKg - parseFloat(tossAmount || "0")).toFixed(2)} kg will count as food saved!
-                </span>
-              )}
-            </DialogDescription>
-          </DialogHeader>
 
-          <div className="space-y-2">
-            <Label htmlFor={`toss-amount-${item.id}`}>Amount to toss (kg)</Label>
-            <Input
-              id={`toss-amount-${item.id}`}
-              type="number"
-              min="0.01"
-              max={item.weightKg}
-              step="any"
-              value={tossAmount}
-              onChange={(e) => setTossAmount(e.target.value)}
-              autoFocus
-            />
-          </div>
-
-          <DialogFooter className="flex gap-3 sm:gap-3">
-            <Button type="button" variant="outline" className="flex-1" onClick={() => setShowTossPrompt(false)}>
-              Cancel
-            </Button>
-            <Button
-              type="button"
-              variant="destructive"
-              className="flex-1"
-              disabled={tossing || !parseFloat(tossAmount) || parseFloat(tossAmount) <= 0 || parseFloat(tossAmount) > item.weightKg}
-              onClick={handleTossConfirm}
-            >
-              {tossing ? "Tossing…" : "Confirm toss"}
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-        )}
+            <DialogFooter className="flex gap-3 sm:gap-3">
+              <Button type="button" variant="outline" className="flex-1" onClick={() => setShowTossPrompt(false)}>
+                Cancel
+              </Button>
+              <Button
+                type="button"
+                variant="destructive"
+                className="flex-1"
+                disabled={tossing || !parseFloat(tossAmount) || parseFloat(tossAmount) <= 0 || parseFloat(tossAmount) > item.weightKg}
+                onClick={handleTossConfirm}
+              >
+                {tossing ? "Tossing…" : "Confirm toss"}
+              </Button>
+            </DialogFooter>
+          </DialogContent>
+        ) : null}
       </Dialog>
     </>
   );
