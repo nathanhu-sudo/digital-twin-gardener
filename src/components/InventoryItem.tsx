@@ -162,6 +162,7 @@ export const InventoryItem = forwardRef<HTMLDivElement, InventoryItemProps>(func
             </Button>
           </DialogFooter>
         </DialogContent>
+        )}
       </Dialog>
     </>
   );
