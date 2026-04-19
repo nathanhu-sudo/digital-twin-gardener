@@ -40,10 +40,17 @@ const Index = () => {
 
   const expiringCount = activeItems.filter((i) => getDaysRemaining(i) <= 3).length;
 
-  // Refresh gamification + challenges whenever inventory mutates
-  const wrappedConsume = async (id: string) => { await consumeItem(id); refreshGamification(); refreshChallenges(); };
-  const wrappedToss = async (id: string, kg?: number) => { await tossItem(id, kg); refreshGamification(); refreshChallenges(); };
-  const wrappedAdd: typeof addItem = async (data) => { const r = await addItem(data); refreshGamification(); refreshChallenges(); return r; };
+  // Refresh gamification + challenges in the background after inventory mutates
+  // (fire-and-forget so the UI/dialog responds immediately)
+  const bgRefresh = () => {
+    setTimeout(() => {
+      refreshGamification();
+      refreshChallenges();
+    }, 0);
+  };
+  const wrappedConsume = async (id: string) => { await consumeItem(id); bgRefresh(); };
+  const wrappedToss = async (id: string, kg?: number) => { await tossItem(id, kg); bgRefresh(); };
+  const wrappedAdd: typeof addItem = async (data) => { const r = await addItem(data); bgRefresh(); return r; };
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
