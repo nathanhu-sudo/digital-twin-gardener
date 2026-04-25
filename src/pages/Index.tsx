@@ -251,17 +251,6 @@ const Index = () => {
             </motion.div>
           )}
 
-          {activeTab === "profile" && (
-            <motion.div
-              key="profile"
-              initial={{ opacity: 0, x: 16 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -16 }}
-              transition={{ duration: 0.2 }}
-            >
-              <ProfilePage />
-            </motion.div>
-          )}
         </AnimatePresence>
       </main>
 
