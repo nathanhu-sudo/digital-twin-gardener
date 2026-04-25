@@ -5,7 +5,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Progress } from "@/components/ui/progress";
-import { useProfile } from "@/hooks/useProfile";
+
 import { useAuth } from "@/hooks/useAuth";
 import { usePantryData } from "@/context/PantryDataContext";
 import { levelTitle, XP_PER_LEVEL } from "@/hooks/useGamification";
@@ -13,8 +13,8 @@ import { cn } from "@/lib/utils";
 
 export default function ProfilePage() {
   const { user } = useAuth();
-  const { profile, loading, saving, updateDisplayName, uploadAvatar } = useProfile();
-  const { gamification, challenges } = usePantryData();
+  const { gamification, challenges, profile: profileCtx } = usePantryData();
+  const { profile, loading, saving, updateDisplayName, uploadAvatar } = profileCtx;
   const stats = gamification.stats;
   const fileRef = useRef<HTMLInputElement>(null);
   const [editing, setEditing] = useState(false);

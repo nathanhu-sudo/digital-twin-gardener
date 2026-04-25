@@ -1,11 +1,11 @@
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { useProfile } from "@/hooks/useProfile";
 import { useAuth } from "@/hooks/useAuth";
+import { usePantryData } from "@/context/PantryDataContext";
 import ProfilePage from "@/pages/ProfilePage";
 
 export function ProfileDrawer() {
-  const { profile } = useProfile();
+  const { profile } = usePantryData().profile;
   const { user } = useAuth();
 
   const initials = (profile?.display_name ?? user?.email ?? "?")
