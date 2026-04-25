@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Footer from "@/components/Footer";
 import { motion, AnimatePresence } from "framer-motion";
-import { Leaf, LogOut, Package, TrendingUp, Sparkles, BarChart2, ScanLine, Home, Shield, Trophy } from "lucide-react";
+import { Leaf, LogOut, Package, TrendingUp, Sparkles, BarChart2, ScanLine, Home, Shield, Trophy, User as UserIcon } from "lucide-react";
 import { Dashboard } from "@/components/Dashboard";
 import { InventoryList } from "@/components/InventoryList";
 import { AddItemForm } from "@/components/AddItemForm";
@@ -12,19 +12,21 @@ import heroImage from "@/assets/hero-illustration.jpg";
 import ChartsPage from "./ChartsPage";
 import ScannerPage from "./ScannerPage";
 import AchievementsPage from "./AchievementsPage";
+import ProfilePage from "./ProfilePage";
 import { CommunityImpact } from "@/components/CommunityImpact";
 import { GamificationCard } from "@/components/GamificationCard";
 import { WeeklyChallengeCard } from "@/components/WeeklyChallengeCard";
 import { useAdmin } from "@/hooks/useAdmin";
 import { usePantryData } from "@/context/PantryDataContext";
 
-type Tab = "home" | "charts" | "scanner" | "achievements";
+type Tab = "home" | "charts" | "scanner" | "achievements" | "profile";
 
 const TABS: { id: Tab; label: string; icon: typeof Home }[] = [
   { id: "home", label: "Home", icon: Home },
   { id: "charts", label: "Charts", icon: BarChart2 },
   { id: "scanner", label: "Scanner", icon: ScanLine },
   { id: "achievements", label: "Rewards", icon: Trophy },
+  { id: "profile", label: "Profile", icon: UserIcon },
 ];
 
 const Index = () => {
@@ -251,6 +253,18 @@ const Index = () => {
               transition={{ duration: 0.2 }}
             >
               <AchievementsPage />
+            </motion.div>
+          )}
+
+          {activeTab === "profile" && (
+            <motion.div
+              key="profile"
+              initial={{ opacity: 0, x: 16 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -16 }}
+              transition={{ duration: 0.2 }}
+            >
+              <ProfilePage />
             </motion.div>
           )}
         </AnimatePresence>
