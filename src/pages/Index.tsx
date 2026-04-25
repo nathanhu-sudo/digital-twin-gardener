@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Footer from "@/components/Footer";
 import { motion, AnimatePresence } from "framer-motion";
-import { Leaf, LogOut, Package, TrendingUp, Sparkles, BarChart2, ScanLine, Home, Shield, Trophy, User as UserIcon } from "lucide-react";
+import { Leaf, LogOut, Package, TrendingUp, Sparkles, BarChart2, ScanLine, Home, Shield, Trophy } from "lucide-react";
 import { Dashboard } from "@/components/Dashboard";
 import { InventoryList } from "@/components/InventoryList";
 import { AddItemForm } from "@/components/AddItemForm";
@@ -12,21 +12,20 @@ import heroImage from "@/assets/hero-illustration.jpg";
 import ChartsPage from "./ChartsPage";
 import ScannerPage from "./ScannerPage";
 import AchievementsPage from "./AchievementsPage";
-import ProfilePage from "./ProfilePage";
+import { ProfileDrawer } from "@/components/ProfileDrawer";
 import { CommunityImpact } from "@/components/CommunityImpact";
 import { GamificationCard } from "@/components/GamificationCard";
 import { WeeklyChallengeCard } from "@/components/WeeklyChallengeCard";
 import { useAdmin } from "@/hooks/useAdmin";
 import { usePantryData } from "@/context/PantryDataContext";
 
-type Tab = "home" | "charts" | "scanner" | "achievements" | "profile";
+type Tab = "home" | "charts" | "scanner" | "achievements";
 
 const TABS: { id: Tab; label: string; icon: typeof Home }[] = [
   { id: "home", label: "Home", icon: Home },
   { id: "charts", label: "Charts", icon: BarChart2 },
   { id: "scanner", label: "Scanner", icon: ScanLine },
   { id: "achievements", label: "Rewards", icon: Trophy },
-  { id: "profile", label: "Profile", icon: UserIcon },
 ];
 
 const Index = () => {
@@ -66,11 +65,6 @@ const Index = () => {
         <div className="relative container max-w-2xl py-8 px-4 flex flex-col items-center text-center gap-2">
           {/* Top bar */}
           <div className="absolute top-4 right-4 flex items-center gap-2">
-            {user?.email && (
-              <span className="hidden sm:block text-xs text-muted-foreground bg-background/80 border rounded-full px-3 py-1">
-                {user.email}
-              </span>
-            )}
             {isAdmin && (
               <Button variant="outline" size="sm" onClick={() => navigate("/admin")} className="gap-1 text-xs">
                 <Shield className="h-3.5 w-3.5" />
@@ -81,6 +75,7 @@ const Index = () => {
               <LogOut className="h-4 w-4" />
               <span className="hidden sm:inline">Sign out</span>
             </Button>
+            <ProfileDrawer />
           </div>
 
           <motion.div
@@ -256,17 +251,6 @@ const Index = () => {
             </motion.div>
           )}
 
-          {activeTab === "profile" && (
-            <motion.div
-              key="profile"
-              initial={{ opacity: 0, x: 16 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -16 }}
-              transition={{ duration: 0.2 }}
-            >
-              <ProfilePage />
-            </motion.div>
-          )}
         </AnimatePresence>
       </main>
 
