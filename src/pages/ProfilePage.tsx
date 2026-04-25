@@ -13,8 +13,8 @@ import { cn } from "@/lib/utils";
 
 export default function ProfilePage() {
   const { user } = useAuth();
-  const { profile, loading, saving, updateDisplayName, uploadAvatar } = useProfile();
-  const { gamification, challenges } = usePantryData();
+  const { gamification, challenges, profile: profileCtx } = usePantryData();
+  const { profile, loading, saving, updateDisplayName, uploadAvatar } = profileCtx;
   const stats = gamification.stats;
   const fileRef = useRef<HTMLInputElement>(null);
   const [editing, setEditing] = useState(false);
