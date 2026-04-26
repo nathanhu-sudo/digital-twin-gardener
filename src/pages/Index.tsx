@@ -264,7 +264,7 @@ const Index = () => {
       </main>
 
       {/* Bottom nav (mobile) */}
-      <nav className="sm:hidden fixed bottom-0 inset-x-0 bg-card/95 backdrop-blur-md border-t z-30 safe-area-bottom">
+      <nav className="sm:hidden fixed bottom-0 inset-x-0 glass-strong border-t border-border/40 z-30 safe-area-bottom">
         <div className="flex">
           {TABS.map((tab) => {
             const Icon = tab.icon;
