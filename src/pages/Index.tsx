@@ -289,6 +289,9 @@ const Index = () => {
       {/* Spacer for bottom nav on mobile */}
       <div className="sm:hidden h-20" />
 
+      {/* Floating AI assistant */}
+      <PantryChatDrawer />
+
       <Footer />
     </div>
   );
