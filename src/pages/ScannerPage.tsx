@@ -155,6 +155,9 @@ export default function ScannerPage() {
 
   return (
     <div className="flex flex-col gap-8 pb-8">
+      {/* AI OCR Scanner — high-tech bulk extraction */}
+      <OcrScanner />
+
       <div>
         <h2 className="text-xl font-serif font-bold text-foreground mb-1">Barcode Scanner</h2>
         <p className="text-sm text-muted-foreground">
