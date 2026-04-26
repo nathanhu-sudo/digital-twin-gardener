@@ -181,6 +181,11 @@ const Index = () => {
                 <AddItemForm onAdd={wrappedAdd} />
               </section>
 
+              {/* Recipe Suggestions */}
+              <section>
+                <RecipeSuggester items={activeItems} getDaysRemaining={getDaysRemaining} />
+              </section>
+
               {/* Community Impact */}
               <section>
                 <CommunityImpact />
