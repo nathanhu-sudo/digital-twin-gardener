@@ -54,9 +54,12 @@ const Index = () => {
   const wrappedAdd: typeof addItem = async (data) => { const r = await addItem(data); bgRefresh(); return r; };
 
   return (
-    <div className="min-h-screen bg-background flex flex-col">
+    <div className="min-h-screen bg-background flex flex-col relative">
+      {/* Animated gradient mesh background */}
+      <div className="fixed inset-0 -z-10 bg-mesh pointer-events-none" aria-hidden="true" />
+
       {/* Hero / Header */}
-      <header className="relative overflow-hidden border-b shrink-0">
+      <header className="relative overflow-hidden border-b border-border/50 shrink-0 glass">
         <div
           className="absolute inset-0 opacity-15 bg-cover bg-center"
           style={{ backgroundImage: `url(${heroImage})` }}
