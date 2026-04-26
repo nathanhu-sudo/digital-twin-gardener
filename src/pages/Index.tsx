@@ -116,7 +116,7 @@ const Index = () => {
         </div>
 
         {/* Tab bar */}
-        <div className="relative border-t bg-card/80 backdrop-blur-sm">
+        <div className="relative border-t border-border/40 glass-strong">
           <div className="container max-w-2xl mx-auto flex">
             {TABS.map((tab) => {
               const Icon = tab.icon;
