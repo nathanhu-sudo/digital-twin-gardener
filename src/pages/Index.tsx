@@ -87,10 +87,10 @@ const Index = () => {
             animate={{ opacity: 1, y: 0 }}
             className="flex items-center gap-3"
           >
-            <div className="rounded-full bg-primary p-2.5 shadow-lg">
+            <div className="rounded-2xl p-2.5 shadow-lg glow animate-glow-pulse" style={{ background: "var(--gradient-primary)" }}>
               <Leaf className="h-6 w-6 text-primary-foreground" />
             </div>
-            <h1 className="text-3xl font-bold text-foreground font-serif">SmartPantry AI</h1>
+            <h1 className="text-3xl font-bold font-serif tracking-tight text-gradient">SmartPantry AI</h1>
           </motion.div>
 
           <motion.p
