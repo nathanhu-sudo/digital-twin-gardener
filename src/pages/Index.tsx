@@ -14,6 +14,7 @@ import ScannerPage from "./ScannerPage";
 import AchievementsPage from "./AchievementsPage";
 import { ProfileDrawer } from "@/components/ProfileDrawer";
 import { CommunityImpact } from "@/components/CommunityImpact";
+import { RecipeSuggester } from "@/components/RecipeSuggester";
 import { GamificationCard } from "@/components/GamificationCard";
 import { WeeklyChallengeCard } from "@/components/WeeklyChallengeCard";
 import { useAdmin } from "@/hooks/useAdmin";
