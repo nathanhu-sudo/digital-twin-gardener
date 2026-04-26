@@ -16,6 +16,7 @@ import { ProfileDrawer } from "@/components/ProfileDrawer";
 import { PantryChatDrawer } from "@/components/PantryChatDrawer";
 import { CommunityImpact } from "@/components/CommunityImpact";
 import { RecipeSuggester } from "@/components/RecipeSuggester";
+import { PredictiveInsights } from "@/components/PredictiveInsights";
 import { GamificationCard } from "@/components/GamificationCard";
 import { WeeklyChallengeCard } from "@/components/WeeklyChallengeCard";
 import { useAdmin } from "@/hooks/useAdmin";
