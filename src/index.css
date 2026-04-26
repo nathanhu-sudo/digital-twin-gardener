@@ -13,7 +13,8 @@
     --popover: 0 0% 100%;
     --popover-foreground: 150 25% 12%;
 
-    --primary: 152 45% 32%;
+    --primary: 152 55% 35%;
+    --primary-glow: 152 75% 50%;
     --primary-foreground: 80 30% 97%;
 
     --secondary: 80 25% 92%;
@@ -32,12 +33,25 @@
     --input: 80 15% 88%;
     --ring: 152 45% 32%;
 
-    --radius: 0.75rem;
+    --radius: 0.875rem;
 
     --success: 152 55% 42%;
     --success-foreground: 0 0% 100%;
     --warning: 38 75% 55%;
     --warning-foreground: 38 80% 15%;
+
+    /* High-tech tokens */
+    --glass-bg: 0 0% 100% / 0.55;
+    --glass-border: 152 30% 75% / 0.35;
+    --glow: 152 75% 50% / 0.45;
+    --gradient-primary: linear-gradient(135deg, hsl(152 55% 35%), hsl(152 75% 50%));
+    --gradient-mesh:
+      radial-gradient(at 20% 12%, hsl(152 75% 60% / 0.28) 0px, transparent 55%),
+      radial-gradient(at 78% 18%, hsl(180 70% 55% / 0.20) 0px, transparent 55%),
+      radial-gradient(at 18% 82%, hsl(85 70% 55% / 0.22) 0px, transparent 55%),
+      radial-gradient(at 82% 78%, hsl(38 80% 60% / 0.18) 0px, transparent 55%);
+    --shadow-glow: 0 0 40px -10px hsl(152 75% 50% / 0.5);
+    --shadow-elegant: 0 14px 40px -18px hsl(152 50% 20% / 0.35);
 
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
@@ -50,38 +64,51 @@
   }
 
   .dark {
-    --background: 150 20% 7%;
+    --background: 150 25% 6%;
     --foreground: 80 20% 95%;
 
-    --card: 150 20% 10%;
+    --card: 150 22% 9%;
     --card-foreground: 80 20% 95%;
 
-    --popover: 150 20% 10%;
+    --popover: 150 22% 9%;
     --popover-foreground: 80 20% 95%;
 
-    --primary: 152 50% 45%;
+    --primary: 152 65% 50%;
+    --primary-glow: 152 90% 60%;
     --primary-foreground: 150 30% 5%;
 
-    --secondary: 150 15% 16%;
+    --secondary: 150 18% 14%;
     --secondary-foreground: 80 20% 90%;
 
-    --muted: 150 15% 16%;
-    --muted-foreground: 80 10% 55%;
+    --muted: 150 15% 14%;
+    --muted-foreground: 80 10% 60%;
 
-    --accent: 38 65% 55%;
+    --accent: 38 70% 60%;
     --accent-foreground: 38 80% 95%;
 
-    --destructive: 4 55% 45%;
+    --destructive: 4 65% 55%;
     --destructive-foreground: 0 0% 100%;
 
     --border: 150 15% 18%;
     --input: 150 15% 18%;
-    --ring: 152 50% 45%;
+    --ring: 152 65% 50%;
 
-    --success: 152 55% 42%;
+    --success: 152 60% 50%;
     --success-foreground: 0 0% 100%;
-    --warning: 38 75% 55%;
+    --warning: 38 80% 60%;
     --warning-foreground: 38 80% 15%;
+
+    --glass-bg: 150 25% 12% / 0.55;
+    --glass-border: 152 50% 50% / 0.25;
+    --glow: 152 90% 55% / 0.55;
+    --gradient-primary: linear-gradient(135deg, hsl(152 65% 45%), hsl(152 90% 60%));
+    --gradient-mesh:
+      radial-gradient(at 20% 12%, hsl(152 90% 45% / 0.28) 0px, transparent 55%),
+      radial-gradient(at 78% 18%, hsl(180 70% 45% / 0.20) 0px, transparent 55%),
+      radial-gradient(at 18% 82%, hsl(85 70% 40% / 0.22) 0px, transparent 55%),
+      radial-gradient(at 82% 78%, hsl(38 80% 45% / 0.18) 0px, transparent 55%);
+    --shadow-glow: 0 0 50px -10px hsl(152 90% 55% / 0.55);
+    --shadow-elegant: 0 14px 50px -18px hsl(0 0% 0% / 0.6);
 
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
@@ -100,6 +127,121 @@
   }
 
   body {
-    @apply bg-background text-foreground font-sans;
+    @apply bg-background text-foreground font-sans antialiased;
+    background-attachment: fixed;
   }
+}
+
+@layer components {
+  /* Animated gradient mesh background */
+  .bg-mesh {
+    background-image: var(--gradient-mesh);
+    background-size: 200% 200%;
+    animation: mesh-drift 22s ease-in-out infinite alternate;
+  }
+
+  /* Frosted glass surface */
+  .glass {
+    background: hsl(var(--glass-bg));
+    backdrop-filter: blur(18px) saturate(140%);
+    -webkit-backdrop-filter: blur(18px) saturate(140%);
+    border: 1px solid hsl(var(--glass-border));
+    box-shadow: var(--shadow-elegant);
+  }
+
+  .glass-strong {
+    background: hsl(var(--glass-bg));
+    backdrop-filter: blur(28px) saturate(160%);
+    -webkit-backdrop-filter: blur(28px) saturate(160%);
+    border: 1px solid hsl(var(--glass-border));
+  }
+
+  /* Gradient text */
+  .text-gradient {
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  /* Gradient border ring */
+  .ring-gradient {
+    position: relative;
+  }
+  .ring-gradient::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: var(--gradient-primary);
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+            mask-composite: exclude;
+    pointer-events: none;
+  }
+
+  .glow {
+    box-shadow: var(--shadow-glow);
+  }
+
+  /* Shimmer for skeletons */
+  .shimmer {
+    background: linear-gradient(
+      90deg,
+      hsl(var(--muted)) 0%,
+      hsl(var(--secondary)) 50%,
+      hsl(var(--muted)) 100%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 1.6s linear infinite;
+  }
+}
+
+@layer utilities {
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+  .animate-glow-pulse {
+    animation: glow-pulse 3s ease-in-out infinite;
+  }
+  .animate-fade-in {
+    animation: fade-in 0.4s ease-out;
+  }
+  .animate-scale-in {
+    animation: scale-in 0.25s ease-out;
+  }
+  .hover-lift {
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+  .hover-lift:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-elegant);
+  }
+}
+
+@keyframes mesh-drift {
+  0% { background-position: 0% 0%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 100%; }
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+@keyframes glow-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 hsl(var(--glow)); }
+  50% { box-shadow: 0 0 30px 6px hsl(var(--glow)); }
+}
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes scale-in {
+  from { opacity: 0; transform: scale(0.96); }
+  to { opacity: 1; transform: scale(1); }
+}
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
 }

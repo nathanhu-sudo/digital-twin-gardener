@@ -13,8 +13,10 @@ import ChartsPage from "./ChartsPage";
 import ScannerPage from "./ScannerPage";
 import AchievementsPage from "./AchievementsPage";
 import { ProfileDrawer } from "@/components/ProfileDrawer";
+import { PantryChatDrawer } from "@/components/PantryChatDrawer";
 import { CommunityImpact } from "@/components/CommunityImpact";
 import { RecipeSuggester } from "@/components/RecipeSuggester";
+import { PredictiveInsights } from "@/components/PredictiveInsights";
 import { GamificationCard } from "@/components/GamificationCard";
 import { WeeklyChallengeCard } from "@/components/WeeklyChallengeCard";
 import { useAdmin } from "@/hooks/useAdmin";
@@ -54,9 +56,12 @@ const Index = () => {
   const wrappedAdd: typeof addItem = async (data) => { const r = await addItem(data); bgRefresh(); return r; };
 
   return (
-    <div className="min-h-screen bg-background flex flex-col">
+    <div className="min-h-screen bg-background flex flex-col relative">
+      {/* Animated gradient mesh background */}
+      <div className="fixed inset-0 -z-10 bg-mesh pointer-events-none" aria-hidden="true" />
+
       {/* Hero / Header */}
-      <header className="relative overflow-hidden border-b shrink-0">
+      <header className="relative overflow-hidden border-b border-border/50 shrink-0 glass">
         <div
           className="absolute inset-0 opacity-15 bg-cover bg-center"
           style={{ backgroundImage: `url(${heroImage})` }}
@@ -84,10 +89,10 @@ const Index = () => {
             animate={{ opacity: 1, y: 0 }}
             className="flex items-center gap-3"
           >
-            <div className="rounded-full bg-primary p-2.5 shadow-lg">
+            <div className="rounded-2xl p-2.5 shadow-lg glow animate-glow-pulse" style={{ background: "var(--gradient-primary)" }}>
               <Leaf className="h-6 w-6 text-primary-foreground" />
             </div>
-            <h1 className="text-3xl font-bold text-foreground font-serif">SmartPantry AI</h1>
+            <h1 className="text-3xl font-bold font-serif tracking-tight text-gradient">SmartPantry AI</h1>
           </motion.div>
 
           <motion.p
@@ -113,7 +118,7 @@ const Index = () => {
         </div>
 
         {/* Tab bar */}
-        <div className="relative border-t bg-card/80 backdrop-blur-sm">
+        <div className="relative border-t border-border/40 glass-strong">
           <div className="container max-w-2xl mx-auto flex">
             {TABS.map((tab) => {
               const Icon = tab.icon;
@@ -160,6 +165,11 @@ const Index = () => {
                   <h2 className="text-lg font-bold text-foreground font-serif">Green Impact</h2>
                 </div>
                 <Dashboard impact={impact} />
+              </section>
+
+              {/* AI Predictive Insights */}
+              <section>
+                <PredictiveInsights />
               </section>
 
               {/* Gamification preview */}
@@ -261,7 +271,7 @@ const Index = () => {
       </main>
 
       {/* Bottom nav (mobile) */}
-      <nav className="sm:hidden fixed bottom-0 inset-x-0 bg-card/95 backdrop-blur-md border-t z-30 safe-area-bottom">
+      <nav className="sm:hidden fixed bottom-0 inset-x-0 glass-strong border-t border-border/40 z-30 safe-area-bottom">
         <div className="flex">
           {TABS.map((tab) => {
             const Icon = tab.icon;
@@ -284,6 +294,9 @@ const Index = () => {
 
       {/* Spacer for bottom nav on mobile */}
       <div className="sm:hidden h-20" />
+
+      {/* Floating AI assistant */}
+      <PantryChatDrawer />
 
       <Footer />
     </div>
