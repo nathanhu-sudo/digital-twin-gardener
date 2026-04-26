@@ -14,6 +14,7 @@ import ScannerPage from "./ScannerPage";
 import AchievementsPage from "./AchievementsPage";
 import { ProfileDrawer } from "@/components/ProfileDrawer";
 import { CommunityImpact } from "@/components/CommunityImpact";
+import { RecipeSuggester } from "@/components/RecipeSuggester";
 import { GamificationCard } from "@/components/GamificationCard";
 import { WeeklyChallengeCard } from "@/components/WeeklyChallengeCard";
 import { useAdmin } from "@/hooks/useAdmin";
@@ -178,6 +179,11 @@ const Index = () => {
                   <h2 className="text-lg font-bold text-foreground font-serif">Add to Pantry</h2>
                 </div>
                 <AddItemForm onAdd={wrappedAdd} />
+              </section>
+
+              {/* Recipe Suggestions */}
+              <section>
+                <RecipeSuggester items={activeItems} getDaysRemaining={getDaysRemaining} />
               </section>
 
               {/* Community Impact */}
