@@ -13,6 +13,7 @@ import ChartsPage from "./ChartsPage";
 import ScannerPage from "./ScannerPage";
 import AchievementsPage from "./AchievementsPage";
 import { ProfileDrawer } from "@/components/ProfileDrawer";
+import { PantryChatDrawer } from "@/components/PantryChatDrawer";
 import { CommunityImpact } from "@/components/CommunityImpact";
 import { RecipeSuggester } from "@/components/RecipeSuggester";
 import { GamificationCard } from "@/components/GamificationCard";
