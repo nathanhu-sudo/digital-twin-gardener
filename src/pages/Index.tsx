@@ -167,6 +167,11 @@ const Index = () => {
                 <Dashboard impact={impact} />
               </section>
 
+              {/* AI Predictive Insights */}
+              <section>
+                <PredictiveInsights />
+              </section>
+
               {/* Gamification preview */}
               <section>
                 <GamificationCard onOpen={() => setActiveTab("achievements")} />
