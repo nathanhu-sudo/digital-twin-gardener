@@ -55,9 +55,9 @@ export function PantryChatDrawer() {
             itemsTossed: stats.items_tossed,
           }
         : null,
-      weekStreak: challenges.data?.[0]?.week_streak ?? 0,
+      weekStreak: challenges.weekStreak ?? 0,
     };
-  }, [pantry, gamification.stats, challenges.data]);
+  }, [pantry, gamification.stats, challenges.weekStreak]);
 
   const send = async (text: string) => {
     if (!text.trim() || loading) return;
