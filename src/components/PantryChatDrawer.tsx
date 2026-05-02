@@ -176,9 +176,6 @@ export function PantryChatDrawer() {
               <p className="text-[11px] text-muted-foreground">Knows what's in your kitchen</p>
             </div>
           </div>
-          <Button variant="ghost" size="icon" onClick={() => setOpen(false)} className="h-8 w-8">
-            <X className="h-4 w-4" />
-          </Button>
         </header>
 
         <div ref={scrollRef} className="flex-1 overflow-y-auto p-4 flex flex-col gap-3">
