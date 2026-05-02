@@ -43,7 +43,7 @@ Be thorough but accurate. Skip non-food items. If the image is unreadable or con
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        model: "google/gemini-2.5-flash",
+        model: "google/gemini-2.5-pro",
         messages: [
           { role: "system", content: systemPrompt },
           {
