@@ -161,7 +161,7 @@ export function PantryChatDrawer() {
 
       <SheetContent
         side="right"
-        className="w-full sm:max-w-md p-0 glass-strong border-l border-border/40 flex flex-col"
+        className="w-full sm:max-w-md p-0 glass-strong border-l border-border/40 flex flex-col [&>button.absolute]:hidden"
       >
         <header className="flex items-center justify-between gap-3 p-4 border-b border-border/40">
           <div className="flex items-center gap-2">
@@ -176,6 +176,9 @@ export function PantryChatDrawer() {
               <p className="text-[11px] text-muted-foreground">Knows what's in your kitchen</p>
             </div>
           </div>
+          <Button variant="ghost" size="icon" onClick={() => setOpen(false)} className="h-8 w-8">
+            <X className="h-4 w-4" />
+          </Button>
         </header>
 
         <div ref={scrollRef} className="flex-1 overflow-y-auto p-4 flex flex-col gap-3">
