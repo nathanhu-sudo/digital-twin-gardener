@@ -104,7 +104,7 @@ const Auth = () => {
         className="w-full max-w-md"
       >
         {/* Logo */}
-        <div className="flex items-center justify-center gap-2 mb-8">
+        <div className="flex items-center justify-center gap-2 mb-5">
           <div className="rounded-full bg-primary p-2">
             <Leaf className="h-5 w-5 text-primary-foreground" />
           </div>
@@ -112,7 +112,7 @@ const Auth = () => {
         </div>
 
         <Card>
-          <CardHeader className="text-center">
+          <CardHeader className="text-center pb-2">
             <AnimatePresence mode="wait">
               <motion.div
                 key={mode}
@@ -127,7 +127,7 @@ const Auth = () => {
             </AnimatePresence>
           </CardHeader>
 
-          <CardContent>
+          <CardContent className="pt-0">
             {/* Check email screen */}
             {mode === "check-email" ? (
               <motion.div
@@ -135,8 +135,8 @@ const Auth = () => {
                 animate={{ opacity: 1, scale: 1 }}
                 className="flex flex-col items-center gap-5 py-4"
               >
-                <div className="rounded-full bg-primary/10 p-5">
-                  <CheckCircle className="h-10 w-10 text-primary" />
+                <div className="rounded-full bg-primary/10 p-3">
+                  <CheckCircle className="h-8 w-8 text-primary" />
                 </div>
                 <div className="text-center space-y-2">
                   <p className="text-sm text-foreground font-medium">
@@ -187,7 +187,7 @@ const Auth = () => {
                 )}
               </motion.div>
             ) : (
-              <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+              <form onSubmit={handleSubmit} className="flex flex-col gap-3">
                 {/* Email */}
                 <div className="space-y-2">
                   <Label htmlFor="email">Email</Label>
@@ -267,11 +267,11 @@ const Auth = () => {
                     <span className="bg-card px-3">or continue with</span>
                   </div>
                 </div>
-                <div className="flex flex-col gap-2">
+                <div className="flex flex-row gap-2">
                   <Button
                     type="button"
                     variant="outline"
-                    className="w-full gap-2"
+                    className="flex-1 gap-2"
                     onClick={() => handleSocialLogin("google")}
                     disabled={socialLoading !== null}
                   >
@@ -281,19 +281,19 @@ const Auth = () => {
                       <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/>
                       <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
                     </svg>
-                    {socialLoading === "google" ? "Connecting…" : "Continue with Google"}
+                    {socialLoading === "google" ? "…" : "Google"}
                   </Button>
                   <Button
                     type="button"
                     variant="outline"
-                    className="w-full gap-2"
+                    className="flex-1 gap-2"
                     onClick={() => handleSocialLogin("apple")}
                     disabled={socialLoading !== null}
                   >
                     <svg className="h-4 w-4" viewBox="0 0 24 24" fill="currentColor">
                       <path d="M17.05 20.28c-.98.95-2.05.86-3.08.38-1.07-.49-2.04-.48-3.16 0-1.4.62-2.14.44-3-.38C2.79 15.26 3.51 7.4 9.05 7.1c1.32.07 2.23.72 3 .77.96-.2 1.88-.77 3.13-.83 1.5-.08 2.62.54 3.39 1.59-3.12 1.84-2.6 5.96.48 7.24-.58 1.54-1.33 3.06-2 3.41zM12.03 7.04c-.18-2.38 1.88-4.35 4.08-4.54.28 2.4-1.95 4.55-4.08 4.54z"/>
                     </svg>
-                    {socialLoading === "apple" ? "Connecting…" : "Continue with Apple"}
+                    {socialLoading === "apple" ? "…" : "Apple"}
                   </Button>
                 </div>
               </>
@@ -301,7 +301,7 @@ const Auth = () => {
 
             {/* Mode toggle (hidden on check-email) */}
             {mode !== "check-email" && (
-              <div className="mt-6 text-center text-sm text-muted-foreground">
+              <div className="mt-4 text-center text-sm text-muted-foreground">
                 {mode === "login" ? (
                   <>
                     Don't have an account?{" "}
@@ -321,6 +321,15 @@ const Auth = () => {
             )}
           </CardContent>
         </Card>
+
+        <div className="mt-4 text-center">
+          <button
+            onClick={() => navigate("/admin")}
+            className="text-xs text-muted-foreground/50 hover:text-muted-foreground transition-colors"
+          >
+            Admin access
+          </button>
+        </div>
       </motion.div>
       
     </div>
