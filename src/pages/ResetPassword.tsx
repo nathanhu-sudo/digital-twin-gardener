@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import Footer from "@/components/Footer";
+
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Leaf, Lock, ArrowRight } from "lucide-react";
@@ -60,7 +60,6 @@ const ResetPassword = () => {
             </CardContent>
           </Card>
         </div>
-        <Footer />
       </div>
     );
   }
@@ -106,7 +105,7 @@ const ResetPassword = () => {
           </CardContent>
         </Card>
       </motion.div>
-      <Footer />
+      
     </div>
   );
 };

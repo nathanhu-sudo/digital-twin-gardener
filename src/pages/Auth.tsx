@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
-import Footer from "@/components/Footer";
+
 import { motion, AnimatePresence } from "framer-motion";
 import { Leaf, Mail, Lock, ArrowRight, Eye, EyeOff, CheckCircle } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
@@ -322,7 +322,7 @@ const Auth = () => {
           </CardContent>
         </Card>
       </motion.div>
-      <Footer />
+      
     </div>
   );
 };
