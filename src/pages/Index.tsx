@@ -43,6 +43,11 @@ const Index = () => {
 
   const expiringCount = activeItems.filter((i) => getDaysRemaining(i) <= 3).length;
 
+  const switchTab = (tab: Tab) => {
+    setActiveTab(tab);
+    window.scrollTo({ top: 0, behavior: "instant" });
+  };
+
   // Refresh gamification + challenges in the background after inventory mutates
   // (fire-and-forget so the UI/dialog responds immediately)
   const bgRefresh = () => {
@@ -117,33 +122,6 @@ const Index = () => {
           )}
         </div>
 
-        {/* Tab bar */}
-        <div className="relative border-t border-border/40 glass-strong">
-          <div className="container max-w-2xl mx-auto flex">
-            {TABS.map((tab) => {
-              const Icon = tab.icon;
-              const active = activeTab === tab.id;
-              return (
-                <button
-                  key={tab.id}
-                  onClick={() => setActiveTab(tab.id)}
-                  className={`flex-1 flex flex-col items-center gap-1 py-3 text-xs font-medium transition-colors relative ${
-                    active ? "text-primary" : "text-muted-foreground hover:text-foreground"
-                  }`}
-                >
-                  <Icon className="h-5 w-5" />
-                  {tab.label}
-                  {active && (
-                    <motion.div
-                      layoutId="tab-indicator"
-                      className="absolute bottom-0 inset-x-4 h-0.5 bg-primary rounded-full"
-                    />
-                  )}
-                </button>
-              );
-            })}
-          </div>
-        </div>
       </header>
 
       {/* Page content */}
@@ -174,12 +152,12 @@ const Index = () => {
 
               {/* Gamification preview */}
               <section>
-                <GamificationCard onOpen={() => setActiveTab("achievements")} />
+                <GamificationCard onOpen={() => switchTab("achievements")} />
               </section>
 
               {/* Weekly challenges preview */}
               <section>
-                <WeeklyChallengeCard onOpen={() => setActiveTab("achievements")} />
+                <WeeklyChallengeCard onOpen={() => switchTab("achievements")} />
               </section>
 
               {/* Add Items */}
@@ -270,16 +248,16 @@ const Index = () => {
         </AnimatePresence>
       </main>
 
-      {/* Bottom nav (mobile) */}
-      <nav className="sm:hidden fixed bottom-0 inset-x-0 glass-strong border-t border-border/40 z-30 safe-area-bottom">
-        <div className="flex">
+      {/* Bottom nav (all screen sizes) */}
+      <nav className="fixed bottom-0 inset-x-0 glass-strong border-t border-border/40 z-30 safe-area-bottom">
+        <div className="container max-w-2xl mx-auto flex">
           {TABS.map((tab) => {
             const Icon = tab.icon;
             const active = activeTab === tab.id;
             return (
               <button
                 key={tab.id}
-                onClick={() => setActiveTab(tab.id)}
+                onClick={() => switchTab(tab.id)}
                 className={`flex-1 flex flex-col items-center gap-1 py-3 text-xs font-medium transition-colors ${
                   active ? "text-primary" : "text-muted-foreground"
                 }`}
@@ -292,8 +270,8 @@ const Index = () => {
         </div>
       </nav>
 
-      {/* Spacer for bottom nav on mobile */}
-      <div className="sm:hidden h-20" />
+      {/* Spacer for bottom nav */}
+      <div className="h-20" />
 
       {/* Floating AI assistant */}
       <PantryChatDrawer />
