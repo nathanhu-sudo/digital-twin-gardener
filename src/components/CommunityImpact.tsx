@@ -34,13 +34,14 @@ export function CommunityImpact() {
         <h3 className="font-serif font-bold text-foreground text-lg">Community Impact</h3>
       </div>
 
+      {/* Responsive Grid System */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
         <div className="flex flex-col gap-1">
           <div className="flex items-center gap-1.5 text-muted-foreground">
             <Users className="h-3.5 w-3.5" />
             <span className="text-xs font-medium">Users</span>
           </div>
-          <p className="text-2xl font-serif font-bold text-foreground">{data.totalUsers}</p>
+          <p className="text-2xl font-serif font-bold text-foreground">{data.totalUsers.toLocaleString()}</p>
         </div>
 
         <div className="flex flex-col gap-1">
