@@ -76,12 +76,6 @@ const Index = () => {
         <div className="relative container max-w-2xl py-8 px-4 flex flex-col items-center text-center gap-2">
           {/* Top bar */}
           <div className="absolute top-4 right-4 flex items-center gap-2">
-            {isAdmin && (
-              <Button variant="outline" size="sm" onClick={() => navigate("/admin")} className="gap-1 text-xs">
-                <Shield className="h-3.5 w-3.5" />
-                Admin
-              </Button>
-            )}
             <Button variant="ghost" size="sm" onClick={signOut} className="gap-1 text-muted-foreground">
               <LogOut className="h-4 w-4" />
               <span className="hidden sm:inline">Sign out</span>
