@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
 
 import { motion, AnimatePresence } from "framer-motion";
@@ -16,6 +16,8 @@ type AuthMode = "login" | "signup" | "forgot" | "check-email";
 
 const Auth = () => {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const redirectTo = searchParams.get("redirect") || "/";
   const { user, loading: authLoading } = useAuth();
   const [mode, setMode] = useState<AuthMode>("login");
   const [email, setEmail] = useState("");
@@ -28,7 +30,7 @@ const Auth = () => {
   // Redirect to home if already authenticated (e.g. after OAuth)
   useEffect(() => {
     if (!authLoading && user) {
-      navigate("/", { replace: true });
+      navigate(redirectTo, { replace: true });
     }
   }, [user, authLoading, navigate]);
 
@@ -63,7 +65,7 @@ const Auth = () => {
       } else if (mode === "login") {
         const { error } = await supabase.auth.signInWithPassword({ email, password });
         if (error) throw error;
-        navigate("/");
+        navigate(redirectTo);
       } else if (mode === "forgot") {
         const { error } = await supabase.auth.resetPasswordForEmail(email, {
           redirectTo: `${window.location.origin}/reset-password`,
@@ -323,12 +325,18 @@ const Auth = () => {
         </Card>
 
         <div className="mt-4 text-center">
-          <button
-            onClick={() => navigate("/admin")}
-            className="text-xs text-muted-foreground/50 hover:text-muted-foreground transition-colors"
-          >
-            Admin access
-          </button>
+          {redirectTo === "/admin" ? (
+            <p className="text-xs text-primary/70">
+              Sign in with your admin account to continue
+            </p>
+          ) : (
+            <button
+              onClick={() => navigate("/auth?redirect=/admin", { replace: true })}
+              className="text-xs text-muted-foreground/50 hover:text-muted-foreground transition-colors"
+            >
+              Admin access
+            </button>
+          )}
         </div>
       </motion.div>
       
