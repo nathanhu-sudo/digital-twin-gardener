@@ -325,12 +325,18 @@ const Auth = () => {
         </Card>
 
         <div className="mt-4 text-center">
-          <button
-            onClick={() => navigate("/admin")}
-            className="text-xs text-muted-foreground/50 hover:text-muted-foreground transition-colors"
-          >
-            Admin access
-          </button>
+          {redirectTo === "/admin" ? (
+            <p className="text-xs text-primary/70">
+              Sign in with your admin account to continue
+            </p>
+          ) : (
+            <button
+              onClick={() => navigate("/auth?redirect=/admin", { replace: true })}
+              className="text-xs text-muted-foreground/50 hover:text-muted-foreground transition-colors"
+            >
+              Admin access
+            </button>
+          )}
         </div>
       </motion.div>
       
