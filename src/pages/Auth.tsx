@@ -30,7 +30,7 @@ const Auth = () => {
   // Redirect to home if already authenticated (e.g. after OAuth)
   useEffect(() => {
     if (!authLoading && user) {
-      navigate("/", { replace: true });
+      navigate(redirectTo, { replace: true });
     }
   }, [user, authLoading, navigate]);
 
