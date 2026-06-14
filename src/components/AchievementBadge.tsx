@@ -25,31 +25,37 @@ export function AchievementBadge({ achievement, unlocked, unlockedAt }: Props) {
       initial={{ opacity: 0, scale: 0.9 }}
       animate={{ opacity: 1, scale: 1 }}
       className={cn(
-        "relative rounded-xl border p-4 flex flex-col items-center text-center gap-2 bg-gradient-to-br transition-all",
+        "relative rounded-xl border p-3 sm:p-4 flex flex-row sm:flex-col items-center sm:text-center gap-3 sm:gap-2 bg-gradient-to-br transition-all min-w-0",
         unlocked ? tierStyle : "bg-muted/30 border-border text-muted-foreground grayscale opacity-60"
       )}
     >
       <div
         className={cn(
-          "h-12 w-12 rounded-full flex items-center justify-center border-2",
+          "h-10 w-10 sm:h-12 sm:w-12 rounded-full flex items-center justify-center border-2 shrink-0",
           unlocked ? "bg-card" : "bg-muted"
         )}
       >
-        <Icon className="h-6 w-6" />
+        <Icon className="h-5 w-5 sm:h-6 sm:w-6 shrink-0" />
       </div>
-      <h3 className="font-semibold text-sm text-foreground leading-tight">{achievement.name}</h3>
-      <p className="text-xs text-muted-foreground leading-snug">{achievement.description}</p>
-      <div className="flex items-center gap-1.5 mt-1">
-        <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full border bg-background/50">
-          {achievement.tier}
-        </span>
-        <span className="text-[10px] font-medium text-muted-foreground">+{achievement.xp_reward} XP</span>
-      </div>
-      {unlocked && unlockedAt && (
-        <p className="text-[10px] text-muted-foreground mt-0.5">
-          Unlocked {new Date(unlockedAt).toLocaleDateString()}
+      <div className="flex-1 min-w-0 flex flex-col items-start sm:items-center gap-1 w-full">
+        <h3 className="font-semibold text-sm text-foreground leading-tight truncate w-full text-left sm:text-center">
+          {achievement.name}
+        </h3>
+        <p className="text-xs text-muted-foreground leading-snug line-clamp-2 sm:line-clamp-3 text-left sm:text-center">
+          {achievement.description}
         </p>
-      )}
+        <div className="flex flex-wrap items-center gap-1.5 mt-1 justify-start sm:justify-center">
+          <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full border bg-background/60 text-foreground">
+            {achievement.tier}
+          </span>
+          <span className="text-[10px] font-medium text-muted-foreground">+{achievement.xp_reward} XP</span>
+        </div>
+        {unlocked && unlockedAt && (
+          <p className="text-[10px] text-muted-foreground mt-0.5 truncate w-full text-left sm:text-center">
+            Unlocked {new Date(unlockedAt).toLocaleDateString()}
+          </p>
+        )}
+      </div>
     </motion.div>
   );
 }
