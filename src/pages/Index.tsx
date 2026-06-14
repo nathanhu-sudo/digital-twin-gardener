@@ -12,7 +12,7 @@ import heroImage from "@/assets/hero-illustration.jpg";
 import ChartsPage from "./ChartsPage";
 import ScannerPage from "./ScannerPage";
 import AchievementsPage from "./AchievementsPage";
-import { ProfileDrawer } from "@/components/ProfileDrawer";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { PantryChatDrawer } from "@/components/PantryChatDrawer";
 import { CommunityImpact } from "@/components/CommunityImpact";
 import { RecipeSuggester } from "@/components/RecipeSuggester";
@@ -80,7 +80,7 @@ const Index = () => {
               <LogOut className="h-4 w-4" />
               <span className="hidden sm:inline">Sign out</span>
             </Button>
-            <ProfileDrawer />
+            <ProfileAvatarButton onClick={() => navigate("/profile")} />
           </div>
 
           <motion.div
@@ -276,4 +276,30 @@ const Index = () => {
   );
 };
 
+function ProfileAvatarButton({ onClick }: { onClick: () => void }) {
+  const { user } = useAuth();
+  const { profile } = usePantryData().profile;
+  const initials = (profile?.display_name ?? user?.email ?? "?")
+    .split(/[\s@.]+/)
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((s) => s[0]?.toUpperCase())
+    .join("");
+  return (
+    <button
+      onClick={onClick}
+      aria-label="Open profile"
+      className="rounded-full ring-2 ring-background hover:ring-primary/50 transition-shadow"
+    >
+      <Avatar className="h-9 w-9">
+        <AvatarImage src={profile?.avatar_url ?? undefined} alt={profile?.display_name ?? "Profile"} />
+        <AvatarFallback className="bg-primary text-primary-foreground text-xs font-bold">
+          {initials || "🌱"}
+        </AvatarFallback>
+      </Avatar>
+    </button>
+  );
+}
+
 export default Index;
+
