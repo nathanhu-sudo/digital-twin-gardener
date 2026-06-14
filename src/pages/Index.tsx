@@ -128,11 +128,11 @@ const Index = () => {
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: 16 }}
               transition={{ duration: 0.2 }}
-              className="flex flex-col gap-8"
+              className="flex flex-col gap-6"
             >
               {/* Green Impact */}
               <section>
-                <div className="flex items-center gap-2 mb-4">
+                <div className="flex items-center gap-2 mb-3">
                   <TrendingUp className="h-4 w-4 text-primary" />
                   <h2 className="text-lg font-bold text-foreground font-serif">Green Impact</h2>
                 </div>
@@ -156,26 +156,16 @@ const Index = () => {
 
               {/* Add Items */}
               <section className="flex flex-col gap-3">
-                <div className="flex items-center gap-2 mb-1">
+                <div className="flex items-center gap-2 mb-3">
                   <Package className="h-4 w-4 text-primary" />
                   <h2 className="text-lg font-bold text-foreground font-serif">Add to Pantry</h2>
                 </div>
                 <AddItemForm onAdd={wrappedAdd} />
               </section>
 
-              {/* Recipe Suggestions */}
+              {/* Inventory — directly under Add to Pantry */}
               <section>
-                <RecipeSuggester items={activeItems} getDaysRemaining={getDaysRemaining} />
-              </section>
-
-              {/* Community Impact */}
-              <section>
-                <CommunityImpact />
-              </section>
-
-              {/* Inventory */}
-              <section>
-                <div className="flex items-center justify-between mb-4">
+                <div className="flex items-center justify-between mb-3">
                   <div className="flex items-center gap-2">
                     <Leaf className="h-4 w-4 text-primary" />
                     <h2 className="text-lg font-bold text-foreground font-serif">Pantry Inventory</h2>
@@ -200,6 +190,17 @@ const Index = () => {
                   />
                 )}
               </section>
+
+              {/* Recipe Suggestions */}
+              <section>
+                <RecipeSuggester items={activeItems} getDaysRemaining={getDaysRemaining} />
+              </section>
+
+              {/* Community Impact */}
+              <section>
+                <CommunityImpact />
+              </section>
+
             </motion.div>
           )}
 
