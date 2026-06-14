@@ -11,6 +11,7 @@ import ResetPassword from "./pages/ResetPassword";
 import NotFound from "./pages/NotFound";
 import AdminPage from "./pages/AdminPage";
 import AchievementsPage from "./pages/AchievementsPage";
+import Profile from "./pages/Profile";
 
 const queryClient = new QueryClient();
 
@@ -60,6 +61,16 @@ const App = () => (
               <ProtectedRoute>
                 <PantryDataProvider>
                   <AchievementsPage />
+                </PantryDataProvider>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/profile"
+            element={
+              <ProtectedRoute>
+                <PantryDataProvider>
+                  <Profile />
                 </PantryDataProvider>
               </ProtectedRoute>
             }
