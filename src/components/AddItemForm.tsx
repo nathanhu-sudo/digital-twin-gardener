@@ -64,7 +64,7 @@ export function AddItemForm({ onAdd }: AddItemFormProps) {
           Add grocery item
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-md">
+      <DialogContent className="sm:max-w-md max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2 font-serif">
             <div className="rounded-full bg-primary/10 p-2">
@@ -87,10 +87,12 @@ export function AddItemForm({ onAdd }: AddItemFormProps) {
               onChange={(e) => setName(e.target.value)}
               required
               autoFocus
+              maxLength={100}
+              className="h-10 sm:h-9 text-base sm:text-sm"
             />
           </div>
 
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 gap-3">
             <div className="space-y-2">
               <Label htmlFor="weight">Weight (kg)</Label>
               <Input
@@ -101,6 +103,7 @@ export function AddItemForm({ onAdd }: AddItemFormProps) {
                 value={weightKg}
                 onChange={(e) => setWeightKg(e.target.value)}
                 required
+                className="h-10 sm:h-9 text-base sm:text-sm"
               />
             </div>
             <div className="space-y-2">
@@ -113,6 +116,7 @@ export function AddItemForm({ onAdd }: AddItemFormProps) {
                 value={shelfLifeDays}
                 onChange={(e) => setShelfLifeDays(e.target.value)}
                 required
+                className="h-10 sm:h-9 text-base sm:text-sm"
               />
             </div>
           </div>
@@ -120,7 +124,7 @@ export function AddItemForm({ onAdd }: AddItemFormProps) {
           <div className="space-y-2">
             <Label>CO₂ impact</Label>
             <Select value={co2Impact} onValueChange={(v) => setCo2Impact(v as any)}>
-              <SelectTrigger>
+              <SelectTrigger className="h-10 sm:h-9 text-base sm:text-sm">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
@@ -133,7 +137,7 @@ export function AddItemForm({ onAdd }: AddItemFormProps) {
             </Select>
           </div>
 
-          <div className="flex gap-3 pt-1">
+          <div className="flex flex-col-reverse sm:flex-row gap-2 sm:gap-3 pt-1">
             <Button type="button" variant="outline" className="flex-1" onClick={() => setOpen(false)}>
               Cancel
             </Button>
@@ -143,6 +147,7 @@ export function AddItemForm({ onAdd }: AddItemFormProps) {
           </div>
         </form>
       </DialogContent>
+
     </Dialog>
   );
 }
