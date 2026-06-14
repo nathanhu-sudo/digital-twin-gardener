@@ -12,7 +12,7 @@ import heroImage from "@/assets/hero-illustration.jpg";
 import ChartsPage from "./ChartsPage";
 import ScannerPage from "./ScannerPage";
 import AchievementsPage from "./AchievementsPage";
-import { ProfileDrawer } from "@/components/ProfileDrawer";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { PantryChatDrawer } from "@/components/PantryChatDrawer";
 import { CommunityImpact } from "@/components/CommunityImpact";
 import { RecipeSuggester } from "@/components/RecipeSuggester";
@@ -80,7 +80,7 @@ const Index = () => {
               <LogOut className="h-4 w-4" />
               <span className="hidden sm:inline">Sign out</span>
             </Button>
-            <ProfileDrawer />
+            <ProfileAvatarButton onClick={() => navigate("/profile")} />
           </div>
 
           <motion.div
