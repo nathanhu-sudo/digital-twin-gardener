@@ -12,7 +12,7 @@ import { cn } from "@/lib/utils";
 
 export default function AchievementsPage() {
   const { stats, achievements, unlocked, loading } = usePantryData().gamification;
-  const [period, setPeriod] = useState<"week" | "month">("week");
+  const [period, setPeriod] = useState<"week" | "month" | "all">("week");
   const { rows, loading: lbLoading } = useLeaderboard(period);
   const { user } = useAuth();
 
