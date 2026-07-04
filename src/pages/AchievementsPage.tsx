@@ -100,7 +100,7 @@ export default function AchievementsPage() {
             <div className="space-y-2">{[1,2,3,4].map(i => <div key={i} className="h-14 bg-card border rounded-lg animate-pulse" />)}</div>
           ) : rows.length === 0 ? (
             <div className="text-center py-12 text-muted-foreground text-sm">
-              No activity yet this {period}. Start saving food to claim the top spot!
+              No activity yet. Start saving food to claim the top spot!
             </div>
           ) : (
             <div className="space-y-2">
