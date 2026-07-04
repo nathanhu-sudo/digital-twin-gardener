@@ -110,7 +110,7 @@ export function useGamification() {
   return { stats, achievements, unlocked, loading, refresh };
 }
 
-export function useLeaderboard(period: "week" | "month") {
+export function useLeaderboard(period: "week" | "month" | "all") {
   const [rows, setRows] = useState<LeaderboardRow[]>([]);
   const [loading, setLoading] = useState(true);
 

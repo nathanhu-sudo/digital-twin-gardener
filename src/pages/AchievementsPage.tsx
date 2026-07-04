@@ -12,7 +12,7 @@ import { cn } from "@/lib/utils";
 
 export default function AchievementsPage() {
   const { stats, achievements, unlocked, loading } = usePantryData().gamification;
-  const [period, setPeriod] = useState<"week" | "month">("week");
+  const [period, setPeriod] = useState<"week" | "month" | "all">("week");
   const { rows, loading: lbLoading } = useLeaderboard(period);
   const { user } = useAuth();
 
@@ -81,7 +81,7 @@ export default function AchievementsPage() {
         <TabsContent value="leaderboard" className="mt-4">
           <div className="flex justify-center mb-4">
             <div className="inline-flex rounded-full border bg-card p-1">
-              {(["week", "month"] as const).map((p) => (
+              {(["week", "month", "all"] as const).map((p) => (
                 <button
                   key={p}
                   onClick={() => setPeriod(p)}
@@ -90,7 +90,7 @@ export default function AchievementsPage() {
                     period === p ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:text-foreground"
                   )}
                 >
-                  This {p}
+                  {p === "all" ? "All time" : p === "week" ? "Last 7 days" : "Last 30 days"}
                 </button>
               ))}
             </div>
@@ -100,7 +100,7 @@ export default function AchievementsPage() {
             <div className="space-y-2">{[1,2,3,4].map(i => <div key={i} className="h-14 bg-card border rounded-lg animate-pulse" />)}</div>
           ) : rows.length === 0 ? (
             <div className="text-center py-12 text-muted-foreground text-sm">
-              No activity yet this {period}. Start saving food to claim the top spot!
+              No activity yet. Start saving food to claim the top spot!
             </div>
           ) : (
             <div className="space-y-2">
