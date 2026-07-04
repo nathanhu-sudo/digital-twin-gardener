@@ -353,7 +353,7 @@ export type Database = {
       get_leaderboard: {
         Args: { _period: string }
         Returns: {
-          email: string
+          display_name: string
           items_consumed: number
           kg_saved: number
           rank: number

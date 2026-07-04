@@ -33,7 +33,7 @@ export interface UserAchievement {
 
 export interface LeaderboardRow {
   user_id: string;
-  email: string;
+  display_name: string;
   kg_saved: number;
   items_consumed: number;
   rank: number;

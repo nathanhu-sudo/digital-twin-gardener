@@ -119,7 +119,7 @@ export default function AchievementsPage() {
                     <RankBadge rank={Number(row.rank)} />
                     <div className="flex-1 min-w-0">
                       <p className="text-sm font-medium text-foreground truncate">
-                        {isMe ? "You" : row.email?.split("@")[0] ?? "User"}
+                        {isMe ? "You" : row.display_name ?? "Anonymous"}
                       </p>
                       <p className="text-xs text-muted-foreground">{row.items_consumed} items consumed</p>
                     </div>
