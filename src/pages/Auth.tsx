@@ -99,19 +99,20 @@ const Auth = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background flex flex-col items-center justify-between px-4">
+    <div className="min-h-screen bg-background flex flex-col items-center justify-center px-4 py-10 sm:py-14">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         className="w-full max-w-md"
       >
         {/* Logo */}
-        <div className="flex items-center justify-center gap-2 mb-5">
-          <div className="rounded-full bg-primary p-2">
+        <div className="flex items-center justify-center gap-2.5 mb-6 mt-2">
+          <div className="rounded-full bg-primary p-2.5 shadow-md">
             <Leaf className="h-5 w-5 text-primary-foreground" />
           </div>
-          <span className="text-xl font-bold text-foreground font-serif">SmartPantry AI</span>
+          <span className="text-xl font-bold text-foreground font-serif tracking-tight">SmartPantry AI</span>
         </div>
+
 
         <Card>
           <CardHeader className="text-center pb-2">
