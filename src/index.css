@@ -130,6 +130,15 @@
     @apply bg-background text-foreground font-sans antialiased;
     background-attachment: fixed;
   }
+
+  /* Hide browser-native password reveal buttons */
+  input::-webkit-credentials-auto-fill-button {
+    visibility: hidden;
+    display: none !important;
+  }
+  input::-ms-reveal {
+    display: none;
+  }
 }
 
 @layer components {
