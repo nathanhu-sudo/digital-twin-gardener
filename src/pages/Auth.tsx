@@ -99,21 +99,22 @@ const Auth = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background flex flex-col items-center justify-between px-4">
+    <div className="min-h-screen bg-background flex flex-col items-center justify-center px-4 py-10 sm:py-14">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         className="w-full max-w-md"
       >
         {/* Logo */}
-        <div className="flex items-center justify-center gap-2 mb-5">
-          <div className="rounded-full bg-primary p-2">
+        <div className="flex items-center justify-center gap-2.5 mb-6 mt-2">
+          <div className="rounded-full bg-primary p-2.5 shadow-md">
             <Leaf className="h-5 w-5 text-primary-foreground" />
           </div>
-          <span className="text-xl font-bold text-foreground font-serif">SmartPantry AI</span>
+          <span className="text-xl font-bold text-foreground font-serif tracking-tight">SmartPantry AI</span>
         </div>
 
-        <Card>
+
+        <Card className="border-border/60 shadow-lg backdrop-blur-sm">
           <CardHeader className="text-center pb-2">
             <AnimatePresence mode="wait">
               <motion.div
@@ -226,10 +227,12 @@ const Auth = () => {
                       <button
                         type="button"
                         onClick={() => setShowPassword(!showPassword)}
-                        className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+                        aria-label={showPassword ? "Hide password" : "Show password"}
+                        className="absolute right-1 top-1/2 -translate-y-1/2 z-10 p-2 rounded-md text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
                       >
                         {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                       </button>
+
                     </div>
                   </div>
                 )}
