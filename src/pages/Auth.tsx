@@ -99,7 +99,12 @@ const Auth = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background flex flex-col items-center justify-center px-4 py-10 sm:py-14">
+    <div className="min-h-screen bg-background flex flex-col items-center justify-center px-4 py-10 sm:py-14 relative overflow-hidden">
+      {/* Subtle fruit & veg background */}
+      <div
+        className="absolute inset-0 bg-[url(/auth-bg.jpg)] bg-repeat opacity-20 pointer-events-none"
+        aria-hidden="true"
+      />
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
