@@ -81,7 +81,7 @@ export default function AchievementsPage() {
         <TabsContent value="leaderboard" className="mt-4">
           <div className="flex justify-center mb-4">
             <div className="inline-flex rounded-full border bg-card p-1">
-              {(["week", "month"] as const).map((p) => (
+              {(["week", "month", "all"] as const).map((p) => (
                 <button
                   key={p}
                   onClick={() => setPeriod(p)}
@@ -90,7 +90,7 @@ export default function AchievementsPage() {
                     period === p ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:text-foreground"
                   )}
                 >
-                  This {p}
+                  {p === "all" ? "All time" : p === "week" ? "Last 7 days" : "Last 30 days"}
                 </button>
               ))}
             </div>
