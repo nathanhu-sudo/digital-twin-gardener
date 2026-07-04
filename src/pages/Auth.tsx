@@ -114,7 +114,7 @@ const Auth = () => {
         </div>
 
 
-        <Card>
+        <Card className="border-border/60 shadow-lg backdrop-blur-sm">
           <CardHeader className="text-center pb-2">
             <AnimatePresence mode="wait">
               <motion.div
