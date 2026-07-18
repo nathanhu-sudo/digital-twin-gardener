@@ -21,7 +21,7 @@ const AdminPage = () => {
     );
   }
 
-  if (!isAdmin) return <Navigate to="/" replace />;
+  if (!isAdmin) return <Navigate to="/app" replace />;
 
   const co2Factor = 2.5;
 
