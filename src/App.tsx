@@ -37,10 +37,11 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <Routes>
+          <Route path="/" element={<Landing />} />
           <Route path="/auth" element={<Auth />} />
           <Route path="/reset-password" element={<ResetPassword />} />
           <Route
-            path="/"
+            path="/app"
             element={
               <ProtectedRoute>
                 <PantryDataProvider>
@@ -49,6 +50,7 @@ const App = () => (
               </ProtectedRoute>
             }
           />
+
           <Route
             path="/admin"
             element={
