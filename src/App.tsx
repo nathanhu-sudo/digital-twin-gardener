@@ -6,12 +6,14 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
 import { PantryDataProvider } from "@/context/PantryDataContext";
 import Index from "./pages/Index";
+import Landing from "./pages/Landing";
 import Auth from "./pages/Auth";
 import ResetPassword from "./pages/ResetPassword";
 import NotFound from "./pages/NotFound";
 import AdminPage from "./pages/AdminPage";
 import AchievementsPage from "./pages/AchievementsPage";
 import Profile from "./pages/Profile";
+
 
 const queryClient = new QueryClient();
 
