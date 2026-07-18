@@ -17,7 +17,7 @@ type AuthMode = "login" | "signup" | "forgot" | "check-email";
 const Auth = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-  const redirectTo = searchParams.get("redirect") || "/";
+  const redirectTo = searchParams.get("redirect") || "/app";
   const { user, loading: authLoading } = useAuth();
   const [mode, setMode] = useState<AuthMode>("login");
   const [email, setEmail] = useState("");
