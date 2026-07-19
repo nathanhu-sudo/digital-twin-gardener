@@ -11,6 +11,8 @@ import {
   ArrowRight,
   BarChart2,
   ShieldCheck,
+  Apple,
+  Plus,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/hooks/useAuth";
@@ -162,39 +164,66 @@ export default function Landing() {
             transition={{ duration: 0.6, delay: 0.1 }}
             className="relative"
           >
-            <div className="glass-strong rounded-3xl border border-border/50 shadow-elegant p-6 sm:p-8">
-              <div className="flex items-center gap-3 mb-5">
-                <div
-                  className="rounded-2xl p-2.5 shadow-lg glow"
-                  style={{ background: "var(--gradient-primary)" }}
-                >
-                  <Leaf className="h-5 w-5 text-primary-foreground" />
+            <div className="glass-strong rounded-3xl border border-border/50 shadow-elegant p-6 sm:p-8 flex flex-col items-center gap-4">
+              <div className="mx-auto w-full max-w-[260px] rounded-[2.5rem] border border-border/60 bg-background/90 shadow-2xl overflow-hidden ring-8 ring-border/20">
+                {/* Phone notch / status bar */}
+                <div className="relative h-7 bg-background/95 border-b border-border/30 flex items-center justify-center">
+                  <div className="absolute top-1.5 h-4 w-20 rounded-full bg-foreground/10" />
+                  <span className="absolute right-4 text-[10px] font-medium text-muted-foreground">
+                    9:41
+                  </span>
                 </div>
-                <div>
-                  <div className="text-sm font-semibold">Green Impact</div>
-                  <div className="text-xs text-muted-foreground">This month</div>
-                </div>
-              </div>
-              <div className="grid grid-cols-2 gap-3">
-                {[
-                  { label: "Saved", value: "4.2 kg", tone: "text-primary" },
-                  { label: "CO₂ prevented", value: "10.1 kg", tone: "text-primary" },
-                  { label: "Streak", value: "7 days", tone: "text-accent" },
-                  { label: "Level", value: "Lv 4", tone: "text-accent" },
-                ].map((t) => (
-                  <div
-                    key={t.label}
-                    className="rounded-xl bg-background/60 border border-border/50 p-4"
-                  >
-                    <div className="text-xs text-muted-foreground">{t.label}</div>
-                    <div className={`text-2xl font-bold ${t.tone}`}>{t.value}</div>
+
+                {/* App preview body */}
+                <div className="p-4 space-y-3">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <div className="text-[10px] text-muted-foreground">Your pantry</div>
+                      <div className="text-sm font-semibold">12 items</div>
+                    </div>
+                    <div
+                      className="rounded-full p-1.5"
+                      style={{ background: "var(--gradient-primary)" }}
+                    >
+                      <Leaf className="h-3.5 w-3.5 text-primary-foreground" />
+                    </div>
                   </div>
-                ))}
+
+                  {[
+                    { name: "Spinach", detail: "Use in 2 days", tone: "text-warning" },
+                    { name: "Milk", detail: "5 days left", tone: "text-primary" },
+                    { name: "Eggs", detail: "12 days left", tone: "text-primary" },
+                  ].map((item) => (
+                    <div
+                      key={item.name}
+                      className="flex items-center justify-between rounded-xl bg-card border border-border/50 p-3"
+                    >
+                      <div className="flex items-center gap-2">
+                        <div className="rounded-lg p-1 bg-primary/10">
+                          <Apple className="h-3.5 w-3.5 text-primary" />
+                        </div>
+                        <span className="text-xs font-medium">{item.name}</span>
+                      </div>
+                      <span className={`text-[10px] font-medium ${item.tone}`}>
+                        {item.detail}
+                      </span>
+                    </div>
+                  ))}
+
+                  <div className="flex justify-end pt-1">
+                    <div
+                      className="rounded-full p-2 shadow-lg"
+                      style={{ background: "var(--gradient-primary)" }}
+                    >
+                      <Plus className="h-4 w-4 text-primary-foreground" />
+                    </div>
+                  </div>
+                </div>
               </div>
-              <div className="mt-5 rounded-xl bg-warning/10 border border-warning/30 p-3 text-xs flex items-center gap-2">
-                <Sparkles className="h-3.5 w-3.5 text-warning shrink-0" />
-                <span>Spinach expires in 2 days — try tonight's stir-fry recipe.</span>
-              </div>
+
+              <p className="text-xs text-muted-foreground text-center">
+                A preview of your SmartPantry screen
+              </p>
             </div>
           </motion.div>
         </div>
