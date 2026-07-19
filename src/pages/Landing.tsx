@@ -11,6 +11,8 @@ import {
   ArrowRight,
   BarChart2,
   ShieldCheck,
+  Apple,
+  Plus,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/hooks/useAuth";
