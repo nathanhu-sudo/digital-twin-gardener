@@ -62,6 +62,11 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-background flex flex-col relative">
+      {/* Subtle fruit & veg pattern to fill white space */}
+      <div
+        className="fixed inset-0 -z-20 opacity-[0.08] bg-[url(/auth-bg.jpg)] bg-repeat pointer-events-none"
+        aria-hidden="true"
+      />
       {/* Animated gradient mesh background */}
       <div className="fixed inset-0 -z-10 bg-mesh pointer-events-none" aria-hidden="true" />
 
