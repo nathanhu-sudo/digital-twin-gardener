@@ -263,13 +263,13 @@ export default function Landing() {
       </section>
 
       {/* How it works */}
-      <section id="how" className="container max-w-6xl mx-auto px-4 py-16 sm:py-24">
-        <div className="text-center mb-10 sm:mb-14">
+      <section id="how" className="container max-w-6xl mx-auto px-4 py-20 sm:py-28">
+        <div className="text-center mb-8 sm:mb-12">
           <h2 className="text-3xl sm:text-4xl font-bold font-serif tracking-tight">
             Three steps to a smarter kitchen
           </h2>
         </div>
-        <div className="grid md:grid-cols-3 gap-4">
+        <div className="grid md:grid-cols-3 gap-5">
           {STEPS.map((s) => (
             <div
               key={s.n}
