@@ -149,11 +149,6 @@ const Index = () => {
                 <PredictiveInsights />
               </section>
 
-              {/* Gamification preview */}
-              <section>
-                <GamificationCard onOpen={() => switchTab("achievements")} />
-              </section>
-
               {/* Weekly challenges preview */}
               <section>
                 <WeeklyChallengeCard onOpen={() => switchTab("achievements")} />
