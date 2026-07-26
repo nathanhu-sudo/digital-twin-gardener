@@ -230,8 +230,8 @@ export default function Landing() {
       </section>
 
       {/* Features */}
-      <section id="features" className="container max-w-6xl mx-auto px-4 py-16 sm:py-24">
-        <div className="text-center mb-10 sm:mb-14">
+      <section id="features" className="container max-w-6xl mx-auto px-4 py-20 sm:py-28">
+        <div className="text-center mb-8 sm:mb-12">
           <h2 className="text-3xl sm:text-4xl font-bold font-serif tracking-tight">
             Everything your kitchen needs
           </h2>
@@ -239,7 +239,7 @@ export default function Landing() {
             Six connected tools — one calm, beautiful app.
           </p>
         </div>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {FEATURES.map((f, i) => (
             <motion.div
               key={f.title}
