@@ -117,7 +117,7 @@ export default function Landing() {
           aria-hidden="true"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-primary/5 to-background/70" />
-        <div className="relative container max-w-6xl mx-auto px-4 pt-16 pb-20 sm:pt-24 sm:pb-28 grid md:grid-cols-2 gap-10 items-center">
+        <div className="relative container max-w-6xl mx-auto px-4 py-20 sm:py-28 grid md:grid-cols-2 gap-10 items-center">
           <motion.div
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
@@ -230,8 +230,8 @@ export default function Landing() {
       </section>
 
       {/* Features */}
-      <section id="features" className="container max-w-6xl mx-auto px-4 py-16 sm:py-24">
-        <div className="text-center mb-10 sm:mb-14">
+      <section id="features" className="container max-w-6xl mx-auto px-4 py-20 sm:py-28">
+        <div className="text-center mb-8 sm:mb-12">
           <h2 className="text-3xl sm:text-4xl font-bold font-serif tracking-tight">
             Everything your kitchen needs
           </h2>
@@ -239,7 +239,7 @@ export default function Landing() {
             Six connected tools — one calm, beautiful app.
           </p>
         </div>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {FEATURES.map((f, i) => (
             <motion.div
               key={f.title}
@@ -263,13 +263,13 @@ export default function Landing() {
       </section>
 
       {/* How it works */}
-      <section id="how" className="container max-w-6xl mx-auto px-4 py-16 sm:py-24">
-        <div className="text-center mb-10 sm:mb-14">
+      <section id="how" className="container max-w-6xl mx-auto px-4 py-20 sm:py-28">
+        <div className="text-center mb-8 sm:mb-12">
           <h2 className="text-3xl sm:text-4xl font-bold font-serif tracking-tight">
             Three steps to a smarter kitchen
           </h2>
         </div>
-        <div className="grid md:grid-cols-3 gap-4">
+        <div className="grid md:grid-cols-3 gap-5">
           {STEPS.map((s) => (
             <div
               key={s.n}
@@ -284,12 +284,12 @@ export default function Landing() {
       </section>
 
       {/* CTA */}
-      <section className="container max-w-4xl mx-auto px-4 pb-20">
+      <section className="container max-w-4xl mx-auto px-4 py-20 sm:py-28">
         <div
           className="relative overflow-hidden rounded-3xl border border-border/50 p-8 sm:p-12 text-center shadow-elegant"
           style={{ background: "var(--gradient-primary)" }}
         >
-          <div className="relative z-10 flex flex-col items-center gap-4 text-primary-foreground">
+          <div className="relative z-10 flex flex-col items-center gap-5 text-primary-foreground">
             <h2 className="text-3xl sm:text-4xl font-bold font-serif">
               Start saving food today.
             </h2>
