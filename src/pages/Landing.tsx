@@ -284,12 +284,12 @@ export default function Landing() {
       </section>
 
       {/* CTA */}
-      <section className="container max-w-4xl mx-auto px-4 pb-20">
+      <section className="container max-w-4xl mx-auto px-4 py-20 sm:py-28">
         <div
           className="relative overflow-hidden rounded-3xl border border-border/50 p-8 sm:p-12 text-center shadow-elegant"
           style={{ background: "var(--gradient-primary)" }}
         >
-          <div className="relative z-10 flex flex-col items-center gap-4 text-primary-foreground">
+          <div className="relative z-10 flex flex-col items-center gap-5 text-primary-foreground">
             <h2 className="text-3xl sm:text-4xl font-bold font-serif">
               Start saving food today.
             </h2>
