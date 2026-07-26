@@ -117,7 +117,7 @@ export default function Landing() {
           aria-hidden="true"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-primary/5 to-background/70" />
-        <div className="relative container max-w-6xl mx-auto px-4 pt-16 pb-20 sm:pt-24 sm:pb-28 grid md:grid-cols-2 gap-10 items-center">
+        <div className="relative container max-w-6xl mx-auto px-4 py-20 sm:py-28 grid md:grid-cols-2 gap-10 items-center">
           <motion.div
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
