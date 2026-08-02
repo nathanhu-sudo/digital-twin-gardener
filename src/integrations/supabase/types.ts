@@ -95,6 +95,33 @@ export type Database = {
         }
         Relationships: []
       }
+      friendships: {
+        Row: {
+          addressee_id: string
+          created_at: string
+          id: string
+          requester_id: string
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          addressee_id: string
+          created_at?: string
+          id?: string
+          requester_id: string
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          addressee_id?: string
+          created_at?: string
+          id?: string
+          requester_id?: string
+          status?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       pantry_items: {
         Row: {
           added_at: string
@@ -350,9 +377,22 @@ export type Database = {
           total_wasted_kg: number
         }[]
       }
-      get_leaderboard: {
-        Args: { _period: string }
+      get_friends: {
+        Args: never
         Returns: {
+          avatar_url: string
+          created_at: string
+          direction: string
+          display_name: string
+          friendship_id: string
+          status: string
+          user_id: string
+        }[]
+      }
+      get_leaderboard: {
+        Args: { _friends_only?: boolean; _period: string }
+        Returns: {
+          avatar_url: string
           display_name: string
           items_consumed: number
           kg_saved: number
@@ -390,6 +430,15 @@ export type Database = {
       }
       is_admin: { Args: never; Returns: boolean }
       recompute_user_stats: { Args: { _user_id: string }; Returns: undefined }
+      search_members: {
+        Args: { _q: string }
+        Returns: {
+          avatar_url: string
+          display_name: string
+          relation: string
+          user_id: string
+        }[]
+      }
     }
     Enums: {
       app_role: "admin" | "moderator" | "user"

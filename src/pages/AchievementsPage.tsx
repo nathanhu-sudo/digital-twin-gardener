@@ -1,22 +1,26 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Trophy, Flame, Zap, Medal, Crown, Award } from "lucide-react";
+import { Trophy, Flame, Zap, Medal, Crown, Award, Users } from "lucide-react";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Progress } from "@/components/ui/progress";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useLeaderboard, levelTitle, XP_PER_LEVEL } from "@/hooks/useGamification";
 import { AchievementBadge } from "@/components/AchievementBadge";
 import { WeeklyChallengeList } from "@/components/WeeklyChallengeList";
+import { FriendsPanel } from "@/components/FriendsPanel";
 import { useAuth } from "@/hooks/useAuth";
 import { usePantryData } from "@/context/PantryDataContext";
 import { cn } from "@/lib/utils";
 
 export default function AchievementsPage() {
   const { stats, achievements, unlocked, loading } = usePantryData().gamification;
-  const [period, setPeriod] = useState<"week" | "month" | "all">("week");
-  const { rows, loading: lbLoading } = useLeaderboard(period);
+  const [period, setPeriod] = useState<"week" | "month" | "all">("all");
+  const [friendsOnly, setFriendsOnly] = useState(false);
+  const { rows, loading: lbLoading } = useLeaderboard(period, friendsOnly);
   const { user } = useAuth();
 
   const unlockedMap = new Map(unlocked.map((u) => [u.achievement_id, u.unlocked_at]));
+
 
   if (loading) {
     return <div className="space-y-4">{[1, 2, 3].map((i) => <div key={i} className="h-32 bg-card border rounded-xl animate-pulse" />)}</div>;
@@ -56,12 +60,15 @@ export default function AchievementsPage() {
       <WeeklyChallengeList />
 
       <Tabs defaultValue="badges">
-        <TabsList className="grid grid-cols-2 w-full">
+        <TabsList className="grid grid-cols-3 w-full">
           <TabsTrigger value="badges">
-            <Trophy className="h-4 w-4 mr-2" /> Badges
+            <Trophy className="h-4 w-4 mr-1.5" /> Badges
           </TabsTrigger>
           <TabsTrigger value="leaderboard">
-            <Crown className="h-4 w-4 mr-2" /> Leaderboard
+            <Crown className="h-4 w-4 mr-1.5" /> Ranks
+          </TabsTrigger>
+          <TabsTrigger value="friends">
+            <Users className="h-4 w-4 mr-1.5" /> Friends
           </TabsTrigger>
         </TabsList>
 
@@ -79,7 +86,7 @@ export default function AchievementsPage() {
         </TabsContent>
 
         <TabsContent value="leaderboard" className="mt-4">
-          <div className="flex justify-center mb-4">
+          <div className="flex flex-col items-center gap-3 mb-4">
             <div className="inline-flex rounded-full border bg-card p-1">
               {(["week", "month", "all"] as const).map((p) => (
                 <button
@@ -94,18 +101,37 @@ export default function AchievementsPage() {
                 </button>
               ))}
             </div>
+            <div className="inline-flex rounded-full border bg-card p-1">
+              {([false, true] as const).map((f) => (
+                <button
+                  key={String(f)}
+                  onClick={() => setFriendsOnly(f)}
+                  className={cn(
+                    "px-4 py-1.5 text-xs font-medium rounded-full transition-colors",
+                    friendsOnly === f ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:text-foreground"
+                  )}
+                >
+                  {f ? "Friends" : "Everyone"}
+                </button>
+              ))}
+            </div>
           </div>
 
           {lbLoading ? (
             <div className="space-y-2">{[1,2,3,4].map(i => <div key={i} className="h-14 bg-card border rounded-lg animate-pulse" />)}</div>
           ) : rows.length === 0 ? (
             <div className="text-center py-12 text-muted-foreground text-sm">
-              No activity yet. Start saving food to claim the top spot!
+              {friendsOnly
+                ? "No friend activity in this window. Add friends in the Friends tab or try All time."
+                : period === "all"
+                  ? "No activity yet. Start saving food to claim the top spot!"
+                  : "No activity in this window — try All time."}
             </div>
           ) : (
             <div className="space-y-2">
               {rows.map((row) => {
                 const isMe = row.user_id === user?.id;
+                const name = isMe ? "You" : row.display_name ?? "Anonymous";
                 return (
                   <motion.div
                     key={row.user_id}
@@ -117,10 +143,14 @@ export default function AchievementsPage() {
                     )}
                   >
                     <RankBadge rank={Number(row.rank)} />
+                    <Avatar className="h-8 w-8 shrink-0">
+                      <AvatarImage src={row.avatar_url ?? undefined} alt={name} />
+                      <AvatarFallback className="bg-primary/15 text-foreground text-[10px] font-bold">
+                        {name.slice(0, 2).toUpperCase()}
+                      </AvatarFallback>
+                    </Avatar>
                     <div className="flex-1 min-w-0">
-                      <p className="text-sm font-medium text-foreground truncate">
-                        {isMe ? "You" : row.display_name ?? "Anonymous"}
-                      </p>
+                      <p className="text-sm font-medium text-foreground truncate">{name}</p>
                       <p className="text-xs text-muted-foreground">{row.items_consumed} items consumed</p>
                     </div>
                     <div className="text-right">
@@ -133,7 +163,12 @@ export default function AchievementsPage() {
             </div>
           )}
         </TabsContent>
+
+        <TabsContent value="friends" className="mt-4">
+          <FriendsPanel />
+        </TabsContent>
       </Tabs>
+
     </div>
   );
 }
