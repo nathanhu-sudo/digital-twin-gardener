@@ -16,7 +16,6 @@ export default function AchievementsPage() {
   const { stats, achievements, unlocked, loading } = usePantryData().gamification;
   const [period, setPeriod] = useState<"week" | "month" | "all">("all");
   const [friendsOnly, setFriendsOnly] = useState(false);
-  const [refreshKey, setRefreshKey] = useState(0);
   const { rows, loading: lbLoading } = useLeaderboard(period, friendsOnly);
   const { user } = useAuth();
 
@@ -166,7 +165,7 @@ export default function AchievementsPage() {
         </TabsContent>
 
         <TabsContent value="friends" className="mt-4">
-          <FriendsPanel key={refreshKey} onChanged={() => setRefreshKey((k) => k + 1)} />
+          <FriendsPanel />
         </TabsContent>
       </Tabs>
 
