@@ -34,10 +34,12 @@ export interface UserAchievement {
 export interface LeaderboardRow {
   user_id: string;
   display_name: string;
+  avatar_url: string | null;
   kg_saved: number;
   items_consumed: number;
   rank: number;
 }
+
 
 export const XP_PER_LEVEL = 250;
 
@@ -110,17 +112,26 @@ export function useGamification() {
   return { stats, achievements, unlocked, loading, refresh };
 }
 
-export function useLeaderboard(period: "week" | "month" | "all") {
+export function useLeaderboard(period: "week" | "month" | "all", friendsOnly = false) {
   const [rows, setRows] = useState<LeaderboardRow[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    let cancelled = false;
     setLoading(true);
-    supabase.rpc("get_leaderboard", { _period: period }).then(({ data, error }) => {
-      if (!error && data) setRows(data as any);
-      setLoading(false);
-    });
-  }, [period]);
+    supabase
+      .rpc("get_leaderboard", { _period: period, _friends_only: friendsOnly })
+      .then(({ data, error }) => {
+        if (cancelled) return;
+        if (!error && data) setRows(data as any);
+        else if (error) setRows([]);
+        setLoading(false);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [period, friendsOnly]);
 
   return { rows, loading };
 }
+
