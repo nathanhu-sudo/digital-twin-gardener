@@ -1,22 +1,27 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Trophy, Flame, Zap, Medal, Crown, Award } from "lucide-react";
+import { Trophy, Flame, Zap, Medal, Crown, Award, Users } from "lucide-react";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Progress } from "@/components/ui/progress";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useLeaderboard, levelTitle, XP_PER_LEVEL } from "@/hooks/useGamification";
 import { AchievementBadge } from "@/components/AchievementBadge";
 import { WeeklyChallengeList } from "@/components/WeeklyChallengeList";
+import { FriendsPanel } from "@/components/FriendsPanel";
 import { useAuth } from "@/hooks/useAuth";
 import { usePantryData } from "@/context/PantryDataContext";
 import { cn } from "@/lib/utils";
 
 export default function AchievementsPage() {
   const { stats, achievements, unlocked, loading } = usePantryData().gamification;
-  const [period, setPeriod] = useState<"week" | "month" | "all">("week");
-  const { rows, loading: lbLoading } = useLeaderboard(period);
+  const [period, setPeriod] = useState<"week" | "month" | "all">("all");
+  const [friendsOnly, setFriendsOnly] = useState(false);
+  const [refreshKey, setRefreshKey] = useState(0);
+  const { rows, loading: lbLoading } = useLeaderboard(period, friendsOnly);
   const { user } = useAuth();
 
   const unlockedMap = new Map(unlocked.map((u) => [u.achievement_id, u.unlocked_at]));
+
 
   if (loading) {
     return <div className="space-y-4">{[1, 2, 3].map((i) => <div key={i} className="h-32 bg-card border rounded-xl animate-pulse" />)}</div>;
