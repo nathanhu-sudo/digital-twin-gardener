@@ -197,6 +197,11 @@ const Index = () => {
                 <RecipeSuggester items={activeItems} getDaysRemaining={getDaysRemaining} />
               </section>
 
+              {/* Kitchen Hacks */}
+              <section>
+                <KitchenHacks />
+              </section>
+
               {/* Community Impact */}
               <section>
                 <CommunityImpact />
