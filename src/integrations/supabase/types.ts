@@ -122,6 +122,83 @@ export type Database = {
         }
         Relationships: []
       }
+      notification_preferences: {
+        Row: {
+          created_at: string
+          days_before: number
+          email_enabled: boolean
+          in_app_enabled: boolean
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          days_before?: number
+          email_enabled?: boolean
+          in_app_enabled?: boolean
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          days_before?: number
+          email_enabled?: boolean
+          in_app_enabled?: boolean
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      notifications: {
+        Row: {
+          body: string
+          created_at: string
+          days_left: number | null
+          id: string
+          item_id: string | null
+          notify_date: string
+          read_at: string | null
+          title: string
+          type: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          body: string
+          created_at?: string
+          days_left?: number | null
+          id?: string
+          item_id?: string | null
+          notify_date?: string
+          read_at?: string | null
+          title: string
+          type?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          body?: string
+          created_at?: string
+          days_left?: number | null
+          id?: string
+          item_id?: string | null
+          notify_date?: string
+          read_at?: string | null
+          title?: string
+          type?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "notifications_item_id_fkey"
+            columns: ["item_id"]
+            isOneToOne: false
+            referencedRelation: "pantry_items"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       pantry_items: {
         Row: {
           added_at: string
@@ -439,6 +516,7 @@ export type Database = {
           user_id: string
         }[]
       }
+      sync_expiry_notifications: { Args: { _user_id: string }; Returns: number }
     }
     Enums: {
       app_role: "admin" | "moderator" | "user"
