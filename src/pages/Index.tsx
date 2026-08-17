@@ -22,6 +22,7 @@ import { KitchenHacks } from "@/components/KitchenHacks";
 import { WeeklyChallengeCard } from "@/components/WeeklyChallengeCard";
 import { useAdmin } from "@/hooks/useAdmin";
 import { usePantryData } from "@/context/PantryDataContext";
+import { NotificationBell } from "@/components/NotificationBell";
 
 type Tab = "home" | "charts" | "scanner" | "achievements";
 
@@ -34,12 +35,13 @@ const TABS: { id: Tab; label: string; icon: typeof Home }[] = [
 
 const Index = () => {
   const [activeTab, setActiveTab] = useState<Tab>("home");
-  const { pantry, gamification, challenges } = usePantryData();
+  const { pantry, gamification, challenges, notifications } = usePantryData();
   const { activeItems, impact, loading, getDaysRemaining, addItem, consumeItem, tossItem } = pantry;
   const { user, signOut } = useAuth();
   const { isAdmin } = useAdmin();
   const refreshGamification = gamification.refresh;
   const refreshChallenges = challenges.refresh;
+  const refreshNotifications = notifications.refresh;
   const navigate = useNavigate();
 
   const expiringCount = activeItems.filter((i) => getDaysRemaining(i) <= 3).length;
@@ -55,6 +57,7 @@ const Index = () => {
     setTimeout(() => {
       refreshGamification();
       refreshChallenges();
+      refreshNotifications();
     }, 0);
   };
   const wrappedConsume = async (id: string) => { await consumeItem(id); bgRefresh(); };
@@ -81,7 +84,8 @@ const Index = () => {
 
         <div className="relative container max-w-2xl py-8 px-4 flex flex-col items-center text-center gap-2">
           {/* Top bar */}
-          <div className="absolute top-4 right-4 flex items-center gap-2">
+          <div className="absolute top-4 right-4 flex items-center gap-1 sm:gap-2">
+            <NotificationBell />
             <Button variant="ghost" size="sm" onClick={signOut} className="gap-1 text-muted-foreground">
               <LogOut className="h-4 w-4" />
               <span className="hidden sm:inline">Sign out</span>
