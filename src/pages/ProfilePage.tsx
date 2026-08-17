@@ -185,9 +185,66 @@ export default function ProfilePage() {
           </div>
         </section>
       )}
+
+      <NotificationSettings />
     </div>
   );
 }
+
+function NotificationSettings() {
+  const { notifications } = usePantryData();
+  const { prefs, updatePrefs } = notifications;
+
+  return (
+    <section className="rounded-2xl border bg-card p-4 space-y-4">
+      <div className="flex items-center gap-2">
+        <Bell className="h-4 w-4 text-primary" />
+        <h2 className="text-sm font-semibold">Expiry notifications</h2>
+      </div>
+
+      <div className="flex items-center justify-between gap-4">
+        <div className="min-w-0">
+          <Label htmlFor="in-app-alerts" className="text-sm">In-app alerts</Label>
+          <p className="text-[11px] text-muted-foreground">Bell alerts for items nearing expiry.</p>
+        </div>
+        <Switch
+          id="in-app-alerts"
+          checked={prefs.in_app_enabled}
+          onCheckedChange={(v) => updatePrefs({ in_app_enabled: v })}
+        />
+      </div>
+
+      <div className="flex items-center justify-between gap-4">
+        <div className="min-w-0">
+          <Label htmlFor="email-alerts" className="text-sm">Email reminders</Label>
+          <p className="text-[11px] text-muted-foreground">A daily digest of what to use first.</p>
+        </div>
+        <Switch
+          id="email-alerts"
+          checked={prefs.email_enabled}
+          onCheckedChange={(v) => updatePrefs({ email_enabled: v })}
+        />
+      </div>
+
+      <div className="space-y-2">
+        <div className="flex items-center justify-between">
+          <Label className="text-sm">Warn me</Label>
+          <span className="text-xs font-medium text-primary">
+            {prefs.days_before} day{prefs.days_before !== 1 ? "s" : ""} before
+          </span>
+        </div>
+        <Slider
+          value={[prefs.days_before]}
+          min={1}
+          max={14}
+          step={1}
+          onValueChange={([v]) => updatePrefs({ days_before: v })}
+        />
+      </div>
+    </section>
+  );
+}
+
 
 function StatTile({
   icon: Icon,
