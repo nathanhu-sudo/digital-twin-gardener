@@ -4,6 +4,7 @@ import { useGamification } from "@/hooks/useGamification";
 import { useWeeklyChallenges } from "@/hooks/useWeeklyChallenges";
 import { useCommunityImpact } from "@/hooks/useCommunityImpact";
 import { useProfile } from "@/hooks/useProfile";
+import { useNotifications } from "@/hooks/useNotifications";
 
 type PantryData = {
   pantry: ReturnType<typeof usePantry>;
@@ -11,6 +12,7 @@ type PantryData = {
   challenges: ReturnType<typeof useWeeklyChallenges>;
   community: ReturnType<typeof useCommunityImpact>;
   profile: ReturnType<typeof useProfile>;
+  notifications: ReturnType<typeof useNotifications>;
 };
 
 const Ctx = createContext<PantryData | null>(null);
@@ -21,8 +23,9 @@ export function PantryDataProvider({ children }: { children: ReactNode }) {
   const challenges = useWeeklyChallenges();
   const community = useCommunityImpact();
   const profile = useProfile();
+  const notifications = useNotifications();
   return (
-    <Ctx.Provider value={{ pantry, gamification, challenges, community, profile }}>
+    <Ctx.Provider value={{ pantry, gamification, challenges, community, profile, notifications }}>
       {children}
     </Ctx.Provider>
   );
@@ -33,4 +36,3 @@ export function usePantryData() {
   if (!v) throw new Error("usePantryData must be used inside PantryDataProvider");
   return v;
 }
-
