@@ -1,10 +1,13 @@
 import { useRef, useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { Camera, Pencil, Check, X, Leaf, Trash2, Trophy, Flame, Zap } from "lucide-react";
+import { Camera, Pencil, Check, X, Leaf, Trash2, Trophy, Flame, Zap, Bell } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Progress } from "@/components/ui/progress";
+import { Switch } from "@/components/ui/switch";
+import { Label } from "@/components/ui/label";
+import { Slider } from "@/components/ui/slider";
 
 import { useAuth } from "@/hooks/useAuth";
 import { usePantryData } from "@/context/PantryDataContext";
