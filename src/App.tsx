@@ -13,6 +13,8 @@ import NotFound from "./pages/NotFound";
 import AdminPage from "./pages/AdminPage";
 import AchievementsPage from "./pages/AchievementsPage";
 import Profile from "./pages/Profile";
+import Pricing from "./pages/Pricing";
+
 
 
 const queryClient = new QueryClient();
@@ -40,6 +42,8 @@ const App = () => (
           <Route path="/" element={<Landing />} />
           <Route path="/auth" element={<Auth />} />
           <Route path="/reset-password" element={<ResetPassword />} />
+          <Route path="/pricing" element={<Pricing />} />
+
           <Route
             path="/app"
             element={
