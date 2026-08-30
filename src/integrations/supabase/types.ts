@@ -405,6 +405,36 @@ export type Database = {
         }
         Relationships: []
       }
+      user_subscriptions: {
+        Row: {
+          expires_at: string | null
+          is_lifetime: boolean
+          plan: string
+          started_at: string
+          status: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          expires_at?: string | null
+          is_lifetime?: boolean
+          plan?: string
+          started_at?: string
+          status?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          expires_at?: string | null
+          is_lifetime?: boolean
+          plan?: string
+          started_at?: string
+          status?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
@@ -515,6 +545,24 @@ export type Database = {
           relation: string
           user_id: string
         }[]
+      }
+      set_my_plan: {
+        Args: { _billing?: string; _plan: string }
+        Returns: {
+          expires_at: string | null
+          is_lifetime: boolean
+          plan: string
+          started_at: string
+          status: string
+          updated_at: string
+          user_id: string
+        }
+        SetofOptions: {
+          from: "*"
+          to: "user_subscriptions"
+          isOneToOne: true
+          isSetofReturn: false
+        }
       }
       sync_expiry_notifications: { Args: { _user_id: string }; Returns: number }
     }
