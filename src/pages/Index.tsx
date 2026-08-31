@@ -35,7 +35,7 @@ const TABS: { id: Tab; label: string; icon: typeof Home }[] = [
 
 const Index = () => {
   const [activeTab, setActiveTab] = useState<Tab>("home");
-  const { pantry, gamification, challenges, notifications } = usePantryData();
+  const { pantry, gamification, challenges, notifications, subscription } = usePantryData();
   const { activeItems, impact, loading, getDaysRemaining, addItem, consumeItem, tossItem } = pantry;
   const { user, signOut } = useAuth();
   const { isAdmin } = useAdmin();
@@ -44,7 +44,11 @@ const Index = () => {
   const refreshNotifications = notifications.refresh;
   const navigate = useNavigate();
 
+  const { hasAI, itemLimit, plan } = subscription;
+  const atItemLimit = activeItems.length >= itemLimit;
+
   const expiringCount = activeItems.filter((i) => getDaysRemaining(i) <= 3).length;
+
 
   const switchTab = (tab: Tab) => {
     setActiveTab(tab);
