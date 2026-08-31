@@ -196,9 +196,37 @@ export default function ProfilePage() {
   );
 }
 
+function PlanCard() {
+  const navigate = useNavigate();
+  const { plan, expiresAt } = usePantryData().subscription;
+  const current = PLANS.find((p) => p.id === plan);
+
+  return (
+    <section className="rounded-2xl border bg-card p-4 flex items-center justify-between gap-4">
+      <div className="min-w-0">
+        <div className="flex items-center gap-2">
+          <Crown className="h-4 w-4 text-primary" />
+          <h2 className="text-sm font-semibold">{planName(plan)} plan</h2>
+        </div>
+        <p className="text-[11px] text-muted-foreground mt-0.5 truncate">
+          {current?.tagline}
+          {expiresAt ? ` · renews ${new Date(expiresAt).toLocaleDateString()}` : ""}
+        </p>
+      </div>
+      <Button size="sm" variant={plan === "free" ? "default" : "outline"} onClick={() => navigate("/pricing")}>
+        {plan === "free" ? "Upgrade" : "Manage"}
+      </Button>
+    </section>
+  );
+}
+
 function NotificationSettings() {
-  const { notifications } = usePantryData();
+  const { notifications, subscription } = usePantryData();
   const { prefs, updatePrefs } = notifications;
+  const { hasEmailAlerts } = subscription;
+  const navigate = useNavigate();
+
+
 
   return (
     <section className="rounded-2xl border bg-card p-4 space-y-4">
