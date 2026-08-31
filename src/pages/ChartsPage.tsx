@@ -115,7 +115,9 @@ export default function ChartsPage() {
               </BarChart>
             </ResponsiveContainer>
           </motion.div>
-        </>
+          </div>
+        </UpgradeGate>
+
       )}
     </div>
   );
