@@ -62,7 +62,14 @@ export default function ChartsPage() {
           <p className="text-sm text-center">Add and consume or toss items to see your impact charts</p>
         </motion.div>
       ) : (
-        <>
+        <UpgradeGate
+          allowed={hasAnalytics}
+          requires="lite"
+          title="Analytics are a Lite feature"
+          description="Unlock impact charts, weekly trends and CO₂ breakdowns with Lite or Pro."
+        >
+          <div className="flex flex-col gap-8">
+
           {/* Item status pie */}
           <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.05 }}
             className="rounded-2xl bg-card border p-5">
