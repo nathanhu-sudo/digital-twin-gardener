@@ -1,6 +1,7 @@
 import { useRef, useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { Camera, Pencil, Check, X, Leaf, Trash2, Trophy, Flame, Zap, Bell } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import { Camera, Pencil, Check, X, Leaf, Trash2, Trophy, Flame, Zap, Bell, Crown } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -12,7 +13,9 @@ import { Slider } from "@/components/ui/slider";
 import { useAuth } from "@/hooks/useAuth";
 import { usePantryData } from "@/context/PantryDataContext";
 import { levelTitle, XP_PER_LEVEL } from "@/hooks/useGamification";
+import { PLANS, planName } from "@/lib/plans";
 import { cn } from "@/lib/utils";
+
 
 export default function ProfilePage() {
   const { user } = useAuth();
@@ -189,14 +192,44 @@ export default function ProfilePage() {
         </section>
       )}
 
+      <PlanCard />
       <NotificationSettings />
+
     </div>
   );
 }
 
+function PlanCard() {
+  const navigate = useNavigate();
+  const { plan, expiresAt } = usePantryData().subscription;
+  const current = PLANS.find((p) => p.id === plan);
+
+  return (
+    <section className="rounded-2xl border bg-card p-4 flex items-center justify-between gap-4">
+      <div className="min-w-0">
+        <div className="flex items-center gap-2">
+          <Crown className="h-4 w-4 text-primary" />
+          <h2 className="text-sm font-semibold">{planName(plan)} plan</h2>
+        </div>
+        <p className="text-[11px] text-muted-foreground mt-0.5 truncate">
+          {current?.tagline}
+          {expiresAt ? ` · renews ${new Date(expiresAt).toLocaleDateString()}` : ""}
+        </p>
+      </div>
+      <Button size="sm" variant={plan === "free" ? "default" : "outline"} onClick={() => navigate("/pricing")}>
+        {plan === "free" ? "Upgrade" : "Manage"}
+      </Button>
+    </section>
+  );
+}
+
 function NotificationSettings() {
-  const { notifications } = usePantryData();
+  const { notifications, subscription } = usePantryData();
   const { prefs, updatePrefs } = notifications;
+  const { hasEmailAlerts } = subscription;
+  const navigate = useNavigate();
+
+
 
   return (
     <section className="rounded-2xl border bg-card p-4 space-y-4">
@@ -219,15 +252,24 @@ function NotificationSettings() {
 
       <div className="flex items-center justify-between gap-4">
         <div className="min-w-0">
-          <Label htmlFor="email-alerts" className="text-sm">Email reminders</Label>
+          <Label htmlFor="email-alerts" className="text-sm">
+            Email reminders {!hasEmailAlerts && <span className="text-[10px] text-primary font-semibold">LITE</span>}
+          </Label>
           <p className="text-[11px] text-muted-foreground">A daily digest of what to use first.</p>
         </div>
-        <Switch
-          id="email-alerts"
-          checked={prefs.email_enabled}
-          onCheckedChange={(v) => updatePrefs({ email_enabled: v })}
-        />
+        {hasEmailAlerts ? (
+          <Switch
+            id="email-alerts"
+            checked={prefs.email_enabled}
+            onCheckedChange={(v) => updatePrefs({ email_enabled: v })}
+          />
+        ) : (
+          <Button size="sm" variant="outline" onClick={() => navigate("/pricing")}>
+            Unlock
+          </Button>
+        )}
       </div>
+
 
       <div className="space-y-2">
         <div className="flex items-center justify-between">

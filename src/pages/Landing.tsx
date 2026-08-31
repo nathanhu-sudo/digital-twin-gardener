@@ -91,6 +91,13 @@ export default function Landing() {
             >
               How it works
             </a>
+            <Link
+              to="/pricing"
+              className="hidden sm:inline-block text-sm text-muted-foreground hover:text-foreground transition-colors px-2"
+            >
+              Pricing
+            </Link>
+
             {user ? (
               <Button asChild size="sm">
                 <Link to="/app">Open app</Link>

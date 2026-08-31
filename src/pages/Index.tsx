@@ -23,6 +23,9 @@ import { WeeklyChallengeCard } from "@/components/WeeklyChallengeCard";
 import { useAdmin } from "@/hooks/useAdmin";
 import { usePantryData } from "@/context/PantryDataContext";
 import { NotificationBell } from "@/components/NotificationBell";
+import { UpgradeGate } from "@/components/UpgradeGate";
+import { toast } from "sonner";
+
 
 type Tab = "home" | "charts" | "scanner" | "achievements";
 
@@ -35,7 +38,7 @@ const TABS: { id: Tab; label: string; icon: typeof Home }[] = [
 
 const Index = () => {
   const [activeTab, setActiveTab] = useState<Tab>("home");
-  const { pantry, gamification, challenges, notifications } = usePantryData();
+  const { pantry, gamification, challenges, notifications, subscription } = usePantryData();
   const { activeItems, impact, loading, getDaysRemaining, addItem, consumeItem, tossItem } = pantry;
   const { user, signOut } = useAuth();
   const { isAdmin } = useAdmin();
@@ -44,7 +47,11 @@ const Index = () => {
   const refreshNotifications = notifications.refresh;
   const navigate = useNavigate();
 
+  const { hasAI, itemLimit, plan } = subscription;
+  const atItemLimit = activeItems.length >= itemLimit;
+
   const expiringCount = activeItems.filter((i) => getDaysRemaining(i) <= 3).length;
+
 
   const switchTab = (tab: Tab) => {
     setActiveTab(tab);
@@ -62,7 +69,19 @@ const Index = () => {
   };
   const wrappedConsume = async (id: string) => { await consumeItem(id); bgRefresh(); };
   const wrappedToss = async (id: string, kg?: number) => { await tossItem(id, kg); bgRefresh(); };
-  const wrappedAdd: typeof addItem = async (data) => { const r = await addItem(data); bgRefresh(); return r; };
+  const wrappedAdd: typeof addItem = async (data) => {
+    if (atItemLimit) {
+      toast.error(`Free plan is limited to ${itemLimit} active items`, {
+        description: "Upgrade to Lite for an unlimited pantry.",
+        action: { label: "See plans", onClick: () => navigate("/pricing") },
+      });
+      return undefined as never;
+    }
+    const r = await addItem(data);
+    bgRefresh();
+    return r;
+  };
+
 
   return (
     <div className="min-h-screen bg-background flex flex-col relative">
@@ -151,8 +170,16 @@ const Index = () => {
 
               {/* AI Predictive Insights */}
               <section>
-                <PredictiveInsights />
+                <UpgradeGate
+                  allowed={hasAI}
+                  requires="pro"
+                  title="Predictive insights are Pro"
+                  description="Let AI forecast which items are about to go to waste before they do."
+                >
+                  <PredictiveInsights />
+                </UpgradeGate>
               </section>
+
 
               {/* Weekly challenges preview */}
               <section>
@@ -161,12 +188,23 @@ const Index = () => {
 
               {/* Add Items */}
               <section className="flex flex-col gap-3">
-                <div className="flex items-center gap-2 mb-3">
-                  <Package className="h-4 w-4 text-primary" />
-                  <h2 className="text-lg font-bold text-foreground font-serif">Add to Pantry</h2>
+                <div className="flex items-center justify-between mb-3">
+                  <div className="flex items-center gap-2">
+                    <Package className="h-4 w-4 text-primary" />
+                    <h2 className="text-lg font-bold text-foreground font-serif">Add to Pantry</h2>
+                  </div>
+                  {itemLimit !== Infinity && (
+                    <button
+                      onClick={() => navigate("/pricing")}
+                      className="text-xs font-medium text-muted-foreground hover:text-primary transition-colors"
+                    >
+                      {activeItems.length}/{itemLimit} items · Upgrade
+                    </button>
+                  )}
                 </div>
                 <AddItemForm onAdd={wrappedAdd} />
               </section>
+
 
               {/* Inventory — directly under Add to Pantry */}
               <section>
@@ -198,8 +236,16 @@ const Index = () => {
 
               {/* Recipe Suggestions */}
               <section>
-                <RecipeSuggester items={activeItems} getDaysRemaining={getDaysRemaining} />
+                <UpgradeGate
+                  allowed={hasAI}
+                  requires="pro"
+                  title="AI recipes are Pro"
+                  description="Generate meals from exactly what's in your pantry, prioritising items expiring soon."
+                >
+                  <RecipeSuggester items={activeItems} getDaysRemaining={getDaysRemaining} />
+                </UpgradeGate>
               </section>
+
 
               {/* Kitchen Hacks */}
               <section>
@@ -279,7 +325,19 @@ const Index = () => {
       <div className="h-20" />
 
       {/* Floating AI assistant */}
-      <PantryChatDrawer />
+      {hasAI ? (
+        <PantryChatDrawer />
+      ) : (
+        <button
+          onClick={() => navigate("/pricing")}
+          aria-label="Unlock AI Pantry Assistant"
+          className="fixed bottom-24 right-4 z-40 rounded-full p-4 shadow-lg glow"
+          style={{ background: "var(--gradient-primary)" }}
+        >
+          <Sparkles className="h-5 w-5 text-primary-foreground" />
+        </button>
+      )}
+
 
       
     </div>
