@@ -189,7 +189,9 @@ export default function ProfilePage() {
         </section>
       )}
 
+      <PlanCard />
       <NotificationSettings />
+
     </div>
   );
 }

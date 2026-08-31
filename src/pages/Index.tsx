@@ -325,7 +325,19 @@ const Index = () => {
       <div className="h-20" />
 
       {/* Floating AI assistant */}
-      <PantryChatDrawer />
+      {hasAI ? (
+        <PantryChatDrawer />
+      ) : (
+        <button
+          onClick={() => navigate("/pricing")}
+          aria-label="Unlock AI Pantry Assistant"
+          className="fixed bottom-24 right-4 z-40 rounded-full p-4 shadow-lg glow"
+          style={{ background: "var(--gradient-primary)" }}
+        >
+          <Sparkles className="h-5 w-5 text-primary-foreground" />
+        </button>
+      )}
+
 
       
     </div>
