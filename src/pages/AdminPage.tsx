@@ -5,13 +5,41 @@ import { Navigate, useNavigate } from "react-router-dom";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { ArrowLeft, Users, Package, Leaf, Trash2, RefreshCw, Shield } from "lucide-react";
+import { ArrowLeft, Users, Package, Leaf, Trash2, RefreshCw, Shield, UserX } from "lucide-react";
+import { useState } from "react";
+import { toast } from "sonner";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 
 const AdminPage = () => {
   const { user, signOut } = useAuth();
-  const { isAdmin, adminLoading, users, usersLoading, refetchUsers } = useAdmin();
-  const { data: community, loading: communityLoading } = useCommunityImpact();
+  const { isAdmin, adminLoading, users, usersLoading, refetchUsers, kickUser } = useAdmin();
+  const { data: community, loading: communityLoading, refreshing: communityRefreshing, refresh: refreshCommunity } = useCommunityImpact();
   const navigate = useNavigate();
+  const [target, setTarget] = useState<{ id: string; email: string } | null>(null);
+  const [kicking, setKicking] = useState(false);
+
+  const handleKick = async () => {
+    if (!target) return;
+    setKicking(true);
+    const { error } = await kickUser(target.id);
+    setKicking(false);
+    if (error) {
+      toast.error(error);
+    } else {
+      toast.success(`${target.email} has been removed`);
+      refreshCommunity();
+    }
+    setTarget(null);
+  };
 
   if (adminLoading) {
     return (
@@ -48,7 +76,13 @@ const AdminPage = () => {
       <main className="container max-w-5xl mx-auto px-4 py-8 space-y-8">
         {/* Aggregate Stats */}
         <section>
-          <h2 className="text-lg font-bold text-foreground font-serif mb-4">Community Overview</h2>
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="text-lg font-bold text-foreground font-serif">Community Overview</h2>
+            <Button variant="outline" size="sm" onClick={refreshCommunity} disabled={communityRefreshing || communityLoading} className="gap-1">
+              <RefreshCw className={`h-4 w-4 ${communityRefreshing ? "animate-spin" : ""}`} />
+              Refresh
+            </Button>
+          </div>
           {communityLoading ? (
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               {[1,2,3,4].map(n => <div key={n} className="h-24 rounded-xl bg-card border animate-pulse" />)}
@@ -110,16 +144,17 @@ const AdminPage = () => {
                       <TableHead className="text-right">Wasted (kg)</TableHead>
                       <TableHead className="text-right">CO₂ Saved</TableHead>
                       <TableHead>Last Active</TableHead>
+                      <TableHead className="text-right">Actions</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
                     {usersLoading ? (
                       <TableRow>
-                        <TableCell colSpan={8} className="text-center py-8 text-muted-foreground">Loading…</TableCell>
+                        <TableCell colSpan={9} className="text-center py-8 text-muted-foreground">Loading…</TableCell>
                       </TableRow>
                     ) : users.length === 0 ? (
                       <TableRow>
-                        <TableCell colSpan={8} className="text-center py-8 text-muted-foreground">No users yet</TableCell>
+                        <TableCell colSpan={9} className="text-center py-8 text-muted-foreground">No users yet</TableCell>
                       </TableRow>
                     ) : (
                       users.map((u) => (
@@ -134,6 +169,18 @@ const AdminPage = () => {
                           <TableCell className="text-xs text-muted-foreground">
                             {u.last_activity ? new Date(u.last_activity).toLocaleDateString() : "—"}
                           </TableCell>
+                          <TableCell className="text-right">
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              className="text-destructive hover:text-destructive gap-1"
+                              disabled={u.user_id === user?.id}
+                              onClick={() => setTarget({ id: u.user_id, email: u.email })}
+                            >
+                              <UserX className="h-4 w-4" />
+                              Kick
+                            </Button>
+                          </TableCell>
                         </TableRow>
                       ))
                     )}
@@ -144,6 +191,27 @@ const AdminPage = () => {
           </Card>
         </section>
       </main>
+
+      <AlertDialog open={!!target} onOpenChange={(o) => !o && setTarget(null)}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Remove this user?</AlertDialogTitle>
+            <AlertDialogDescription>
+              {target?.email} will be permanently removed along with their pantry data. This cannot be undone.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel disabled={kicking}>Cancel</AlertDialogCancel>
+            <AlertDialogAction
+              onClick={(e) => { e.preventDefault(); handleKick(); }}
+              disabled={kicking}
+              className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+            >
+              {kicking ? "Removing…" : "Kick user"}
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
 };

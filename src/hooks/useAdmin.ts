@@ -61,5 +61,17 @@ export function useAdmin() {
     if (isAdmin) fetchUsers();
   }, [isAdmin]);
 
-  return { isAdmin, adminLoading, users, usersLoading, refetchUsers: fetchUsers };
+  const kickUser = async (userId: string): Promise<{ error?: string }> => {
+    const { data, error } = await supabase.functions.invoke("admin-kick-user", {
+      body: { userId },
+    });
+    if (error) {
+      return { error: (data as any)?.error ?? error.message };
+    }
+    if ((data as any)?.error) return { error: (data as any).error };
+    setUsers((prev) => prev.filter((u) => u.user_id !== userId));
+    return {};
+  };
+
+  return { isAdmin, adminLoading, users, usersLoading, refetchUsers: fetchUsers, kickUser };
 }
