@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Globe, Users, Leaf, TrendingDown } from "lucide-react";
+import { Globe, Leaf, TrendingDown } from "lucide-react";
 import { usePantryData } from "@/context/PantryDataContext";
 
 export function CommunityImpact() {
