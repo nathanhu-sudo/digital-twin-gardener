@@ -473,6 +473,14 @@ export type Database = {
           user_id: string
         }[]
       }
+      get_community_common_items: {
+        Args: never
+        Returns: {
+          count: number
+          name: string
+          total_kg: number
+        }[]
+      }
       get_community_impact: {
         Args: never
         Returns: {
@@ -482,6 +490,25 @@ export type Database = {
           total_saved_kg: number
           total_users: number
           total_wasted_kg: number
+        }[]
+      }
+      get_community_top_contributors: {
+        Args: never
+        Returns: {
+          avatar_url: string
+          display_name: string
+          items_consumed: number
+          kg_saved: number
+          rank: number
+          user_id: string
+        }[]
+      }
+      get_community_weekly_trend: {
+        Args: never
+        Returns: {
+          saved_kg: number
+          wasted_kg: number
+          week_start: string
         }[]
       }
       get_friends: {
