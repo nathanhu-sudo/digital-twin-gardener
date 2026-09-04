@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Globe, Users, Leaf, TrendingDown } from "lucide-react";
+import { Globe, Leaf, TrendingDown } from "lucide-react";
 import { usePantryData } from "@/context/PantryDataContext";
 
 export function CommunityImpact() {
@@ -35,15 +35,7 @@ export function CommunityImpact() {
       </div>
 
       {/* Responsive Grid System */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-        <div className="flex flex-col gap-1">
-          <div className="flex items-center gap-1.5 text-muted-foreground">
-            <Users className="h-3.5 w-3.5" />
-            <span className="text-xs font-medium">Users</span>
-          </div>
-          <p className="text-2xl font-serif font-bold text-foreground">{data.totalUsers.toLocaleString()}</p>
-        </div>
-
+      <div className="grid grid-cols-3 gap-4">
         <div className="flex flex-col gap-1">
           <div className="flex items-center gap-1.5 text-success">
             <Leaf className="h-3.5 w-3.5" />
