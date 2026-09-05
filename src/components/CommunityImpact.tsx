@@ -19,6 +19,7 @@ import {
   Users,
 } from "lucide-react";
 import { usePantryData } from "@/context/PantryDataContext";
+import { UpgradeGate } from "@/components/UpgradeGate";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { format } from "date-fns";
@@ -29,7 +30,9 @@ const TREND_COLORS = {
 };
 
 export function CommunityImpact() {
-  const { data, loading } = usePantryData().community;
+  const { community, subscription } = usePantryData();
+  const { data, loading } = community;
+  const canSeeMore = subscription.hasAnalytics;
   const [activeTab, setActiveTab] = useState("overview");
 
   if (loading) {
@@ -137,6 +140,7 @@ export function CommunityImpact() {
         </TabsContent>
 
         <TabsContent value="trends" className="space-y-3">
+          <UpgradeGate allowed={canSeeMore} requires="lite" title="Community Trends" description="Unlock 4-week community trend charts with Lite.">
           <p className="text-xs text-muted-foreground">Community food saved vs wasted over the last 4 weeks.</p>
           <div className="h-52 -ml-2">
             <ResponsiveContainer width="100%" height="100%">
@@ -156,9 +160,11 @@ export function CommunityImpact() {
               </BarChart>
             </ResponsiveContainer>
           </div>
+          </UpgradeGate>
         </TabsContent>
 
         <TabsContent value="contributors" className="space-y-3">
+          <UpgradeGate allowed={canSeeMore} requires="lite" title="Top Contributors" description="See the community leaderboard with Lite.">
           <p className="text-xs text-muted-foreground">Top community members by kg saved.</p>
           <div className="space-y-2">
             {data.topContributors.length === 0 && (
@@ -190,9 +196,11 @@ export function CommunityImpact() {
               </div>
             ))}
           </div>
+          </UpgradeGate>
         </TabsContent>
 
         <TabsContent value="items" className="space-y-3">
+          <UpgradeGate allowed={canSeeMore} requires="lite" title="Popular Items" description="See what the community tracks most with Lite.">
           <p className="text-xs text-muted-foreground">Most commonly tracked pantry items.</p>
           <div className="space-y-2">
             {data.commonItems.length === 0 && (
@@ -216,6 +224,7 @@ export function CommunityImpact() {
               </div>
             ))}
           </div>
+          </UpgradeGate>
         </TabsContent>
       </Tabs>
     </motion.div>
