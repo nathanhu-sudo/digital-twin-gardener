@@ -140,6 +140,7 @@ export function CommunityImpact() {
         </TabsContent>
 
         <TabsContent value="trends" className="space-y-3">
+          <UpgradeGate allowed={canSeeMore} requires="lite" title="Community Trends" description="Unlock 4-week community trend charts with Lite.">
           <p className="text-xs text-muted-foreground">Community food saved vs wasted over the last 4 weeks.</p>
           <div className="h-52 -ml-2">
             <ResponsiveContainer width="100%" height="100%">
@@ -160,8 +161,10 @@ export function CommunityImpact() {
             </ResponsiveContainer>
           </div>
         </TabsContent>
+          </UpgradeGate>
 
         <TabsContent value="contributors" className="space-y-3">
+          <UpgradeGate allowed={canSeeMore} requires="lite" title="Top Contributors" description="See the community leaderboard with Lite.">
           <p className="text-xs text-muted-foreground">Top community members by kg saved.</p>
           <div className="space-y-2">
             {data.topContributors.length === 0 && (
@@ -194,8 +197,10 @@ export function CommunityImpact() {
             ))}
           </div>
         </TabsContent>
+          </UpgradeGate>
 
         <TabsContent value="items" className="space-y-3">
+          <UpgradeGate allowed={canSeeMore} requires="lite" title="Popular Items" description="See what the community tracks most with Lite.">
           <p className="text-xs text-muted-foreground">Most commonly tracked pantry items.</p>
           <div className="space-y-2">
             {data.commonItems.length === 0 && (
@@ -220,6 +225,7 @@ export function CommunityImpact() {
             ))}
           </div>
         </TabsContent>
+          </UpgradeGate>
       </Tabs>
     </motion.div>
   );
