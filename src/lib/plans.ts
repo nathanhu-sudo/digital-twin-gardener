@@ -51,6 +51,7 @@ export const PLANS: Plan[] = [
       { label: "Analytics charts & history", included: true },
       { label: "Email expiry reminders", included: true },
       { label: "Weekly challenges & badges", included: true },
+      { label: "Community trends, top contributors & common items", included: true },
       { label: "AI assistant, recipes & insights", included: false },
       { label: "Friends & leaderboards", included: false },
     ],
