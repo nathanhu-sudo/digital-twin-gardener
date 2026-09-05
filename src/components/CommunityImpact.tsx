@@ -30,7 +30,9 @@ const TREND_COLORS = {
 };
 
 export function CommunityImpact() {
-  const { data, loading } = usePantryData().community;
+  const { community, subscription } = usePantryData();
+  const { data, loading } = community;
+  const canSeeMore = subscription.hasAnalytics;
   const [activeTab, setActiveTab] = useState("overview");
 
   if (loading) {
