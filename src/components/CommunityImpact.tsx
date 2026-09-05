@@ -160,8 +160,8 @@ export function CommunityImpact() {
               </BarChart>
             </ResponsiveContainer>
           </div>
-        </TabsContent>
           </UpgradeGate>
+        </TabsContent>
 
         <TabsContent value="contributors" className="space-y-3">
           <UpgradeGate allowed={canSeeMore} requires="lite" title="Top Contributors" description="See the community leaderboard with Lite.">
@@ -196,8 +196,8 @@ export function CommunityImpact() {
               </div>
             ))}
           </div>
-        </TabsContent>
           </UpgradeGate>
+        </TabsContent>
 
         <TabsContent value="items" className="space-y-3">
           <UpgradeGate allowed={canSeeMore} requires="lite" title="Popular Items" description="See what the community tracks most with Lite.">
@@ -224,8 +224,8 @@ export function CommunityImpact() {
               </div>
             ))}
           </div>
-        </TabsContent>
           </UpgradeGate>
+        </TabsContent>
       </Tabs>
     </motion.div>
   );
