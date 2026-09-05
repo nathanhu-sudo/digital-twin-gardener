@@ -136,7 +136,7 @@ export default function Landing() {
               Your kitchen's digital twin
             </span>
             <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold font-serif tracking-tight leading-[1.05]">
-              Eat more. <span className="text-gradient">Waste less.</span>
+              Eat more. <span className="text-gradient whitespace-nowrap">Waste less.</span>
               <br /> Powered by AI.
             </h1>
             <p className="text-base sm:text-lg text-muted-foreground max-w-lg">
