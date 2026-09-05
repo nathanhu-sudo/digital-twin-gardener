@@ -19,6 +19,7 @@ import {
   Users,
 } from "lucide-react";
 import { usePantryData } from "@/context/PantryDataContext";
+import { UpgradeGate } from "@/components/UpgradeGate";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { format } from "date-fns";
