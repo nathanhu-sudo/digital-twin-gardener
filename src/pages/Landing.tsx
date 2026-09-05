@@ -5,6 +5,7 @@ import {
   ScanLine,
   Sparkles,
   TrendingUp,
+  TrendingDown,
   Trophy,
   ChefHat,
   Bot,
@@ -13,6 +14,10 @@ import {
   ShieldCheck,
   Apple,
   Plus,
+  CupSoda,
+  Circle,
+  Home,
+  User,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/hooks/useAuth";
