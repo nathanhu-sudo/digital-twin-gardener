@@ -5,6 +5,12 @@ import { useAuth } from "./useAuth";
 export interface AdminUser {
   user_id: string;
   email: string;
+  display_name: string | null;
+  plan: string;
+  plan_status: string;
+  is_lifetime: boolean;
+  joined_at: string | null;
+  last_sign_in_at: string | null;
   total_items: number;
   active_items: number;
   consumed_items: number;
