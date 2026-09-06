@@ -53,6 +53,65 @@ const AdminPage = () => {
 
   const co2Factor = 2.5;
 
+  // ---- Derived analytics from the user roster ----
+  const now = Date.now();
+  const day = 86400000;
+  const daysSince = (d: string | null) => (d ? (now - new Date(d).getTime()) / day : Infinity);
+
+  const totalUsers = users.length;
+  const active7 = users.filter((u) => daysSince(u.last_activity) <= 7).length;
+  const active30 = users.filter((u) => daysSince(u.last_activity) <= 30).length;
+  const dormant = users.filter((u) => daysSince(u.last_activity) > 30).length;
+  const emptyUsers = users.filter((u) => u.total_items === 0).length;
+  const engagedUsers = totalUsers - emptyUsers;
+
+  const sumItems = users.reduce((s, u) => s + u.total_items, 0);
+  const sumActive = users.reduce((s, u) => s + u.active_items, 0);
+  const sumConsumed = users.reduce((s, u) => s + u.consumed_items, 0);
+  const sumTossed = users.reduce((s, u) => s + u.tossed_items, 0);
+  const sumSaved = users.reduce((s, u) => s + u.total_saved_kg, 0);
+  const sumWasted = users.reduce((s, u) => s + u.total_wasted_kg, 0);
+  const totalKg = sumSaved + sumWasted;
+  const saveRate = totalKg > 0 ? (sumSaved / totalKg) * 100 : 0;
+
+  const avgItems = totalUsers ? sumItems / totalUsers : 0;
+  const avgSaved = totalUsers ? sumSaved / totalUsers : 0;
+  const avgWasted = totalUsers ? sumWasted / totalUsers : 0;
+
+  const rates = users
+    .filter((u) => u.total_saved_kg + u.total_wasted_kg > 0)
+    .map((u) => (u.total_saved_kg / (u.total_saved_kg + u.total_wasted_kg)) * 100)
+    .sort((a, b) => a - b);
+  const medianRate = rates.length
+    ? rates.length % 2
+      ? rates[(rates.length - 1) / 2]
+      : (rates[rates.length / 2 - 1] + rates[rates.length / 2]) / 2
+    : 0;
+
+  const topSaver = [...users].sort((a, b) => b.total_saved_kg - a.total_saved_kg)[0];
+  const topWaster = [...users].sort((a, b) => b.total_wasted_kg - a.total_wasted_kg)[0];
+
+  const co2Saved = sumSaved * co2Factor;
+  const co2Wasted = sumWasted * co2Factor;
+  // rough equivalences
+  const meals = sumSaved / 0.4; // ~400g per meal
+  const carKm = co2Saved / 0.17; // ~170g CO2 per km
+  const showers = co2Saved / 0.5;
+
+  const statusSplit = [
+    { label: "Active", value: sumActive, color: "bg-primary" },
+    { label: "Consumed", value: sumConsumed, color: "bg-success" },
+    { label: "Tossed", value: sumTossed, color: "bg-destructive" },
+  ];
+
+  const trendData =
+    community?.weeklyTrend.map((w) => ({
+      name: new Date(w.weekStart).toLocaleDateString(undefined, { month: "short", day: "numeric" }),
+      Saved: Number(w.savedKg.toFixed(2)),
+      Wasted: Number(w.wastedKg.toFixed(2)),
+    })) ?? [];
+
+
   return (
     <div className="min-h-screen bg-background">
       <header className="border-b bg-card">
