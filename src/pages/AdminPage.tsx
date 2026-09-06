@@ -5,7 +5,8 @@ import { Navigate, useNavigate } from "react-router-dom";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { ArrowLeft, Users, Package, Leaf, Trash2, RefreshCw, Shield, UserX } from "lucide-react";
+import { ArrowLeft, Users, Package, Leaf, Trash2, RefreshCw, Shield, UserX, Activity, Percent, Cloud, Flame, TrendingUp, Trophy } from "lucide-react";
+import { BarChart, Bar, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer } from "recharts";
 import { useState } from "react";
 import { toast } from "sonner";
 import {
@@ -18,6 +19,28 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
+
+function Stat({ icon, value, label, sub }: { icon: React.ReactNode; value: React.ReactNode; label: string; sub?: string }) {
+  return (
+    <Card>
+      <CardContent className="pt-4 flex flex-col items-center text-center">
+        <div className="mb-1">{icon}</div>
+        <p className="text-2xl font-bold text-foreground">{value}</p>
+        <p className="text-xs text-muted-foreground">{label}</p>
+        {sub && <p className="text-[11px] text-muted-foreground/70 mt-0.5">{sub}</p>}
+      </CardContent>
+    </Card>
+  );
+}
+
+function Row({ label, value }: { label: string; value: React.ReactNode }) {
+  return (
+    <div className="flex items-center justify-between gap-3">
+      <span className="text-muted-foreground text-xs">{label}</span>
+      <span className="font-medium text-foreground text-xs text-right truncate max-w-[60%]">{value}</span>
+    </div>
+  );
+}
 
 const AdminPage = () => {
   const { user, signOut } = useAuth();
