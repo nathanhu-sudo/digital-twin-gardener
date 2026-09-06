@@ -464,8 +464,14 @@ export type Database = {
         Returns: {
           active_items: number
           consumed_items: number
+          display_name: string
           email: string
+          is_lifetime: boolean
+          joined_at: string
           last_activity: string
+          last_sign_in_at: string
+          plan: string
+          plan_status: string
           tossed_items: number
           total_items: number
           total_saved_kg: number
