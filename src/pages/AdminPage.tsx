@@ -134,51 +134,162 @@ const AdminPage = () => {
 
       <main className="container max-w-5xl mx-auto px-4 py-8 space-y-8">
         {/* Aggregate Stats */}
-        <section>
-          <div className="flex items-center justify-between mb-4">
+        <section className="space-y-6">
+          <div className="flex items-center justify-between">
             <h2 className="text-lg font-bold text-foreground font-serif">Community Overview</h2>
             <Button variant="outline" size="sm" onClick={refreshCommunity} disabled={communityRefreshing || communityLoading} className="gap-1">
               <RefreshCw className={`h-4 w-4 ${communityRefreshing ? "animate-spin" : ""}`} />
               Refresh
             </Button>
           </div>
+
           {communityLoading ? (
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              {[1,2,3,4].map(n => <div key={n} className="h-24 rounded-xl bg-card border animate-pulse" />)}
+              {[1,2,3,4,5,6,7,8].map(n => <div key={n} className="h-24 rounded-xl bg-card border animate-pulse" />)}
             </div>
-          ) : community && (
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              <Card>
-                <CardContent className="pt-4 flex flex-col items-center text-center">
-                  <Users className="h-6 w-6 text-primary mb-1" />
-                  <p className="text-2xl font-bold text-foreground">{community.totalUsers}</p>
-                  <p className="text-xs text-muted-foreground">Total Users</p>
-                </CardContent>
-              </Card>
-              <Card>
-                <CardContent className="pt-4 flex flex-col items-center text-center">
-                  <Package className="h-6 w-6 text-primary mb-1" />
-                  <p className="text-2xl font-bold text-foreground">{community.totalItems}</p>
-                  <p className="text-xs text-muted-foreground">Total Items</p>
-                </CardContent>
-              </Card>
-              <Card>
-                <CardContent className="pt-4 flex flex-col items-center text-center">
-                  <Leaf className="h-6 w-6 text-success mb-1" />
-                  <p className="text-2xl font-bold text-foreground">{community.totalSavedKg.toFixed(1)} kg</p>
-                  <p className="text-xs text-muted-foreground">Food Saved</p>
-                </CardContent>
-              </Card>
-              <Card>
-                <CardContent className="pt-4 flex flex-col items-center text-center">
-                  <Trash2 className="h-6 w-6 text-destructive mb-1" />
-                  <p className="text-2xl font-bold text-foreground">{community.totalWastedKg.toFixed(1)} kg</p>
-                  <p className="text-xs text-muted-foreground">Food Wasted</p>
-                </CardContent>
-              </Card>
-            </div>
+          ) : (
+            <>
+              {/* Headline KPIs */}
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <Stat icon={<Users className="h-5 w-5 text-primary" />} value={totalUsers} label="Total Users" />
+                <Stat icon={<Activity className="h-5 w-5 text-primary" />} value={active7} label="Active (7 days)" sub={`${totalUsers ? Math.round((active7 / totalUsers) * 100) : 0}% of users`} />
+                <Stat icon={<Package className="h-5 w-5 text-primary" />} value={sumItems} label="Items Tracked" sub={`${sumActive} still in pantry`} />
+                <Stat icon={<Percent className="h-5 w-5 text-success" />} value={`${saveRate.toFixed(1)}%`} label="Save Rate" sub={`median ${medianRate.toFixed(0)}%`} />
+                <Stat icon={<Leaf className="h-5 w-5 text-success" />} value={`${sumSaved.toFixed(1)} kg`} label="Food Saved" sub={`${sumConsumed} items consumed`} />
+                <Stat icon={<Trash2 className="h-5 w-5 text-destructive" />} value={`${sumWasted.toFixed(1)} kg`} label="Food Wasted" sub={`${sumTossed} items tossed`} />
+                <Stat icon={<Cloud className="h-5 w-5 text-success" />} value={`${co2Saved.toFixed(1)} kg`} label="CO₂ Avoided" />
+                <Stat icon={<Flame className="h-5 w-5 text-destructive" />} value={`${co2Wasted.toFixed(1)} kg`} label="CO₂ Wasted" />
+              </div>
+
+              <div className="grid gap-4 md:grid-cols-2">
+                {/* Engagement */}
+                <Card>
+                  <CardHeader className="pb-2">
+                    <CardTitle className="text-sm flex items-center gap-2"><Activity className="h-4 w-4 text-primary" /> Engagement</CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-2 text-sm">
+                    <Row label="Active last 7 days" value={active7} />
+                    <Row label="Active last 30 days" value={active30} />
+                    <Row label="Dormant (30+ days)" value={dormant} />
+                    <Row label="Users with items" value={`${engagedUsers} / ${totalUsers}`} />
+                    <Row label="Never added an item" value={emptyUsers} />
+                    <Row label="Avg items per user" value={avgItems.toFixed(1)} />
+                    <Row label="Avg kg saved per user" value={`${avgSaved.toFixed(2)} kg`} />
+                    <Row label="Avg kg wasted per user" value={`${avgWasted.toFixed(2)} kg`} />
+                  </CardContent>
+                </Card>
+
+                {/* Item status split */}
+                <Card>
+                  <CardHeader className="pb-2">
+                    <CardTitle className="text-sm flex items-center gap-2"><Package className="h-4 w-4 text-primary" /> Item Breakdown</CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-3">
+                    {statusSplit.map((s) => {
+                      const pct = sumItems > 0 ? (s.value / sumItems) * 100 : 0;
+                      return (
+                        <div key={s.label} className="space-y-1">
+                          <div className="flex justify-between text-xs">
+                            <span className="text-muted-foreground">{s.label}</span>
+                            <span className="font-medium text-foreground">{s.value} ({pct.toFixed(0)}%)</span>
+                          </div>
+                          <div className="h-2 rounded-full bg-muted overflow-hidden">
+                            <div className={`h-full ${s.color}`} style={{ width: `${pct}%` }} />
+                          </div>
+                        </div>
+                      );
+                    })}
+                    <div className="pt-2 border-t space-y-2 text-sm">
+                      <Row label="Avg weight per item" value={`${sumItems > 0 ? (totalKg / sumItems).toFixed(2) : "0.00"} kg`} />
+                      <Row label="Total weight logged" value={`${totalKg.toFixed(1)} kg`} />
+                    </div>
+                  </CardContent>
+                </Card>
+
+                {/* Weekly trend */}
+                <Card className="md:col-span-2">
+                  <CardHeader className="pb-2">
+                    <CardTitle className="text-sm flex items-center gap-2"><TrendingUp className="h-4 w-4 text-primary" /> Weekly Trend (saved vs wasted)</CardTitle>
+                  </CardHeader>
+                  <CardContent className="h-56">
+                    {trendData.length ? (
+                      <ResponsiveContainer width="100%" height="100%">
+                        <BarChart data={trendData}>
+                          <XAxis dataKey="name" tick={{ fontSize: 11 }} />
+                          <YAxis tick={{ fontSize: 11 }} />
+                          <Tooltip />
+                          <Legend wrapperStyle={{ fontSize: 12 }} />
+                          <Bar dataKey="Saved" fill="hsl(152,45%,32%)" radius={[4, 4, 0, 0]} />
+                          <Bar dataKey="Wasted" fill="hsl(4,60%,52%)" radius={[4, 4, 0, 0]} />
+                        </BarChart>
+                      </ResponsiveContainer>
+                    ) : (
+                      <p className="text-sm text-muted-foreground">No trend data yet</p>
+                    )}
+                  </CardContent>
+                </Card>
+
+                {/* Top contributors */}
+                <Card>
+                  <CardHeader className="pb-2">
+                    <CardTitle className="text-sm flex items-center gap-2"><Trophy className="h-4 w-4 text-primary" /> Top Contributors</CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-2 text-sm">
+                    {community?.topContributors.length ? (
+                      community.topContributors.slice(0, 5).map((c) => (
+                        <Row key={c.userId} label={`#${c.rank} ${c.displayName ?? "Member"}`} value={`${c.kgSaved.toFixed(1)} kg`} />
+                      ))
+                    ) : (
+                      <p className="text-muted-foreground text-sm">No contributors yet</p>
+                    )}
+                    <div className="pt-2 border-t space-y-2">
+                      <Row label="Best saver" value={topSaver ? `${topSaver.email} · ${topSaver.total_saved_kg.toFixed(1)} kg` : "—"} />
+                      <Row label="Most waste" value={topWaster ? `${topWaster.email} · ${topWaster.total_wasted_kg.toFixed(1)} kg` : "—"} />
+                    </div>
+                  </CardContent>
+                </Card>
+
+                {/* Common items */}
+                <Card>
+                  <CardHeader className="pb-2">
+                    <CardTitle className="text-sm flex items-center gap-2"><Package className="h-4 w-4 text-primary" /> Most Common Items</CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-2 text-sm">
+                    {community?.commonItems.length ? (
+                      community.commonItems.slice(0, 6).map((i) => (
+                        <Row key={i.name} label={i.name} value={`${i.count}× · ${i.totalKg.toFixed(1)} kg`} />
+                      ))
+                    ) : (
+                      <p className="text-muted-foreground text-sm">No items yet</p>
+                    )}
+                  </CardContent>
+                </Card>
+
+                {/* Equivalences */}
+                <Card className="md:col-span-2">
+                  <CardHeader className="pb-2">
+                    <CardTitle className="text-sm flex items-center gap-2"><Leaf className="h-4 w-4 text-success" /> Real-world Equivalent</CardTitle>
+                  </CardHeader>
+                  <CardContent className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-center">
+                    <div>
+                      <p className="text-xl font-bold text-foreground">{Math.round(meals).toLocaleString()}</p>
+                      <p className="text-xs text-muted-foreground">meals rescued</p>
+                    </div>
+                    <div>
+                      <p className="text-xl font-bold text-foreground">{Math.round(carKm).toLocaleString()} km</p>
+                      <p className="text-xs text-muted-foreground">of car travel avoided</p>
+                    </div>
+                    <div>
+                      <p className="text-xl font-bold text-foreground">{Math.round(showers).toLocaleString()}</p>
+                      <p className="text-xs text-muted-foreground">hot showers of emissions</p>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+            </>
           )}
         </section>
+
 
         {/* Users Table */}
         <section>
