@@ -9,6 +9,8 @@ import { ArrowLeft, Users, Package, Leaf, Trash2, RefreshCw, Shield, UserX, Acti
 import { BarChart, Bar, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer } from "recharts";
 import { useState } from "react";
 import { toast } from "sonner";
+import { UserDetailDialog } from "@/components/admin/UserDetailDialog";
+import { Badge } from "@/components/ui/badge";
 import {
   AlertDialog,
   AlertDialogAction,
