@@ -44,11 +44,13 @@ function Row({ label, value }: { label: string; value: React.ReactNode }) {
 
 const AdminPage = () => {
   const { user, signOut } = useAuth();
-  const { isAdmin, adminLoading, users, usersLoading, refetchUsers, kickUser } = useAdmin();
+  const { isAdmin, adminLoading, users, usersLoading, refetchUsers, kickUser, setUserPlan, addTag, removeTag } = useAdmin();
   const { data: community, loading: communityLoading, refreshing: communityRefreshing, refresh: refreshCommunity } = useCommunityImpact();
   const navigate = useNavigate();
   const [target, setTarget] = useState<{ id: string; email: string } | null>(null);
   const [kicking, setKicking] = useState(false);
+  const [selectedId, setSelectedId] = useState<string | null>(null);
+  const selected = users.find((u) => u.user_id === selectedId) ?? null;
 
   const handleKick = async () => {
     if (!target) return;
