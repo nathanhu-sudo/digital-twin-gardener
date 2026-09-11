@@ -171,6 +171,11 @@ const AdminPage = () => {
       Wasted: Number(w.wastedKg.toFixed(2)),
     })) ?? [];
 
+  const impactPie = [
+    { name: "Saved", value: Number(sumSaved.toFixed(2)), color: "hsl(152,45%,32%)" },
+    { name: "Wasted", value: Number(sumWasted.toFixed(2)), color: "hsl(4,60%,52%)" },
+  ];
+
 
   return (
     <div className="min-h-screen bg-background">
