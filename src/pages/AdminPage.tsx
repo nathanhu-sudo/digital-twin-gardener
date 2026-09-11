@@ -470,6 +470,19 @@ const AdminPage = () => {
         </section>
       </main>
 
+      <UserDetailDialog
+        user={selected}
+        isSelf={selected?.user_id === user?.id}
+        onOpenChange={(o) => !o && setSelectedId(null)}
+        onSetPlan={setUserPlan}
+        onAddTag={addTag}
+        onRemoveTag={removeTag}
+        onKick={(u) => {
+          setSelectedId(null);
+          setTarget({ id: u.user_id, email: u.email });
+        }}
+      />
+
       <AlertDialog open={!!target} onOpenChange={(o) => !o && setTarget(null)}>
         <AlertDialogContent>
           <AlertDialogHeader>
