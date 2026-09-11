@@ -409,8 +409,22 @@ const AdminPage = () => {
                       users.map((u) => (
                         <TableRow key={u.user_id}>
                           <TableCell>
-                            <div className="font-medium text-sm">{u.display_name ?? "—"}</div>
-                            <div className="text-xs text-muted-foreground">{u.email}</div>
+                            <button
+                              className="text-left hover:underline"
+                              onClick={() => setSelectedId(u.user_id)}
+                            >
+                              <div className="font-medium text-sm">{u.display_name ?? "—"}</div>
+                              <div className="text-xs text-muted-foreground">{u.email}</div>
+                            </button>
+                            {u.tags.length > 0 && (
+                              <div className="flex flex-wrap gap-1 mt-1">
+                                {u.tags.map((t) => (
+                                  <Badge key={t} variant="outline" className="text-[10px] py-0 px-1.5">
+                                    {t}
+                                  </Badge>
+                                ))}
+                              </div>
+                            )}
                           </TableCell>
                           <TableCell>{planBadge(u)}</TableCell>
                           <TableCell className="text-xs text-muted-foreground">
