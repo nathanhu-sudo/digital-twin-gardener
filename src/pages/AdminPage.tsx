@@ -5,8 +5,8 @@ import { Navigate, useNavigate } from "react-router-dom";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { ArrowLeft, Users, Package, Leaf, Trash2, RefreshCw, Shield, UserX, Activity, Percent, Cloud, Flame, TrendingUp, Trophy } from "lucide-react";
-import { BarChart, Bar, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer } from "recharts";
+import { ArrowLeft, Users, Package, Leaf, Trash2, RefreshCw, Shield, UserX, Activity, Percent, Cloud, Flame, TrendingUp, Trophy, PieChart as PieIcon } from "lucide-react";
+import { BarChart, Bar, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer, PieChart, Pie, Cell } from "recharts";
 import { useState } from "react";
 import { toast } from "sonner";
 import { UserDetailDialog } from "@/components/admin/UserDetailDialog";
@@ -171,6 +171,11 @@ const AdminPage = () => {
       Wasted: Number(w.wastedKg.toFixed(2)),
     })) ?? [];
 
+  const impactPie = [
+    { name: "Saved", value: Number(sumSaved.toFixed(2)), color: "hsl(152,45%,32%)" },
+    { name: "Wasted", value: Number(sumWasted.toFixed(2)), color: "hsl(4,60%,52%)" },
+  ];
+
 
   return (
     <div className="min-h-screen bg-background">
@@ -279,6 +284,40 @@ const AdminPage = () => {
                       <Row label="Avg weight per item" value={`${sumItems > 0 ? (totalKg / sumItems).toFixed(2) : "0.00"} kg`} />
                       <Row label="Total weight logged" value={`${totalKg.toFixed(1)} kg`} />
                     </div>
+                  </CardContent>
+                </Card>
+
+                {/* Saved vs Wasted impact */}
+                <Card>
+                  <CardHeader className="pb-2">
+                    <CardTitle className="text-sm flex items-center gap-2"><PieIcon className="h-4 w-4 text-primary" /> Saved vs Wasted</CardTitle>
+                  </CardHeader>
+                  <CardContent className="h-56">
+                    {totalKg > 0 ? (
+                      <ResponsiveContainer width="100%" height="100%">
+                        <PieChart>
+                          <Pie
+                            data={impactPie}
+                            cx="50%"
+                            cy="50%"
+                            innerRadius={45}
+                            outerRadius={70}
+                            paddingAngle={3}
+                            dataKey="value"
+                            label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
+                            labelLine={false}
+                          >
+                            {impactPie.map((entry, index) => (
+                              <Cell key={`cell-${index}`} fill={entry.color} />
+                            ))}
+                          </Pie>
+                          <Tooltip formatter={(value: number) => `${value.toFixed(1)} kg`} />
+                          <Legend wrapperStyle={{ fontSize: 12 }} />
+                        </PieChart>
+                      </ResponsiveContainer>
+                    ) : (
+                      <p className="text-sm text-muted-foreground">No impact data yet</p>
+                    )}
                   </CardContent>
                 </Card>
 
