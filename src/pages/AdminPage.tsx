@@ -287,6 +287,40 @@ const AdminPage = () => {
                   </CardContent>
                 </Card>
 
+                {/* Saved vs Wasted impact */}
+                <Card>
+                  <CardHeader className="pb-2">
+                    <CardTitle className="text-sm flex items-center gap-2"><PieIcon className="h-4 w-4 text-primary" /> Saved vs Wasted</CardTitle>
+                  </CardHeader>
+                  <CardContent className="h-56">
+                    {totalKg > 0 ? (
+                      <ResponsiveContainer width="100%" height="100%">
+                        <PieChart>
+                          <Pie
+                            data={impactPie}
+                            cx="50%"
+                            cy="50%"
+                            innerRadius={45}
+                            outerRadius={70}
+                            paddingAngle={3}
+                            dataKey="value"
+                            label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
+                            labelLine={false}
+                          >
+                            {impactPie.map((entry, index) => (
+                              <Cell key={`cell-${index}`} fill={entry.color} />
+                            ))}
+                          </Pie>
+                          <Tooltip formatter={(value: number) => `${value.toFixed(1)} kg`} />
+                          <Legend wrapperStyle={{ fontSize: 12 }} />
+                        </PieChart>
+                      </ResponsiveContainer>
+                    ) : (
+                      <p className="text-sm text-muted-foreground">No impact data yet</p>
+                    )}
+                  </CardContent>
+                </Card>
+
                 {/* Weekly trend */}
                 <Card className="md:col-span-2">
                   <CardHeader className="pb-2">
