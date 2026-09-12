@@ -1,4 +1,4 @@
-import { Bell, X, AlertTriangle, Clock, CheckCheck } from "lucide-react";
+import { Bell, X, AlertTriangle, Clock, CheckCheck, BellRing, MonitorSmartphone } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import {
@@ -9,10 +9,25 @@ import {
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { cn } from "@/lib/utils";
 import { usePantryData } from "@/context/PantryDataContext";
+import { useDeviceNotifications } from "@/hooks/useDeviceNotifications";
+import { toast } from "sonner";
 
 export function NotificationBell() {
   const { notifications: n } = usePantryData();
   const { notifications, unreadCount, markRead, markAllRead, dismiss, clearAll } = n;
+  const device = useDeviceNotifications(notifications);
+
+  const handleEnable = async () => {
+    const result = await device.enable();
+    if (result === "denied") {
+      toast.error("Alerts are blocked", {
+        description: "Allow notifications for this site in your browser settings, then try again.",
+      });
+    } else if (result === "unsupported") {
+      toast.error("This browser can't show device alerts.");
+    }
+  };
+
 
   return (
     <Popover onOpenChange={(open) => open && unreadCount > 0 && setTimeout(markAllRead, 1200)}>
@@ -48,6 +63,31 @@ export function NotificationBell() {
             </button>
           )}
         </div>
+
+        <div className="flex items-start gap-2 px-4 py-3 border-b bg-muted/40">
+          <MonitorSmartphone className="h-4 w-4 text-primary shrink-0 mt-0.5" />
+          <div className="min-w-0 flex-1">
+            <p className="text-[11px] font-semibold text-foreground">Alerts on this device</p>
+            <p className="text-[11px] text-muted-foreground leading-snug">
+              {device.enabled && device.permission === "granted"
+                ? "On — pop-up alerts on your phone and computer."
+                : "Get pop-up alerts on your phone and computer."}
+            </p>
+          </div>
+          {device.enabled && device.permission === "granted" ? (
+            <button
+              onClick={device.disable}
+              className="text-[11px] text-muted-foreground hover:text-foreground shrink-0 mt-0.5"
+            >
+              Turn off
+            </button>
+          ) : (
+            <Button size="sm" className="h-7 px-2 text-[11px] shrink-0" onClick={handleEnable}>
+              <BellRing className="h-3 w-3 mr-1" /> Turn on
+            </Button>
+          )}
+        </div>
+
 
         {notifications.length === 0 ? (
           <div className="px-4 py-8 text-center">
