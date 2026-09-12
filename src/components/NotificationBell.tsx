@@ -1,4 +1,4 @@
-import { Bell, X, AlertTriangle, Clock, CheckCheck } from "lucide-react";
+import { Bell, X, AlertTriangle, Clock, CheckCheck, BellRing, MonitorSmartphone } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import {
@@ -9,10 +9,25 @@ import {
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { cn } from "@/lib/utils";
 import { usePantryData } from "@/context/PantryDataContext";
+import { useDeviceNotifications } from "@/hooks/useDeviceNotifications";
+import { toast } from "sonner";
 
 export function NotificationBell() {
   const { notifications: n } = usePantryData();
   const { notifications, unreadCount, markRead, markAllRead, dismiss, clearAll } = n;
+  const device = useDeviceNotifications(notifications);
+
+  const handleEnable = async () => {
+    const result = await device.enable();
+    if (result === "denied") {
+      toast.error("Alerts are blocked", {
+        description: "Allow notifications for this site in your browser settings, then try again.",
+      });
+    } else if (result === "unsupported") {
+      toast.error("This browser can't show device alerts.");
+    }
+  };
+
 
   return (
     <Popover onOpenChange={(open) => open && unreadCount > 0 && setTimeout(markAllRead, 1200)}>
