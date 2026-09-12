@@ -64,6 +64,31 @@ export function NotificationBell() {
           )}
         </div>
 
+        <div className="flex items-start gap-2 px-4 py-3 border-b bg-muted/40">
+          <MonitorSmartphone className="h-4 w-4 text-primary shrink-0 mt-0.5" />
+          <div className="min-w-0 flex-1">
+            <p className="text-[11px] font-semibold text-foreground">Alerts on this device</p>
+            <p className="text-[11px] text-muted-foreground leading-snug">
+              {device.enabled && device.permission === "granted"
+                ? "On — pop-up alerts on your phone and computer."
+                : "Get pop-up alerts on your phone and computer."}
+            </p>
+          </div>
+          {device.enabled && device.permission === "granted" ? (
+            <button
+              onClick={device.disable}
+              className="text-[11px] text-muted-foreground hover:text-foreground shrink-0 mt-0.5"
+            >
+              Turn off
+            </button>
+          ) : (
+            <Button size="sm" className="h-7 px-2 text-[11px] shrink-0" onClick={handleEnable}>
+              <BellRing className="h-3 w-3 mr-1" /> Turn on
+            </Button>
+          )}
+        </div>
+
+
         {notifications.length === 0 ? (
           <div className="px-4 py-8 text-center">
             <Bell className="h-6 w-6 mx-auto text-muted-foreground/50 mb-2" />
