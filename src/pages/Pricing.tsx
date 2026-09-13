@@ -16,7 +16,7 @@ export default function Pricing() {
   const { plan, loading, changePlan } = useSubscription();
   const [billing, setBilling] = useState<"monthly" | "yearly">("monthly");
   const [busy, setBusy] = useState<PlanId | null>(null);
-  const currency = useMemo(() => detectCurrency(), []);
+  const currency = useDetectedCurrency();
 
   const select = async (next: PlanId) => {
     if (!user) {
