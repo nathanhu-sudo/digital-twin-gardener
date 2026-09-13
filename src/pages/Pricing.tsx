@@ -8,6 +8,7 @@ import { toast } from "sonner";
 import { PLANS, PlanId, planName } from "@/lib/plans";
 import { useSubscription } from "@/hooks/useSubscription";
 import { useAuth } from "@/hooks/useAuth";
+import { detectCurrency, formatFromUsd, formatMoney } from "@/lib/currency";
 
 export default function Pricing() {
   const navigate = useNavigate();
