@@ -1,8 +1,11 @@
 /**
  * Display-only price localisation.
  * Base prices in src/lib/plans.ts are USD. We detect the visitor's region from
- * their browser locale and show an approximate price in their local currency.
+ * their browser locale first, then refine it with an IP geolocation lookup so
+ * prices match where the person actually is.
  */
+
+import { useEffect, useState } from "react";
 
 type CurrencyInfo = { code: string; rate: number; decimals?: number };
 
