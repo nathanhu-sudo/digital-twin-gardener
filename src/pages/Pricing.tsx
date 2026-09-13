@@ -87,6 +87,12 @@ export default function Pricing() {
               </button>
             ))}
           </div>
+
+          <Badge variant="outline" className="mt-1 gap-1.5 text-[11px] font-medium px-2.5 py-1">
+            <span className="inline-block w-2 h-2 rounded-full bg-primary/80" />
+            Prices in {currency.code}
+            {currency.code !== "USD" && " (converted from USD)"}
+          </Badge>
         </div>
 
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
