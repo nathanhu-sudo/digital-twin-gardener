@@ -74,6 +74,54 @@ export function detectCurrency(): CurrencyInfo {
   return CURRENCIES[code] ?? CURRENCIES.USD;
 }
 
+/** Currency code for a country code, if we know it. */
+export function currencyForCountry(countryCode: string): CurrencyInfo | undefined {
+  const code = COUNTRY_CURRENCY[countryCode.toUpperCase()];
+  return code ? CURRENCIES[code] : undefined;
+}
+
+const GEO_CACHE_KEY = "sp_geo_currency";
+
+/**
+ * Detects the visitor's currency from their actual location.
+ * Starts with the browser-locale guess, then refines it with an IP
+ * geolocation lookup (cached for a day so repeat visits are instant).
+ */
+export function useDetectedCurrency(): CurrencyInfo {
+  const [currency, setCurrency] = useState<CurrencyInfo>(() => {
+    try {
+      const cached = JSON.parse(localStorage.getItem(GEO_CACHE_KEY) || "null");
+      if (cached?.code && Date.now() - cached.at < 24 * 60 * 60 * 1000) {
+        const info = CURRENCIES[cached.code];
+        if (info) return info;
+      }
+    } catch { /* ignore */ }
+    return detectCurrency();
+  });
+
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      try {
+        const res = await fetch("https://ipapi.co/json/", { signal: AbortSignal.timeout(5000) });
+        if (!res.ok) return;
+        const data = await res.json();
+        const info =
+          (data?.country_code && currencyForCountry(data.country_code)) ||
+          (data?.currency && CURRENCIES[String(data.currency).toUpperCase()]);
+        if (!info || cancelled) return;
+        setCurrency(info);
+        try {
+          localStorage.setItem(GEO_CACHE_KEY, JSON.stringify({ code: info.code, at: Date.now() }));
+        } catch { /* ignore */ }
+      } catch { /* keep locale-based guess */ }
+    })();
+    return () => { cancelled = true; };
+  }, []);
+
+  return currency;
+}
+
 /** Round to a friendly retail value (x.99 for small amounts, whole for large). */
 function charmRound(value: number, decimals: number) {
   if (decimals === 0) {
