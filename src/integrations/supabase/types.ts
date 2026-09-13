@@ -407,8 +407,12 @@ export type Database = {
       }
       user_subscriptions: {
         Row: {
+          environment: string | null
           expires_at: string | null
           is_lifetime: boolean
+          paddle_customer_id: string | null
+          paddle_subscription_id: string | null
+          paddle_transaction_id: string | null
           plan: string
           started_at: string
           status: string
@@ -416,8 +420,12 @@ export type Database = {
           user_id: string
         }
         Insert: {
+          environment?: string | null
           expires_at?: string | null
           is_lifetime?: boolean
+          paddle_customer_id?: string | null
+          paddle_subscription_id?: string | null
+          paddle_transaction_id?: string | null
           plan?: string
           started_at?: string
           status?: string
@@ -425,8 +433,12 @@ export type Database = {
           user_id: string
         }
         Update: {
+          environment?: string | null
           expires_at?: string | null
           is_lifetime?: boolean
+          paddle_customer_id?: string | null
+          paddle_subscription_id?: string | null
+          paddle_transaction_id?: string | null
           plan?: string
           started_at?: string
           status?: string
@@ -475,8 +487,12 @@ export type Database = {
       admin_set_user_plan: {
         Args: { _billing?: string; _plan: string; _user_id: string }
         Returns: {
+          environment: string | null
           expires_at: string | null
           is_lifetime: boolean
+          paddle_customer_id: string | null
+          paddle_subscription_id: string | null
+          paddle_transaction_id: string | null
           plan: string
           started_at: string
           status: string
@@ -489,6 +505,19 @@ export type Database = {
           isOneToOne: true
           isSetofReturn: false
         }
+      }
+      apply_paid_plan: {
+        Args: {
+          _environment: string
+          _expires: string
+          _paddle_customer_id: string
+          _paddle_subscription_id: string
+          _paddle_transaction_id: string
+          _plan: string
+          _status: string
+          _user_id: string
+        }
+        Returns: undefined
       }
       check_and_unlock_achievements: {
         Args: { _user_id: string }
@@ -636,8 +665,12 @@ export type Database = {
       set_my_plan: {
         Args: { _billing?: string; _plan: string }
         Returns: {
+          environment: string | null
           expires_at: string | null
           is_lifetime: boolean
+          paddle_customer_id: string | null
+          paddle_subscription_id: string | null
+          paddle_transaction_id: string | null
           plan: string
           started_at: string
           status: string
