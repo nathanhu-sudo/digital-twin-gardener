@@ -159,8 +159,9 @@ export default function Pricing() {
         </div>
 
         <p className="text-center text-xs text-muted-foreground mt-8 max-w-lg mx-auto">
-          Checkout is in demo mode — plans activate instantly and no money changes hands. Real card payments switch on
-          once billing is connected.
+          Prices shown in {currency.code}
+          {currency.code !== "USD" && " — approximate, converted from USD"}. Checkout is in demo mode — plans activate
+          instantly and no money changes hands. Real card payments switch on once billing is connected.
         </p>
       </main>
     </div>
