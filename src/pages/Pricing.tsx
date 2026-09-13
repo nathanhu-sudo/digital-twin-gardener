@@ -1,5 +1,5 @@
-import { useMemo, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ArrowLeft, Check, X, Leaf, Sparkles, Infinity as InfinityIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -8,15 +8,45 @@ import { toast } from "sonner";
 import { PLANS, PlanId, planName } from "@/lib/plans";
 import { useSubscription } from "@/hooks/useSubscription";
 import { useAuth } from "@/hooks/useAuth";
+import { usePaddleCheckout } from "@/hooks/usePaddleCheckout";
+import { PaymentTestModeBanner } from "@/components/PaymentTestModeBanner";
 import { useDetectedCurrency, formatFromUsd, formatMoney } from "@/lib/currency";
+
+const PRICE_IDS: Record<string, string> = {
+  "lite:monthly": "lite_monthly",
+  "lite:yearly": "lite_yearly",
+  "pro:monthly": "pro_monthly",
+  "pro:yearly": "pro_yearly",
+  "lifetime:monthly": "lifetime_onetime",
+  "lifetime:yearly": "lifetime_onetime",
+};
 
 export default function Pricing() {
   const navigate = useNavigate();
   const { user } = useAuth();
-  const { plan, loading, changePlan } = useSubscription();
+  const { plan, loading, changePlan, refresh } = useSubscription();
   const [billing, setBilling] = useState<"monthly" | "yearly">("monthly");
   const [busy, setBusy] = useState<PlanId | null>(null);
   const currency = useDetectedCurrency();
+  const { openCheckout } = usePaddleCheckout();
+  const [params, setParams] = useSearchParams();
+
+  // After returning from checkout, the plan is activated by the payment
+  // webhook — poll briefly until it lands.
+  useEffect(() => {
+    if (params.get("checkout") !== "success") return;
+    params.delete("checkout");
+    setParams(params, { replace: true });
+    toast.success("Payment received — activating your plan…");
+    let tries = 0;
+    const timer = setInterval(async () => {
+      tries += 1;
+      await refresh();
+      if (tries >= 10) clearInterval(timer);
+    }, 2000);
+    return () => clearInterval(timer);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const select = async (next: PlanId) => {
     if (!user) {
@@ -25,12 +55,21 @@ export default function Pricing() {
     }
     setBusy(next);
     try {
-      await changePlan(next, billing);
-      toast.success(
-        next === "free" ? "Switched to Free." : `${planName(next)} activated — enjoy the unlocked features!`,
-      );
+      if (next === "free") {
+        await changePlan("free");
+        toast.success("Switched to Free.");
+        return;
+      }
+      const priceId = PRICE_IDS[`${next}:${billing}`];
+      if (!priceId) throw new Error("This plan is not available right now");
+      await openCheckout({
+        priceId,
+        customerEmail: user.email ?? undefined,
+        customData: { userId: user.id },
+        successUrl: `${window.location.origin}/pricing?checkout=success`,
+      });
     } catch (e) {
-      toast.error(e instanceof Error ? e.message : "Could not change plan");
+      toast.error(e instanceof Error ? e.message : "Could not start checkout");
     } finally {
       setBusy(null);
     }
@@ -43,6 +82,7 @@ export default function Pricing() {
       return { amount: formatFromUsd(p.yearly, currency), period: "/year" };
     return { amount: formatFromUsd(p.monthly, currency), period: "/month" };
   };
+
 
   return (
     <div className="min-h-screen bg-background">
