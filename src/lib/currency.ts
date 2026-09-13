@@ -71,19 +71,16 @@ export function detectCurrency(): CurrencyInfo {
   return CURRENCIES[code] ?? CURRENCIES.USD;
 }
 
-/** Round to a friendly retail value (x.99 / x.49 for small amounts, whole for large). */
+/** Round to a friendly retail value (x.99 for small amounts, whole for large). */
 function charmRound(value: number, decimals: number) {
   if (decimals === 0) {
     if (value < 1000) return Math.round(value / 10) * 10;
     return Math.round(value / 100) * 100;
   }
-  if (value < 20) {
-    const base = Math.max(0, Math.floor(value));
-    const frac = value - base;
-    const cents = frac < 0.25 ? -0.01 : frac < 0.75 ? 0.49 : 0.99;
-    return cents === -0.01 ? base - 0.01 : base + cents;
+  if (value < 100) {
+    const n = Math.max(1, Math.round(value));
+    return Number((n - 0.01).toFixed(2));
   }
-  if (value < 100) return Math.round(value) - 0.01 + 1 > 0 ? Math.round(value) : value;
   return Math.round(value / 5) * 5;
 }
 
