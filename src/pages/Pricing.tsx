@@ -35,10 +35,11 @@ export default function Pricing() {
   };
 
   const priceLabel = (p: (typeof PLANS)[number]) => {
-    if (p.oneOff) return { amount: `$${p.oneOff}`, period: "one-time" };
-    if (p.monthly === 0) return { amount: "$0", period: "forever" };
-    if (billing === "yearly" && p.yearly) return { amount: `$${p.yearly}`, period: "/year" };
-    return { amount: `$${p.monthly}`, period: "/month" };
+    if (p.oneOff) return { amount: formatFromUsd(p.oneOff, currency), period: "one-time" };
+    if (p.monthly === 0) return { amount: formatMoney(0, currency), period: "forever" };
+    if (billing === "yearly" && p.yearly)
+      return { amount: formatFromUsd(p.yearly, currency), period: "/year" };
+    return { amount: formatFromUsd(p.monthly, currency), period: "/month" };
   };
 
   return (
