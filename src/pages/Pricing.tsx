@@ -86,6 +86,8 @@ export default function Pricing() {
 
   return (
     <div className="min-h-screen bg-background">
+      <PaymentTestModeBanner />
+
       <div
         className="fixed inset-0 -z-20 opacity-[0.07] bg-[url(/auth-bg.jpg)] bg-repeat pointer-events-none"
         aria-hidden="true"
@@ -192,7 +194,7 @@ export default function Pricing() {
                   {current
                     ? "Current plan"
                     : busy === p.id
-                      ? "Activating…"
+                      ? "Opening checkout…"
                       : p.id === "free"
                         ? "Switch to Free"
                         : p.oneOff
@@ -206,9 +208,10 @@ export default function Pricing() {
 
         <p className="text-center text-xs text-muted-foreground mt-8 max-w-lg mx-auto">
           Prices shown in {currency.code}
-          {currency.code !== "USD" && " — approximate, converted from USD"}. Checkout is in demo mode — plans activate
-          instantly and no money changes hands. Real card payments switch on once billing is connected.
+          {currency.code !== "USD" && " — approximate, converted from USD"}. You are charged in USD at checkout.
+          Payments are handled securely by Paddle; your plan unlocks automatically once the payment is confirmed.
         </p>
+
       </main>
     </div>
   );
