@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ArrowLeft, Check, X, Leaf, Sparkles, Infinity as InfinityIcon } from "lucide-react";
@@ -8,6 +8,7 @@ import { toast } from "sonner";
 import { PLANS, PlanId, planName } from "@/lib/plans";
 import { useSubscription } from "@/hooks/useSubscription";
 import { useAuth } from "@/hooks/useAuth";
+import { detectCurrency, formatFromUsd, formatMoney } from "@/lib/currency";
 
 export default function Pricing() {
   const navigate = useNavigate();
@@ -15,6 +16,7 @@ export default function Pricing() {
   const { plan, loading, changePlan } = useSubscription();
   const [billing, setBilling] = useState<"monthly" | "yearly">("monthly");
   const [busy, setBusy] = useState<PlanId | null>(null);
+  const currency = useMemo(() => detectCurrency(), []);
 
   const select = async (next: PlanId) => {
     if (!user) {
@@ -35,10 +37,11 @@ export default function Pricing() {
   };
 
   const priceLabel = (p: (typeof PLANS)[number]) => {
-    if (p.oneOff) return { amount: `$${p.oneOff}`, period: "one-time" };
-    if (p.monthly === 0) return { amount: "$0", period: "forever" };
-    if (billing === "yearly" && p.yearly) return { amount: `$${p.yearly}`, period: "/year" };
-    return { amount: `$${p.monthly}`, period: "/month" };
+    if (p.oneOff) return { amount: formatFromUsd(p.oneOff, currency), period: "one-time" };
+    if (p.monthly === 0) return { amount: formatMoney(0, currency), period: "forever" };
+    if (billing === "yearly" && p.yearly)
+      return { amount: formatFromUsd(p.yearly, currency), period: "/year" };
+    return { amount: formatFromUsd(p.monthly, currency), period: "/month" };
   };
 
   return (
@@ -156,8 +159,9 @@ export default function Pricing() {
         </div>
 
         <p className="text-center text-xs text-muted-foreground mt-8 max-w-lg mx-auto">
-          Checkout is in demo mode — plans activate instantly and no money changes hands. Real card payments switch on
-          once billing is connected.
+          Prices shown in {currency.code}
+          {currency.code !== "USD" && " — approximate, converted from USD"}. Checkout is in demo mode — plans activate
+          instantly and no money changes hands. Real card payments switch on once billing is connected.
         </p>
       </main>
     </div>
