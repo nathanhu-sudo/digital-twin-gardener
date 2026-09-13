@@ -8,7 +8,7 @@ import { toast } from "sonner";
 import { PLANS, PlanId, planName } from "@/lib/plans";
 import { useSubscription } from "@/hooks/useSubscription";
 import { useAuth } from "@/hooks/useAuth";
-import { detectCurrency, formatFromUsd, formatMoney } from "@/lib/currency";
+import { useDetectedCurrency, formatFromUsd, formatMoney } from "@/lib/currency";
 
 export default function Pricing() {
   const navigate = useNavigate();
@@ -16,7 +16,7 @@ export default function Pricing() {
   const { plan, loading, changePlan } = useSubscription();
   const [billing, setBilling] = useState<"monthly" | "yearly">("monthly");
   const [busy, setBusy] = useState<PlanId | null>(null);
-  const currency = useMemo(() => detectCurrency(), []);
+  const currency = useDetectedCurrency();
 
   const select = async (next: PlanId) => {
     if (!user) {

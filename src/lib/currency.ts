@@ -1,8 +1,11 @@
 /**
  * Display-only price localisation.
  * Base prices in src/lib/plans.ts are USD. We detect the visitor's region from
- * their browser locale and show an approximate price in their local currency.
+ * their browser locale first, then refine it with an IP geolocation lookup so
+ * prices match where the person actually is.
  */
+
+import { useEffect, useState } from "react";
 
 type CurrencyInfo = { code: string; rate: number; decimals?: number };
 
@@ -69,6 +72,54 @@ export function detectCurrency(): CurrencyInfo {
   const region = detectRegion();
   const code = (region && COUNTRY_CURRENCY[region]) || "USD";
   return CURRENCIES[code] ?? CURRENCIES.USD;
+}
+
+/** Currency code for a country code, if we know it. */
+export function currencyForCountry(countryCode: string): CurrencyInfo | undefined {
+  const code = COUNTRY_CURRENCY[countryCode.toUpperCase()];
+  return code ? CURRENCIES[code] : undefined;
+}
+
+const GEO_CACHE_KEY = "sp_geo_currency";
+
+/**
+ * Detects the visitor's currency from their actual location.
+ * Starts with the browser-locale guess, then refines it with an IP
+ * geolocation lookup (cached for a day so repeat visits are instant).
+ */
+export function useDetectedCurrency(): CurrencyInfo {
+  const [currency, setCurrency] = useState<CurrencyInfo>(() => {
+    try {
+      const cached = JSON.parse(localStorage.getItem(GEO_CACHE_KEY) || "null");
+      if (cached?.code && Date.now() - cached.at < 24 * 60 * 60 * 1000) {
+        const info = CURRENCIES[cached.code];
+        if (info) return info;
+      }
+    } catch { /* ignore */ }
+    return detectCurrency();
+  });
+
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      try {
+        const res = await fetch("https://ipapi.co/json/", { signal: AbortSignal.timeout(5000) });
+        if (!res.ok) return;
+        const data = await res.json();
+        const info =
+          (data?.country_code && currencyForCountry(data.country_code)) ||
+          (data?.currency && CURRENCIES[String(data.currency).toUpperCase()]);
+        if (!info || cancelled) return;
+        setCurrency(info);
+        try {
+          localStorage.setItem(GEO_CACHE_KEY, JSON.stringify({ code: info.code, at: Date.now() }));
+        } catch { /* ignore */ }
+      } catch { /* keep locale-based guess */ }
+    })();
+    return () => { cancelled = true; };
+  }, []);
+
+  return currency;
 }
 
 /** Round to a friendly retail value (x.99 for small amounts, whole for large). */
