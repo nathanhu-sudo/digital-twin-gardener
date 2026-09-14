@@ -38,7 +38,7 @@ const Auth = () => {
     setSocialLoading(provider);
     try {
       const result = await lovable.auth.signInWithOAuth(provider, {
-        redirect_uri: window.location.origin,
+        redirect_uri: `${window.location.origin}/auth?redirect=${encodeURIComponent(redirectTo)}`,
       });
       if (result.error) throw result.error;
     } catch (err: any) {
@@ -57,7 +57,7 @@ const Auth = () => {
         const { error } = await supabase.auth.signUp({
           email,
           password,
-          options: { emailRedirectTo: window.location.origin },
+          options: { emailRedirectTo: `${window.location.origin}/auth?redirect=/app` },
         });
         if (error) throw error;
         setCheckEmailType("signup");
@@ -177,7 +177,7 @@ const Auth = () => {
                         const { error } = await supabase.auth.resend({
                           type: "signup",
                           email,
-                          options: { emailRedirectTo: window.location.origin },
+                          options: { emailRedirectTo: `${window.location.origin}/auth?redirect=/app` },
                         });
                         if (error) throw error;
                         toast.success("Confirmation email resent!");
