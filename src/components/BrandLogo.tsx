@@ -1,4 +1,3 @@
-import logoAsset from "@/assets/smartpantry-ai-logo.png.asset.json";
 import { cn } from "@/lib/utils";
 
 interface BrandLogoProps {
@@ -11,7 +10,7 @@ export function BrandLogo({ className, showName = false, nameClassName }: BrandL
   return (
     <span className="inline-flex min-w-0 items-center gap-2.5">
       <img
-        src={logoAsset.url}
+        src="/favicon.png"
         alt="SmartPantry AI logo"
         className={cn("h-10 w-10 shrink-0 rounded-xl object-cover shadow-sm", className)}
       />
