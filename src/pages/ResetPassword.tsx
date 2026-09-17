@@ -2,13 +2,14 @@ import { useState, useEffect } from "react";
 
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Leaf, Lock, ArrowRight } from "lucide-react";
+import { Lock, ArrowRight } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { toast } from "@/components/ui/sonner";
+import { BrandLogo } from "@/components/BrandLogo";
 
 const ResetPassword = () => {
   const navigate = useNavigate();
@@ -68,10 +69,7 @@ const ResetPassword = () => {
     <div className="min-h-screen bg-background flex flex-col items-center justify-between px-4">
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="w-full max-w-md flex-1 flex flex-col items-center justify-center">
         <div className="flex items-center justify-center gap-2 mb-8">
-          <div className="rounded-full bg-primary p-2">
-            <Leaf className="h-5 w-5 text-primary-foreground" />
-          </div>
-          <span className="text-xl font-bold text-foreground font-serif">SmartPantry AI</span>
+          <BrandLogo showName className="h-10 w-10" nameClassName="text-xl" />
         </div>
 
         <Card>

@@ -38,8 +38,8 @@ export async function showDeviceNotification(title: string, body: string, tag?: 
   const options: NotificationOptions = {
     body,
     tag,
-    icon: "/favicon.ico",
-    badge: "/favicon.ico",
+    icon: "/favicon.png",
+    badge: "/favicon.png",
   };
   if (reg && "showNotification" in reg) {
     await reg.showNotification(title, options);

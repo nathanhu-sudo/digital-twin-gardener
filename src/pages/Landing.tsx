@@ -20,6 +20,7 @@ import {
   User,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { BrandLogo } from "@/components/BrandLogo";
 import { useAuth } from "@/hooks/useAuth";
 import heroImage from "@/assets/hero-illustration.jpg";
 
@@ -75,13 +76,7 @@ export default function Landing() {
       <header className="sticky top-0 z-30 glass border-b border-border/40">
         <div className="container max-w-6xl mx-auto flex items-center justify-between px-4 py-3">
           <Link to="/" className="flex items-center gap-2">
-            <div
-              className="rounded-xl p-2 shadow-md"
-              style={{ background: "var(--gradient-primary)" }}
-            >
-              <Leaf className="h-5 w-5 text-primary-foreground" />
-            </div>
-            <span className="font-bold text-lg text-gradient font-serif">SmartPantry AI</span>
+            <BrandLogo showName className="h-9 w-9" nameClassName="text-lg" />
           </Link>
           <nav className="flex items-center gap-2 sm:gap-3">
             <a
