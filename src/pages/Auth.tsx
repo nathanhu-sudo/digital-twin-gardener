@@ -3,7 +3,7 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
 
 import { motion, AnimatePresence } from "framer-motion";
-import { Leaf, Mail, Lock, ArrowRight, Eye, EyeOff, CheckCircle } from "lucide-react";
+import { Mail, Lock, ArrowRight, Eye, EyeOff, CheckCircle } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { lovable } from "@/integrations/lovable/index";
 import { Button } from "@/components/ui/button";
@@ -11,6 +11,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { toast } from "@/components/ui/sonner";
+import { BrandLogo } from "@/components/BrandLogo";
 
 type AuthMode = "login" | "signup" | "forgot" | "check-email";
 
@@ -112,10 +113,7 @@ const Auth = () => {
       >
         {/* Logo */}
         <div className="flex items-center justify-center gap-2.5 mb-6 mt-2">
-          <div className="rounded-full bg-primary p-2.5 shadow-md">
-            <Leaf className="h-5 w-5 text-primary-foreground" />
-          </div>
-          <span className="text-xl font-bold text-foreground font-serif tracking-tight">SmartPantry AI</span>
+          <BrandLogo showName className="h-11 w-11" nameClassName="text-xl" />
         </div>
 
 

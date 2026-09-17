@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { motion } from "framer-motion";
-import { ArrowLeft, Check, X, Leaf, Sparkles, Infinity as InfinityIcon } from "lucide-react";
+import { ArrowLeft, Check, X, Sparkles, Infinity as InfinityIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { toast } from "sonner";
@@ -10,6 +10,7 @@ import { useSubscription } from "@/hooks/useSubscription";
 import { useAuth } from "@/hooks/useAuth";
 import { usePaddleCheckout } from "@/hooks/usePaddleCheckout";
 import { PaymentTestModeBanner } from "@/components/PaymentTestModeBanner";
+import { BrandLogo } from "@/components/BrandLogo";
 import { useDetectedCurrency, formatFromUsd, formatMoney } from "@/lib/currency";
 
 const PRICE_IDS: Record<string, string> = {
@@ -106,9 +107,7 @@ export default function Pricing() {
 
       <main className="container max-w-5xl px-4 py-12 pb-24">
         <div className="text-center flex flex-col items-center gap-3 mb-10">
-          <div className="rounded-2xl p-2.5 shadow-lg glow" style={{ background: "var(--gradient-primary)" }}>
-            <Leaf className="h-6 w-6 text-primary-foreground" />
-          </div>
+          <BrandLogo className="h-12 w-12 rounded-2xl shadow-lg glow" />
           <h2 className="text-3xl sm:text-4xl font-bold font-serif tracking-tight text-gradient">
             Waste less. Unlock more.
           </h2>
