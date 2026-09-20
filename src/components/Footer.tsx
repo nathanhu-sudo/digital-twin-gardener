@@ -1,6 +1,13 @@
+import { Link } from "react-router-dom";
+
 const Footer = () => (
   <footer className="w-full py-6 px-4 text-center text-xs text-muted-foreground border-t bg-background/80 backdrop-blur-sm space-y-2">
     <p>© {new Date().getFullYear()} SmartPantry AI. All rights reserved.</p>
+    <p className="flex items-center justify-center gap-4">
+      <Link to="/terms" className="hover:text-foreground transition-colors">Terms</Link>
+      <Link to="/privacy" className="hover:text-foreground transition-colors">Privacy</Link>
+      <Link to="/refund" className="hover:text-foreground transition-colors">Refunds</Link>
+    </p>
     <p className="max-w-2xl mx-auto leading-relaxed">
       Powered by{" "}
       <span className="font-medium text-foreground">Lovable Cloud</span> &{" "}
