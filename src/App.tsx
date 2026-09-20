@@ -14,6 +14,9 @@ import AdminPage from "./pages/AdminPage";
 import AchievementsPage from "./pages/AchievementsPage";
 import Profile from "./pages/Profile";
 import Pricing from "./pages/Pricing";
+import Terms from "./pages/Terms";
+import Privacy from "./pages/Privacy";
+import Refund from "./pages/Refund";
 
 
 
@@ -43,6 +46,9 @@ const App = () => (
           <Route path="/auth" element={<Auth />} />
           <Route path="/reset-password" element={<ResetPassword />} />
           <Route path="/pricing" element={<Pricing />} />
+          <Route path="/terms" element={<Terms />} />
+          <Route path="/privacy" element={<Privacy />} />
+          <Route path="/refund" element={<Refund />} />
 
           <Route
             path="/app"
