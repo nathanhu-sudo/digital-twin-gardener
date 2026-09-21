@@ -5,7 +5,7 @@ import { Navigate, useNavigate } from "react-router-dom";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { ArrowLeft, Users, Package, Leaf, Trash2, RefreshCw, Shield, UserX, Activity, Percent, Cloud, Flame, TrendingUp, Trophy, PieChart as PieIcon } from "lucide-react";
+import { ArrowLeft, Users, Package, Leaf, Trash2, RefreshCw, Shield, UserX, Activity, Percent, Cloud, Flame, TrendingUp, Trophy, PieChart as PieIcon, Globe, ShieldAlert } from "lucide-react";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer, PieChart, Pie, Cell } from "recharts";
 import { useState } from "react";
 import { toast } from "sonner";
