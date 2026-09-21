@@ -24,7 +24,20 @@ export interface AdminUser {
   total_saved_kg: number;
   total_wasted_kg: number;
   last_activity: string | null;
+  signup_country: string | null;
+  signup_country_code: string | null;
+  signup_city: string | null;
+  signup_region: string | null;
+  signup_ip: string | null;
+  last_country: string | null;
+  last_country_code: string | null;
+  last_city: string | null;
+  last_ip: string | null;
+  last_org: string | null;
+  vpn_suspected: boolean;
+  vpn_reason: string | null;
 }
+
 
 export function useAdmin() {
   const { user, loading: authLoading } = useAuth();
