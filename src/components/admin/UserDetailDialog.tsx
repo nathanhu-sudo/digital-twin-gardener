@@ -14,6 +14,8 @@ import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { X, Plus, UserX, Crown, Sparkles, Leaf, Tag as TagIcon, ShieldAlert } from "lucide-react";
 import { toast } from "sonner";
+import { flagFor } from "@/lib/geo";
+
 
 const PLAN_OPTIONS = ["free", "lite", "pro", "lifetime"] as const;
 
