@@ -207,7 +207,11 @@ export default function Pricing() {
 
         <p className="text-center text-xs text-muted-foreground mt-8 max-w-lg mx-auto">
           Prices shown in {currency.code}
-          {currency.code !== "USD" && " — approximate, converted from USD"}. You are charged in USD at checkout.
+          {["NZD", "AUD", "EUR", "GBP", "CAD"].includes(currency.code)
+            ? " — you're charged in your local currency at checkout."
+            : currency.code !== "USD"
+              ? " — approximate. You're charged in USD at checkout."
+              : "."}{" "}
           Payments are handled securely by Paddle; your plan unlocks automatically once the payment is confirmed.
         </p>
 
