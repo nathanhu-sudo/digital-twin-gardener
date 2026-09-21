@@ -12,7 +12,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
-import { X, Plus, UserX, Crown, Sparkles, Leaf, Tag as TagIcon } from "lucide-react";
+import { X, Plus, UserX, Crown, Sparkles, Leaf, Tag as TagIcon, ShieldAlert } from "lucide-react";
 import { toast } from "sonner";
 
 const PLAN_OPTIONS = ["free", "lite", "pro", "lifetime"] as const;
@@ -268,6 +268,7 @@ export function UserDetailDialog({
           )}
         </div>
 
+        <Separator />
 
 
         {/* Activity */}
