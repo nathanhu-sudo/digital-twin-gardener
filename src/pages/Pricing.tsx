@@ -132,7 +132,9 @@ export default function Pricing() {
           <Badge variant="outline" className="mt-1 gap-1.5 text-[11px] font-medium px-2.5 py-1">
             <span className="inline-block w-2 h-2 rounded-full bg-primary/80" />
             Prices in {currency.code}
-            {currency.code !== "USD" && " (converted from USD)"}
+            {["NZD", "AUD", "EUR", "GBP", "CAD"].includes(currency.code)
+              ? " · charged in your currency"
+              : currency.code !== "USD" && " (converted from USD)"}
           </Badge>
         </div>
 
@@ -207,7 +209,11 @@ export default function Pricing() {
 
         <p className="text-center text-xs text-muted-foreground mt-8 max-w-lg mx-auto">
           Prices shown in {currency.code}
-          {currency.code !== "USD" && " — approximate, converted from USD"}. You are charged in USD at checkout.
+          {["NZD", "AUD", "EUR", "GBP", "CAD"].includes(currency.code)
+            ? " — you're charged in your local currency at checkout."
+            : currency.code !== "USD"
+              ? " — approximate. You're charged in USD at checkout."
+              : "."}{" "}
           Payments are handled securely by Paddle; your plan unlocks automatically once the payment is confirmed.
         </p>
 
