@@ -12,8 +12,10 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
-import { X, Plus, UserX, Crown, Sparkles, Leaf, Tag as TagIcon } from "lucide-react";
+import { X, Plus, UserX, Crown, Sparkles, Leaf, Tag as TagIcon, ShieldAlert } from "lucide-react";
 import { toast } from "sonner";
+import { flagFor } from "@/lib/geo";
+
 
 const PLAN_OPTIONS = ["free", "lite", "pro", "lifetime"] as const;
 
@@ -226,6 +228,50 @@ export function UserDetailDialog({
         </div>
 
         <Separator />
+
+        {/* Location */}
+        <div>
+          <p className="text-xs font-semibold text-foreground mb-1">Location</p>
+          <Line
+            label="Signed up from"
+            value={
+              user.signup_country
+                ? `${flagFor(user.signup_country_code)} ${[user.signup_city, user.signup_region, user.signup_country]
+                    .filter(Boolean)
+                    .join(", ")}`
+                : "Unknown"
+            }
+          />
+          <Line label="Sign-up IP" value={<span className="font-mono text-[10px]">{user.signup_ip ?? "—"}</span>} />
+          <Line
+            label="Latest location"
+            value={
+              user.last_country
+                ? `${flagFor(user.last_country_code)} ${[user.last_city, user.last_country].filter(Boolean).join(", ")}`
+                : "Unknown"
+            }
+          />
+          <Line label="Latest IP" value={<span className="font-mono text-[10px]">{user.last_ip ?? "—"}</span>} />
+          <Line label="Network" value={user.last_org ?? "—"} />
+          <Line
+            label="VPN / proxy"
+            value={
+              user.vpn_suspected ? (
+                <Badge variant="outline" className="gap-1 bg-warning/15 text-warning border-warning/30">
+                  <ShieldAlert className="h-3 w-3" /> Likely
+                </Badge>
+              ) : (
+                "Not detected"
+              )
+            }
+          />
+          {user.vpn_suspected && user.vpn_reason && (
+            <p className="text-[10px] text-muted-foreground mt-1">{user.vpn_reason}</p>
+          )}
+        </div>
+
+        <Separator />
+
 
         {/* Activity */}
         <div>

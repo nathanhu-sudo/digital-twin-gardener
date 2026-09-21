@@ -5,12 +5,14 @@ import { Navigate, useNavigate } from "react-router-dom";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { ArrowLeft, Users, Package, Leaf, Trash2, RefreshCw, Shield, UserX, Activity, Percent, Cloud, Flame, TrendingUp, Trophy, PieChart as PieIcon } from "lucide-react";
+import { ArrowLeft, Users, Package, Leaf, Trash2, RefreshCw, Shield, UserX, Activity, Percent, Cloud, Flame, TrendingUp, Trophy, PieChart as PieIcon, Globe, ShieldAlert } from "lucide-react";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer, PieChart, Pie, Cell } from "recharts";
 import { useState } from "react";
 import { toast } from "sonner";
 import { UserDetailDialog } from "@/components/admin/UserDetailDialog";
 import { Badge } from "@/components/ui/badge";
+import { flagFor } from "@/lib/geo";
+
 import {
   AlertDialog,
   AlertDialogAction,
@@ -125,6 +127,21 @@ const AdminPage = () => {
     return acc;
   }, {});
   const paidUsers = users.filter((u) => u.is_lifetime || u.plan !== "free").length;
+
+  // ---- Where members sign up from ----
+  const countryCounts = users.reduce<Record<string, { count: number; code: string | null }>>(
+    (acc, u) => {
+      const name = u.signup_country ?? "Unknown";
+      if (!acc[name]) acc[name] = { count: 0, code: u.signup_country_code };
+      acc[name].count += 1;
+      return acc;
+    },
+    {}
+  );
+  const topCountries = Object.entries(countryCounts).sort((a, b) => b[1].count - a[1].count);
+  const knownCountries = topCountries.filter(([name]) => name !== "Unknown").length;
+  const vpnUsers = users.filter((u) => u.vpn_suspected).length;
+
 
   const memberFor = (joined: string | null) => {
     if (!joined) return "—";
@@ -405,6 +422,46 @@ const AdminPage = () => {
           )}
         </section>
 
+        {/* Where members sign up */}
+        <section className="mb-8">
+          <h2 className="text-lg font-bold text-foreground font-serif mb-4">Where members sign up</h2>
+          <div className="grid gap-4 md:grid-cols-3">
+            <Stat
+              icon={<Globe className="h-5 w-5 text-primary" />}
+              value={knownCountries}
+              label="Countries"
+              sub={`${users.length - (countryCounts["Unknown"]?.count ?? 0)} located members`}
+            />
+            <Stat
+              icon={<ShieldAlert className="h-5 w-5 text-warning" />}
+              value={vpnUsers}
+              label="VPN / proxy suspected"
+              sub="Based on network + timezone checks"
+            />
+            <Card className="md:row-span-2">
+              <CardHeader className="pb-2">
+                <CardTitle className="text-sm">Top locations</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-1.5">
+                {topCountries.length === 0 && (
+                  <p className="text-xs text-muted-foreground">No location data yet.</p>
+                )}
+                {topCountries.slice(0, 8).map(([name, info]) => (
+                  <div key={name} className="flex items-center justify-between text-sm">
+                    <span className="flex items-center gap-2">
+                      <span>{flagFor(info.code)}</span>
+                      <span className="text-foreground">{name}</span>
+                    </span>
+                    <span className="text-muted-foreground">
+                      {info.count} ({totalUsers ? Math.round((info.count / totalUsers) * 100) : 0}%)
+                    </span>
+                  </div>
+                ))}
+              </CardContent>
+            </Card>
+          </div>
+        </section>
+
 
         {/* Users Table */}
         <section>
@@ -424,6 +481,8 @@ const AdminPage = () => {
                       <TableHead>Member</TableHead>
                       <TableHead>Plan</TableHead>
                       <TableHead>Joined</TableHead>
+                      <TableHead>Location</TableHead>
+
                       <TableHead className="text-center">Active</TableHead>
                       <TableHead className="text-center">Consumed</TableHead>
                       <TableHead className="text-center">Tossed</TableHead>
@@ -438,11 +497,11 @@ const AdminPage = () => {
                   <TableBody>
                     {usersLoading ? (
                       <TableRow>
-                        <TableCell colSpan={12} className="text-center py-8 text-muted-foreground">Loading…</TableCell>
+                        <TableCell colSpan={13} className="text-center py-8 text-muted-foreground">Loading…</TableCell>
                       </TableRow>
                     ) : users.length === 0 ? (
                       <TableRow>
-                        <TableCell colSpan={12} className="text-center py-8 text-muted-foreground">No users yet</TableCell>
+                        <TableCell colSpan={13} className="text-center py-8 text-muted-foreground">No users yet</TableCell>
                       </TableRow>
                     ) : (
                       users.map((u) => (
@@ -474,6 +533,27 @@ const AdminPage = () => {
                               </>
                             ) : "—"}
                           </TableCell>
+                          <TableCell className="text-xs">
+                            <div className="flex items-center gap-1">
+                              <span>{flagFor(u.signup_country_code)}</span>
+                              <span className="text-foreground">
+                                {u.signup_country ?? "Unknown"}
+                              </span>
+                              {u.vpn_suspected && (
+                                <Badge
+                                  variant="outline"
+                                  className="text-[9px] py-0 px-1 bg-warning/15 text-warning border-warning/30"
+                                >
+                                  VPN?
+                                </Badge>
+                              )}
+                            </div>
+                            <div className="text-[10px] text-muted-foreground">
+                              {u.signup_city ?? "—"}
+                              {u.signup_ip ? ` · ${u.signup_ip}` : ""}
+                            </div>
+                          </TableCell>
+
                           <TableCell className="text-center">{u.active_items}</TableCell>
                           <TableCell className="text-center text-success">{u.consumed_items}</TableCell>
                           <TableCell className="text-center text-destructive">{u.tossed_items}</TableCell>

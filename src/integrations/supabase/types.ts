@@ -342,6 +342,75 @@ export type Database = {
         }
         Relationships: []
       }
+      user_geo: {
+        Row: {
+          created_at: string
+          last_city: string | null
+          last_country: string | null
+          last_country_code: string | null
+          last_ip: string | null
+          last_org: string | null
+          last_region: string | null
+          last_seen_at: string
+          last_timezone: string | null
+          signup_city: string | null
+          signup_country: string | null
+          signup_country_code: string | null
+          signup_ip: string | null
+          signup_org: string | null
+          signup_region: string | null
+          signup_timezone: string | null
+          updated_at: string
+          user_id: string
+          vpn_reason: string | null
+          vpn_suspected: boolean
+        }
+        Insert: {
+          created_at?: string
+          last_city?: string | null
+          last_country?: string | null
+          last_country_code?: string | null
+          last_ip?: string | null
+          last_org?: string | null
+          last_region?: string | null
+          last_seen_at?: string
+          last_timezone?: string | null
+          signup_city?: string | null
+          signup_country?: string | null
+          signup_country_code?: string | null
+          signup_ip?: string | null
+          signup_org?: string | null
+          signup_region?: string | null
+          signup_timezone?: string | null
+          updated_at?: string
+          user_id: string
+          vpn_reason?: string | null
+          vpn_suspected?: boolean
+        }
+        Update: {
+          created_at?: string
+          last_city?: string | null
+          last_country?: string | null
+          last_country_code?: string | null
+          last_ip?: string | null
+          last_org?: string | null
+          last_region?: string | null
+          last_seen_at?: string
+          last_timezone?: string | null
+          signup_city?: string | null
+          signup_country?: string | null
+          signup_country_code?: string | null
+          signup_ip?: string | null
+          signup_org?: string | null
+          signup_region?: string | null
+          signup_timezone?: string | null
+          updated_at?: string
+          user_id?: string
+          vpn_reason?: string | null
+          vpn_suspected?: boolean
+        }
+        Relationships: []
+      }
       user_roles: {
         Row: {
           created_at: string
@@ -549,17 +618,29 @@ export type Database = {
           is_lifetime: boolean
           joined_at: string
           last_activity: string
+          last_city: string
+          last_country: string
+          last_country_code: string
+          last_ip: string
+          last_org: string
           last_sign_in_at: string
           plan: string
           plan_expires_at: string
           plan_started_at: string
           plan_status: string
+          signup_city: string
+          signup_country: string
+          signup_country_code: string
+          signup_ip: string
+          signup_region: string
           tags: string[]
           tossed_items: number
           total_items: number
           total_saved_kg: number
           total_wasted_kg: number
           user_id: string
+          vpn_reason: string
+          vpn_suspected: boolean
         }[]
       }
       get_community_common_items: {

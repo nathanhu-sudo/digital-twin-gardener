@@ -24,7 +24,20 @@ export interface AdminUser {
   total_saved_kg: number;
   total_wasted_kg: number;
   last_activity: string | null;
+  signup_country: string | null;
+  signup_country_code: string | null;
+  signup_city: string | null;
+  signup_region: string | null;
+  signup_ip: string | null;
+  last_country: string | null;
+  last_country_code: string | null;
+  last_city: string | null;
+  last_ip: string | null;
+  last_org: string | null;
+  vpn_suspected: boolean;
+  vpn_reason: string | null;
 }
+
 
 export function useAdmin() {
   const { user, loading: authLoading } = useAuth();
@@ -73,6 +86,19 @@ export function useAdmin() {
           total_saved_kg: Number(r.total_saved_kg),
           total_wasted_kg: Number(r.total_wasted_kg),
           last_activity: r.last_activity,
+          signup_country: r.signup_country ?? null,
+          signup_country_code: r.signup_country_code ?? null,
+          signup_city: r.signup_city ?? null,
+          signup_region: r.signup_region ?? null,
+          signup_ip: r.signup_ip ?? null,
+          last_country: r.last_country ?? null,
+          last_country_code: r.last_country_code ?? null,
+          last_city: r.last_city ?? null,
+          last_ip: r.last_ip ?? null,
+          last_org: r.last_org ?? null,
+          vpn_suspected: r.vpn_suspected === true,
+          vpn_reason: r.vpn_reason ?? null,
+
         }))
       );
     }
