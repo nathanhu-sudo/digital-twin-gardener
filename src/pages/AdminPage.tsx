@@ -424,6 +424,8 @@ const AdminPage = () => {
                       <TableHead>Member</TableHead>
                       <TableHead>Plan</TableHead>
                       <TableHead>Joined</TableHead>
+                      <TableHead>Location</TableHead>
+
                       <TableHead className="text-center">Active</TableHead>
                       <TableHead className="text-center">Consumed</TableHead>
                       <TableHead className="text-center">Tossed</TableHead>
@@ -474,6 +476,27 @@ const AdminPage = () => {
                               </>
                             ) : "—"}
                           </TableCell>
+                          <TableCell className="text-xs">
+                            <div className="flex items-center gap-1">
+                              <span>{flagFor(u.signup_country_code)}</span>
+                              <span className="text-foreground">
+                                {u.signup_country ?? "Unknown"}
+                              </span>
+                              {u.vpn_suspected && (
+                                <Badge
+                                  variant="outline"
+                                  className="text-[9px] py-0 px-1 bg-warning/15 text-warning border-warning/30"
+                                >
+                                  VPN?
+                                </Badge>
+                              )}
+                            </div>
+                            <div className="text-[10px] text-muted-foreground">
+                              {u.signup_city ?? "—"}
+                              {u.signup_ip ? ` · ${u.signup_ip}` : ""}
+                            </div>
+                          </TableCell>
+
                           <TableCell className="text-center">{u.active_items}</TableCell>
                           <TableCell className="text-center text-success">{u.consumed_items}</TableCell>
                           <TableCell className="text-center text-destructive">{u.tossed_items}</TableCell>
