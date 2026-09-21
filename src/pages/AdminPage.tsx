@@ -422,6 +422,46 @@ const AdminPage = () => {
           )}
         </section>
 
+        {/* Where members sign up */}
+        <section className="mb-8">
+          <h2 className="text-lg font-bold text-foreground font-serif mb-4">Where members sign up</h2>
+          <div className="grid gap-4 md:grid-cols-3">
+            <Stat
+              icon={<Globe className="h-5 w-5 text-primary" />}
+              value={knownCountries}
+              label="Countries"
+              sub={`${users.length - (countryCounts["Unknown"]?.count ?? 0)} located members`}
+            />
+            <Stat
+              icon={<ShieldAlert className="h-5 w-5 text-warning" />}
+              value={vpnUsers}
+              label="VPN / proxy suspected"
+              sub="Based on network + timezone checks"
+            />
+            <Card className="md:row-span-2">
+              <CardHeader className="pb-2">
+                <CardTitle className="text-sm">Top locations</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-1.5">
+                {topCountries.length === 0 && (
+                  <p className="text-xs text-muted-foreground">No location data yet.</p>
+                )}
+                {topCountries.slice(0, 8).map(([name, info]) => (
+                  <div key={name} className="flex items-center justify-between text-sm">
+                    <span className="flex items-center gap-2">
+                      <span>{flagFor(info.code)}</span>
+                      <span className="text-foreground">{name}</span>
+                    </span>
+                    <span className="text-muted-foreground">
+                      {info.count} ({totalUsers ? Math.round((info.count / totalUsers) * 100) : 0}%)
+                    </span>
+                  </div>
+                ))}
+              </CardContent>
+            </Card>
+          </div>
+        </section>
+
 
         {/* Users Table */}
         <section>
