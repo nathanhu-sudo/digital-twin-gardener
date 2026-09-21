@@ -11,6 +11,8 @@ import { useState } from "react";
 import { toast } from "sonner";
 import { UserDetailDialog } from "@/components/admin/UserDetailDialog";
 import { Badge } from "@/components/ui/badge";
+import { flagFor } from "@/lib/geo";
+
 import {
   AlertDialog,
   AlertDialogAction,
@@ -125,6 +127,21 @@ const AdminPage = () => {
     return acc;
   }, {});
   const paidUsers = users.filter((u) => u.is_lifetime || u.plan !== "free").length;
+
+  // ---- Where members sign up from ----
+  const countryCounts = users.reduce<Record<string, { count: number; code: string | null }>>(
+    (acc, u) => {
+      const name = u.signup_country ?? "Unknown";
+      if (!acc[name]) acc[name] = { count: 0, code: u.signup_country_code };
+      acc[name].count += 1;
+      return acc;
+    },
+    {}
+  );
+  const topCountries = Object.entries(countryCounts).sort((a, b) => b[1].count - a[1].count);
+  const knownCountries = topCountries.filter(([name]) => name !== "Unknown").length;
+  const vpnUsers = users.filter((u) => u.vpn_suspected).length;
+
 
   const memberFor = (joined: string | null) => {
     if (!joined) return "—";
