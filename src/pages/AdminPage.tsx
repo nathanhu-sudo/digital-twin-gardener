@@ -440,11 +440,11 @@ const AdminPage = () => {
                   <TableBody>
                     {usersLoading ? (
                       <TableRow>
-                        <TableCell colSpan={12} className="text-center py-8 text-muted-foreground">Loading…</TableCell>
+                        <TableCell colSpan={13} className="text-center py-8 text-muted-foreground">Loading…</TableCell>
                       </TableRow>
                     ) : users.length === 0 ? (
                       <TableRow>
-                        <TableCell colSpan={12} className="text-center py-8 text-muted-foreground">No users yet</TableCell>
+                        <TableCell colSpan={13} className="text-center py-8 text-muted-foreground">No users yet</TableCell>
                       </TableRow>
                     ) : (
                       users.map((u) => (
