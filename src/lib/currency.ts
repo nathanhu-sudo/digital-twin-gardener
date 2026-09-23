@@ -137,8 +137,11 @@ function charmRound(value: number, decimals: number) {
 
 export function convertFromUsd(usd: number, currency = detectCurrency()) {
   if (usd === 0) return 0;
+  const converted = usd * currency.rate;
+  // USD is the checkout source of truth — show the exact catalog price.
+  if (currency.code === "USD") return converted;
   const decimals = currency.decimals ?? 2;
-  return charmRound(usd * currency.rate, decimals);
+  return charmRound(converted, decimals);
 }
 
 export function formatMoney(amount: number, currency = detectCurrency()) {
