@@ -15,6 +15,13 @@
       "when": 1790219255052,
       "tag": "0001_restrict_user_tags_select",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1790221352110,
+      "tag": "0002_restrict_challenge_definitions_to_active",
+      "breakpoints": true
     }
   ]
 }
