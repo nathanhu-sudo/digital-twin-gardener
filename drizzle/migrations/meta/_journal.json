@@ -8,6 +8,13 @@
       "when": 1790035010429,
       "tag": "0000_user_geo_tracking",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1790219255052,
+      "tag": "0001_restrict_user_tags_select",
+      "breakpoints": true
     }
   ]
 }
