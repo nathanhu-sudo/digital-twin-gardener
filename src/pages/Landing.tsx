@@ -135,10 +135,6 @@ export default function Landing() {
           aria-hidden="true"
         >
           <div
-            className="absolute inset-0 opacity-15 bg-cover bg-center"
-            style={{ backgroundImage: `url(${heroImage})` }}
-          />
-          <div
             className="absolute inset-0"
             style={{
               background:
