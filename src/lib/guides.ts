@@ -228,6 +228,72 @@ export const guides: Guide[] = [
     ],
     ctaAfterSection: 3,
   },
+  {
+    slug: "best-food-waste-app-2026",
+    title: "The Best Food Waste App in 2026: What Actually Works",
+    metaTitle: "Best Food Waste App in 2026: What Actually Works | SmartPantry AI",
+    description:
+      "Food waste apps promise to save your groceries and your money. Here's what separates the ones that work from the ones you delete — and how SmartPantry AI stacks up.",
+    updated: "September 2026",
+    readingTime: "5 min read",
+    tagline: "The best food waste app isn't the one with the most features — it's the one that changes what happens in your kitchen.",
+    intro: [
+      "Households throw away a surprising share of the food they buy, and most of it was perfectly edible a few days earlier. A good food waste app attacks that problem at its root: forgetting what's in the fridge until it's too late.",
+      "But the category is crowded, and many apps quietly die on your phone within a month. Here's an honest look at what works, what doesn't, and how to choose.",
+    ],
+    sections: [
+      {
+        heading: "What a food waste app actually needs to do",
+        bullets: [
+          "Know what you have. An inventory that stays current without demanding five minutes of typing after every shop.",
+          "Warn you in time. A reminder the day something expires is too late — you need a nudge while there's still time to cook it.",
+          "Help you use it up. Knowing the spinach is wilting is only useful if the app also suggests what to do with it.",
+          "Make progress visible. Waste reduction is a slow habit; seeing kilograms saved keeps you going.",
+        ],
+      },
+      {
+        heading: "The approaches you'll find",
+        bullets: [
+          "Leftover-sharing apps connect you with neighbours and shops selling surplus food — great for rescue, but they don't stop waste happening in your own kitchen.",
+          "Meal-planning apps reduce waste indirectly by planning what you buy, but they assume you cook to a plan every night.",
+          "Pantry inventory apps track what you own and when it expires — the most direct attack on the 'forgot it existed' problem, which is where most household waste comes from.",
+        ],
+      },
+      {
+        heading: "Where SmartPantry AI fits",
+        paragraphs: [
+          "SmartPantry AI is a pantry inventory app built around the forgetting problem. Add items in seconds — scan the packaging, snap a photo, or type a name — and the app fills in typical shelf life and weight for you.",
+          "From there it works in the background: warnings before food expires, recipe ideas built from what's already in your kitchen, a dashboard showing kilograms consumed versus tossed, and weekly challenges that make saving food feel like a game.",
+        ],
+        bullets: [
+          "Free tier: full tracking for up to 20 items, forever — no card required.",
+          "Lite ($29/year) and Pro ($59/year) unlock unlimited items and deeper sustainability analytics.",
+          "Lifetime ($149) if you'd rather own it once.",
+        ],
+      },
+      {
+        heading: "The two-week test",
+        paragraphs: [
+          "Whichever app you try, give it two honest weeks: add everything you buy, and act on every expiry warning. If your bin is lighter at the end of it, you've found your app. If you've stopped opening it by day four, it doesn't matter how good the features are — the habit is the product.",
+        ],
+      },
+    ],
+    faqs: [
+      {
+        q: "Do food waste apps actually save money?",
+        a: "For most households, yes — the food you stop throwing away is food you don't have to buy again. The savings depend on how much you currently waste, but even a small reduction adds up over a year.",
+      },
+      {
+        q: "What's the difference between a food waste app and a pantry app?",
+        a: "Pantry apps track what you own; food waste apps aim to change what you throw away. The best ones do both — SmartPantry AI tracks your pantry and shows you the kilograms you've saved versus tossed.",
+      },
+      {
+        q: "Is there a free food waste app?",
+        a: "Yes. SmartPantry AI's free tier includes full pantry tracking for up to 20 items with expiry warnings and no payment details required.",
+      },
+    ],
+    ctaAfterSection: 2,
+  },
 ];
 
 export function getGuide(slug: string | undefined): Guide | undefined {
