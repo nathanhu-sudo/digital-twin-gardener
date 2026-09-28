@@ -139,7 +139,7 @@ export function InteractivePantryPreview() {
             </>}
           </div>
 
-          <Button type="button" size="icon" aria-label="Add a pantry item" title="Add a pantry item" onClick={() => setAddOpen(true)} className="relative w-11 h-11 rounded-full shadow-lg ring-4 ring-background overflow-visible">
+          <Button type="button" size="icon" aria-label="Add a pantry item" title="Add a pantry item" onClick={() => setAddOpen(true)} className="absolute bottom-20 right-4 w-11 h-11 rounded-full shadow-lg ring-4 ring-background">
             <span className="absolute inset-0 rounded-full bg-primary animate-ping opacity-25 pointer-events-none" aria-hidden="true" />
             <Plus className="relative h-5 w-5" />
           </Button>
