@@ -180,6 +180,29 @@ export default function Landing() {
             </div>
           </motion.div>
         </div>
+        <div className="relative container max-w-6xl mx-auto px-4 pb-16 sm:pb-20 flex flex-col items-center gap-2">
+          <div className="flex items-center gap-3">
+            <a
+              href="https://www.facebook.com/profile.php?id=61591816062382"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="SmartPantry AI on Facebook"
+              className="flex h-9 w-9 items-center justify-center rounded-full border border-border/50 text-muted-foreground transition-colors hover:text-foreground hover:border-foreground/30"
+            >
+              <Facebook className="h-4 w-4" />
+            </a>
+            <a
+              href="https://www.instagram.com/smart.pantry.ai"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="SmartPantry AI on Instagram"
+              className="flex h-9 w-9 items-center justify-center rounded-full border border-border/50 text-muted-foreground transition-colors hover:text-foreground hover:border-foreground/30"
+            >
+              <Instagram className="h-4 w-4" />
+            </a>
+          </div>
+          <p className="text-xs text-muted-foreground">Follow SmartPantry AI for waste-saving tips</p>
+        </div>
       </section>
 
       {/* Features */}
