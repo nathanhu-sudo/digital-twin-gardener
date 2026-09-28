@@ -129,7 +129,14 @@ export default function Landing() {
           style={{ backgroundImage: `url(${heroImage})` }}
           aria-hidden="true"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-primary/5 to-background/70" />
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background:
+              "linear-gradient(to bottom, hsl(var(--primary) / 0.06), hsl(var(--background) / 0.7) 60%, hsl(var(--background) / 0.3) 92%, transparent)",
+          }}
+          aria-hidden="true"
+        />
         <div className="relative container max-w-6xl mx-auto px-4 py-20 sm:py-28 grid md:grid-cols-2 gap-10 items-center">
           <motion.div
             initial={{ opacity: 0, y: 12 }}
