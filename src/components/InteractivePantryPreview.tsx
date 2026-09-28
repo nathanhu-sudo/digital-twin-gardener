@@ -62,7 +62,17 @@ export function InteractivePantryPreview() {
 
   return (
     <>
-      <div className="relative w-72 h-[580px] bg-foreground rounded-[3rem] p-3 shadow-2xl border border-border/60 ring-8 ring-border/20">
+      <div className="relative">
+        {/* Live-demo attention badge */}
+        <div className="absolute -top-5 right-0 z-20 flex items-center gap-1.5 rounded-full bg-primary px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider text-primary-foreground shadow-lg animate-bounce">
+          <span className="relative flex h-2 w-2">
+            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary-foreground opacity-75" />
+            <span className="relative inline-flex h-2 w-2 rounded-full bg-primary-foreground" />
+          </span>
+          Try the live demo
+          <span className="absolute -bottom-1 left-4 h-2 w-2 rotate-45 bg-primary" aria-hidden="true" />
+        </div>
+        <div className="relative w-72 h-[580px] bg-foreground rounded-[3rem] p-3 shadow-2xl border border-border/60 ring-8 ring-border/20">
         <div className="w-full h-full bg-background rounded-[2.2rem] overflow-hidden flex flex-col relative">
           <div className="h-8 shrink-0 w-full flex justify-between items-center px-6 pt-2" aria-hidden="true">
             <span className="text-[10px] font-bold text-foreground">9:41</span>
@@ -129,7 +139,10 @@ export function InteractivePantryPreview() {
             </>}
           </div>
 
-          <Button type="button" size="icon" aria-label="Add a pantry item" title="Add a pantry item" onClick={() => setAddOpen(true)} className="absolute bottom-20 right-4 w-11 h-11 rounded-full shadow-lg ring-4 ring-background"><Plus className="h-5 w-5" /></Button>
+          <Button type="button" size="icon" aria-label="Add a pantry item" title="Add a pantry item" onClick={() => setAddOpen(true)} className="absolute bottom-20 right-4 w-11 h-11 rounded-full shadow-lg ring-4 ring-background">
+            <span className="absolute inset-0 rounded-full bg-primary animate-ping opacity-25 pointer-events-none" aria-hidden="true" />
+            <Plus className="relative h-5 w-5" />
+          </Button>
           <nav className="h-16 shrink-0 w-full bg-card border-t border-border/50 flex justify-around items-center px-2" aria-label="Demo navigation">
             {nav.map(entry => {
               const Icon = entry.icon;
@@ -138,6 +151,16 @@ export function InteractivePantryPreview() {
           </nav>
           <div className="h-1.5 w-24 bg-muted-foreground/20 rounded-full mx-auto mb-2 shrink-0" aria-hidden="true" />
         </div>
+        {/* Floating tap hotspot near the add button */}
+        <div className="pointer-events-none absolute bottom-[5.5rem] right-[4.5rem] z-20 flex flex-col items-end animate-bounce" aria-hidden="true">
+          <span className="flex h-8 w-8 items-center justify-center rounded-full bg-primary/15 border border-primary/40 backdrop-blur-sm shadow-lg">
+            <span className="h-3.5 w-3.5 rounded-full bg-primary animate-pulse" />
+          </span>
+          <span className="mt-1.5 rounded-md bg-foreground px-2 py-1 text-[9px] font-semibold text-background shadow-lg">
+            Click to add an item
+          </span>
+        </div>
+      </div>
       </div>
       <Dialog open={addOpen} onOpenChange={setAddOpen}>
         <DialogContent className="max-w-sm rounded-lg">
