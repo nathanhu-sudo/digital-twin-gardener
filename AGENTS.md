@@ -1,0 +1,1 @@
+- Keep the landing-page pantry preview as a local-state, self-contained demo; it must not write sample data to real accounts or call paid AI services.

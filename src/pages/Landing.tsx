@@ -5,22 +5,16 @@ import {
   ScanLine,
   Sparkles,
   TrendingUp,
-  TrendingDown,
   Trophy,
   ChefHat,
   Bot,
   ArrowRight,
   BarChart2,
   ShieldCheck,
-  Apple,
-  Plus,
-  CupSoda,
-  Circle,
-  Home,
-  User,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { BrandLogo } from "@/components/BrandLogo";
+import { InteractivePantryPreview } from "@/components/InteractivePantryPreview";
 import { useAuth } from "@/hooks/useAuth";
 import heroImage from "@/assets/hero-illustration.jpg";
 
@@ -176,153 +170,10 @@ export default function Landing() {
               <div className="absolute -top-16 -right-16 w-48 h-48 bg-primary/10 rounded-full blur-3xl" />
               <div className="absolute -bottom-16 -left-16 w-48 h-48 bg-secondary/40 rounded-full blur-3xl" />
 
-              {/* Phone frame */}
-              <div className="relative w-72 h-[580px] bg-foreground rounded-[3rem] p-3 shadow-2xl border border-border/60 ring-8 ring-border/20">
-                {/* Inner screen */}
-                <div className="w-full h-full bg-background rounded-[2.2rem] overflow-hidden flex flex-col relative">
-                  {/* Status bar */}
-                  <div className="h-8 w-full flex justify-between items-center px-6 pt-2">
-                    <span className="text-[10px] font-bold text-foreground">9:41</span>
-                    <div className="flex gap-1.5 items-center">
-                      <div className="w-3 h-3 rounded-full border border-foreground" />
-                      <div className="w-3 h-3 rounded-full bg-foreground" />
-                    </div>
-                  </div>
-
-                  {/* App header */}
-                  <div className="px-5 pt-4 pb-2 flex justify-between items-center">
-                    <div>
-                      <h1 className="text-xl font-bold text-foreground">My Pantry</h1>
-                      <p className="text-[10px] text-primary font-semibold">AI Sync Active</p>
-                    </div>
-                    <div
-                      className="w-10 h-10 rounded-full flex items-center justify-center shadow-lg"
-                      style={{ background: "var(--gradient-primary)" }}
-                    >
-                      <ScanLine className="h-5 w-5 text-primary-foreground" />
-                    </div>
-                  </div>
-
-                  {/* Impact banner */}
-                  <div
-                    className="mx-4 mt-2 p-3 rounded-2xl text-primary-foreground shadow-md"
-                    style={{ background: "var(--gradient-primary)" }}
-                  >
-                    <div className="flex justify-between items-center">
-                      <div>
-                        <p className="text-[9px] opacity-80 uppercase tracking-wider font-bold">
-                          Weekly Impact
-                        </p>
-                        <p className="text-sm font-semibold">Waste reduced by 12%</p>
-                      </div>
-                      <div className="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center">
-                        <TrendingDown className="h-4 w-4 text-primary-foreground" />
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Scrollable content */}
-                  <div className="flex-1 px-4 py-4 space-y-4 overflow-y-auto">
-                    {/* Challenge card */}
-                    <div className="bg-card border border-border/50 p-3 rounded-2xl shadow-sm">
-                      <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 bg-primary/10 rounded-xl flex items-center justify-center">
-                          <Trophy className="h-5 w-5 text-primary" />
-                        </div>
-                        <div>
-                          <p className="text-[10px] text-muted-foreground font-medium">
-                            Weekly Challenge
-                          </p>
-                          <p className="text-xs font-bold text-foreground">Zero-Waste Spinach</p>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Pantry list */}
-                    <div className="space-y-2">
-                      <h2 className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest px-1">
-                        Items
-                      </h2>
-
-                      {[
-                        {
-                          name: "Spinach",
-                          detail: "Fresh for 3 days",
-                          tone: "text-success",
-                          badge: "Fresh",
-                          badgeTone: "bg-success/10 text-success border-success/20",
-                          icon: Leaf,
-                          iconBg: "bg-success/10",
-                        },
-                        {
-                          name: "Milk",
-                          detail: "Expiring tomorrow",
-                          tone: "text-warning",
-                          badge: "Expiring",
-                          badgeTone: "bg-warning/10 text-warning border-warning/20",
-                          icon: CupSoda,
-                          iconBg: "bg-warning/10",
-                        },
-                        {
-                          name: "Eggs",
-                          detail: "6 items left",
-                          tone: "text-muted-foreground",
-                          badge: "Low",
-                          badgeTone: "bg-muted text-muted-foreground border-border",
-                          icon: Circle,
-                          iconBg: "bg-secondary",
-                        },
-                      ].map((item) => (
-                        <div
-                          key={item.name}
-                          className="flex items-center justify-between p-3 bg-card border border-border/50 rounded-2xl"
-                        >
-                          <div className="flex items-center gap-3">
-                            <div
-                              className={`w-8 h-8 ${item.iconBg} rounded-lg flex items-center justify-center`}
-                            >
-                              <item.icon className={`h-4 w-4 ${item.tone}`} />
-                            </div>
-                            <div>
-                              <p className="text-xs font-bold text-foreground">{item.name}</p>
-                              <p className={`text-[10px] ${item.tone}`}>{item.detail}</p>
-                            </div>
-                          </div>
-                          <div
-                            className={`px-2 py-0.5 text-[8px] font-bold rounded-full border uppercase ${item.badgeTone}`}
-                          >
-                            {item.badge}
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* AI FAB */}
-                  <div className="absolute bottom-20 right-4">
-                    <div
-                      className="w-12 h-12 rounded-full shadow-lg flex items-center justify-center text-primary-foreground ring-4 ring-background"
-                      style={{ background: "var(--gradient-primary)" }}
-                    >
-                      <Plus className="h-6 w-6" />
-                    </div>
-                  </div>
-
-                  {/* Bottom navigation */}
-                  <div className="h-16 w-full bg-card border-t border-border/50 flex justify-around items-center px-4">
-                    <Home className="h-6 w-6 text-primary" />
-                    <ChefHat className="h-6 w-6 text-muted-foreground" />
-                    <BarChart2 className="h-6 w-6 text-muted-foreground" />
-                    <User className="h-6 w-6 text-muted-foreground" />
-                  </div>
-
-                  {/* Home indicator */}
-                  <div className="h-1.5 w-24 bg-muted-foreground/20 rounded-full mx-auto mb-2" />
-                </div>
-              </div>
+              <InteractivePantryPreview />
 
               <p className="text-xs text-muted-foreground text-center relative z-10">
-                A preview of your SmartPantry screen
+                Explore the sample pantry — changes stay in this demo
               </p>
             </div>
           </motion.div>
