@@ -11,6 +11,8 @@ import {
   ArrowRight,
   BarChart2,
   ShieldCheck,
+  Facebook,
+  Instagram,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { BrandLogo } from "@/components/BrandLogo";
@@ -259,7 +261,27 @@ export default function Landing() {
 
       <footer className="border-t border-border/40 py-6 text-center text-xs text-muted-foreground">
         <p>© {new Date().getFullYear()} SmartPantry AI · Built with Lovable Cloud</p>
-        <p className="flex items-center justify-center gap-4 mt-1">
+        <div className="flex items-center justify-center gap-3 mt-2">
+          <a
+            href="https://www.facebook.com/profile.php?id=61591816062382"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="SmartPantry AI on Facebook"
+            className="flex h-8 w-8 items-center justify-center rounded-full border border-border/50 text-muted-foreground transition-colors hover:text-foreground hover:border-foreground/30"
+          >
+            <Facebook className="h-4 w-4" />
+          </a>
+          <a
+            href="https://www.instagram.com/smart.pantry.ai"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="SmartPantry AI on Instagram"
+            className="flex h-8 w-8 items-center justify-center rounded-full border border-border/50 text-muted-foreground transition-colors hover:text-foreground hover:border-foreground/30"
+          >
+            <Instagram className="h-4 w-4" />
+          </a>
+        </div>
+        <p className="flex items-center justify-center gap-4 mt-2">
           <Link to="/guides" className="hover:text-foreground transition-colors">Guides</Link>
           <Link to="/terms" className="hover:text-foreground transition-colors">Terms</Link>
           <Link to="/privacy" className="hover:text-foreground transition-colors">Privacy</Link>
