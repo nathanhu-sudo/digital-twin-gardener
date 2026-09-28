@@ -10,8 +10,20 @@ function trackLocation() {
     if (Date.now() - last < 6 * 60 * 60 * 1000) return;
     localStorage.setItem(GEO_KEY, String(Date.now()));
   } catch (_) { /* storage unavailable */ }
-  const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-  supabase.functions.invoke("track-location", { body: { timezone } }).catch(() => {});
+  let timezone = "";
+  try { timezone = Intl.DateTimeFormat().resolvedOptions().timeZone; } catch (_) { /* ignore */ }
+  // Fire-and-forget; never surface failures (e.g. transient 503s) to the UI.
+  void (async () => {
+    try {
+      const { error } = await supabase.functions.invoke("track-location", { body: { timezone } });
+      if (error) {
+        // Allow a retry sooner if the service was temporarily unavailable.
+        try { localStorage.removeItem(GEO_KEY); } catch (_) { /* ignore */ }
+      }
+    } catch (_) {
+      try { localStorage.removeItem(GEO_KEY); } catch (_) { /* ignore */ }
+    }
+  })();
 }
 
 export function useAuth() {
