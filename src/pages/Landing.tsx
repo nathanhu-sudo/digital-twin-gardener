@@ -68,7 +68,7 @@ export default function Landing() {
     <div className="min-h-screen bg-background flex flex-col relative overflow-x-hidden">
       {/* Page-wide fruit & veg pattern, hidden behind the final CTA */}
       <div
-        className="fixed inset-0 -z-20 pointer-events-none opacity-50"
+        className="fixed inset-0 -z-20 pointer-events-none opacity-80"
         style={{
           backgroundImage: "url(/auth-bg.jpg)",
           backgroundSize: "480px 480px",
