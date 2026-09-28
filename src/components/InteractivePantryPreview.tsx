@@ -148,6 +148,15 @@ export function InteractivePantryPreview() {
           </nav>
           <div className="h-1.5 w-24 bg-muted-foreground/20 rounded-full mx-auto mb-2 shrink-0" aria-hidden="true" />
         </div>
+        {/* Floating tap hotspot near the add button */}
+        <div className="pointer-events-none absolute bottom-[5.5rem] right-[4.5rem] z-20 flex flex-col items-end animate-bounce" aria-hidden="true">
+          <span className="flex h-8 w-8 items-center justify-center rounded-full bg-primary/15 border border-primary/40 backdrop-blur-sm shadow-lg">
+            <span className="h-3.5 w-3.5 rounded-full bg-primary animate-pulse" />
+          </span>
+          <span className="mt-1.5 rounded-md bg-foreground px-2 py-1 text-[9px] font-semibold text-background shadow-lg">
+            Click to add an item
+          </span>
+        </div>
       </div>
       <Dialog open={addOpen} onOpenChange={setAddOpen}>
         <DialogContent className="max-w-sm rounded-lg">
