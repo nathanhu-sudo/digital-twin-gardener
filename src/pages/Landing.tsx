@@ -65,7 +65,7 @@ export default function Landing() {
   const ctaLabel = user ? "Open your pantry" : "Get started free";
 
   return (
-    <div className="min-h-screen bg-background flex flex-col relative overflow-x-hidden">
+    <div className="min-h-screen flex flex-col relative overflow-x-hidden">
       {/* Page-wide fruit & veg pattern, hidden behind the final CTA */}
       <div
         className="fixed inset-0 -z-20 pointer-events-none opacity-80"
