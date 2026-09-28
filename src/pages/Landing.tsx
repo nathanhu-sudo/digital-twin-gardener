@@ -188,14 +188,10 @@ export default function Landing() {
             transition={{ duration: 0.6, delay: 0.1 }}
             className="relative"
           >
-            <div className="glass-strong rounded-3xl border border-border/50 shadow-elegant p-6 sm:p-8 flex flex-col items-center gap-4 relative overflow-hidden">
-              {/* Decorative glows */}
-              <div className="absolute -top-16 -right-16 w-48 h-48 bg-primary/10 rounded-full blur-3xl" />
-              <div className="absolute -bottom-16 -left-16 w-48 h-48 bg-secondary/40 rounded-full blur-3xl" />
-
+            <div className="relative flex flex-col items-center gap-4">
               <InteractivePantryPreview />
 
-              <p className="text-xs text-muted-foreground text-center relative z-10">
+              <p className="text-xs text-muted-foreground text-center">
                 Explore the sample pantry — changes stay in this demo
               </p>
             </div>
