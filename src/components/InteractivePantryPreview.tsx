@@ -62,7 +62,17 @@ export function InteractivePantryPreview() {
 
   return (
     <>
-      <div className="relative w-72 h-[580px] bg-foreground rounded-[3rem] p-3 shadow-2xl border border-border/60 ring-8 ring-border/20">
+      <div className="relative">
+        {/* Live-demo attention badge */}
+        <div className="absolute -top-5 right-0 z-20 flex items-center gap-1.5 rounded-full bg-primary px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider text-primary-foreground shadow-lg animate-bounce">
+          <span className="relative flex h-2 w-2">
+            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary-foreground opacity-75" />
+            <span className="relative inline-flex h-2 w-2 rounded-full bg-primary-foreground" />
+          </span>
+          Try the live demo
+          <span className="absolute -bottom-1 left-4 h-2 w-2 rotate-45 bg-primary" aria-hidden="true" />
+        </div>
+        <div className="relative w-72 h-[580px] bg-foreground rounded-[3rem] p-3 shadow-2xl border border-border/60 ring-8 ring-border/20">
         <div className="w-full h-full bg-background rounded-[2.2rem] overflow-hidden flex flex-col relative">
           <div className="h-8 shrink-0 w-full flex justify-between items-center px-6 pt-2" aria-hidden="true">
             <span className="text-[10px] font-bold text-foreground">9:41</span>
