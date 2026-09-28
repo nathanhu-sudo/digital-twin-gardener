@@ -245,10 +245,10 @@ export default function Landing() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-40px" }}
               transition={{ duration: 0.35, delay: i * 0.05 }}
-              className="glass rounded-2xl border border-border/50 p-5 hover:shadow-elegant transition-shadow"
+              className="glass rounded-2xl border border-border/50 p-5 hover:shadow-elegant transition-shadow flex flex-col items-center text-center"
             >
               <div
-                className="rounded-xl p-2.5 w-fit shadow-md mb-3"
+                className="rounded-xl p-2.5 shadow-md mb-3"
                 style={{ background: "var(--gradient-primary)" }}
               >
                 <f.icon className="h-5 w-5 text-primary-foreground" />
