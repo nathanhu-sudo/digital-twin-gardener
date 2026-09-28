@@ -16,6 +16,8 @@ interface SitemapEntry {
 const entries: SitemapEntry[] = [
   { path: "/", changefreq: "weekly", priority: "1.0" },
   { path: "/pricing", changefreq: "monthly", priority: "0.8" },
+  { path: "/pantry-inventory-app", changefreq: "monthly", priority: "0.9" },
+  { path: "/food-waste-app", changefreq: "monthly", priority: "0.9" },
   { path: "/guides", changefreq: "weekly", priority: "0.8" },
   { path: "/guides/how-to-reduce-food-waste-at-home", changefreq: "monthly", priority: "0.7" },
   { path: "/guides/best-pantry-inventory-app-2026", changefreq: "monthly", priority: "0.7" },

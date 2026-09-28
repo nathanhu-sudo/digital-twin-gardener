@@ -19,6 +19,7 @@ import Privacy from "./pages/Privacy";
 import Refund from "./pages/Refund";
 import GuidesIndex from "./pages/GuidesIndex";
 import Guide from "./pages/Guide";
+import KeywordRoute from "./pages/KeywordRoute";
 
 
 
@@ -53,6 +54,8 @@ const App = () => (
           <Route path="/refund" element={<Refund />} />
           <Route path="/guides" element={<GuidesIndex />} />
           <Route path="/guides/:slug" element={<Guide />} />
+          <Route path="/pantry-inventory-app" element={<KeywordRoute slug="pantry-inventory-app" />} />
+          <Route path="/food-waste-app" element={<KeywordRoute slug="food-waste-app" />} />
 
           <Route
             path="/app"
