@@ -65,7 +65,17 @@ export default function Landing() {
   const ctaLabel = user ? "Open your pantry" : "Get started free";
 
   return (
-    <div className="min-h-screen bg-background flex flex-col relative overflow-x-hidden">
+    <div className="min-h-screen flex flex-col relative overflow-x-hidden">
+      {/* Page-wide fruit & veg pattern, hidden behind the final CTA */}
+      <div
+        className="fixed inset-0 -z-20 pointer-events-none opacity-80"
+        style={{
+          backgroundImage: "url(/auth-bg.jpg)",
+          backgroundSize: "480px 480px",
+          backgroundRepeat: "repeat",
+        }}
+        aria-hidden="true"
+      />
       <div className="fixed inset-0 -z-10 bg-mesh pointer-events-none" aria-hidden="true" />
 
       {/* Nav */}
@@ -262,8 +272,9 @@ export default function Landing() {
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="container max-w-4xl mx-auto px-4 py-20 sm:py-28">
+      {/* CTA — plain background, no pattern */}
+      <div className="w-full bg-background">
+        <section className="container max-w-4xl mx-auto px-4 py-20 sm:py-28">
         <div
           className="relative overflow-hidden rounded-3xl border border-border/50 p-8 sm:p-12 text-center shadow-elegant"
           style={{ background: "var(--gradient-primary)" }}
@@ -283,7 +294,8 @@ export default function Landing() {
             </Button>
           </div>
         </div>
-      </section>
+        </section>
+      </div>
 
       <footer className="border-t border-border/40 py-6 text-center text-xs text-muted-foreground">
         <p>© {new Date().getFullYear()} SmartPantry AI · Built with Lovable Cloud</p>
