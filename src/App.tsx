@@ -54,8 +54,8 @@ const App = () => (
           <Route path="/refund" element={<Refund />} />
           <Route path="/guides" element={<GuidesIndex />} />
           <Route path="/guides/:slug" element={<Guide />} />
-          <Route path="/pantry-inventory-app" element={<KeywordRoute />} />
-          <Route path="/food-waste-app" element={<KeywordRoute />} />
+          <Route path="/pantry-inventory-app" element={<KeywordRoute slug="pantry-inventory-app" />} />
+          <Route path="/food-waste-app" element={<KeywordRoute slug="food-waste-app" />} />
 
           <Route
             path="/app"
