@@ -180,7 +180,34 @@ export default function Landing() {
                 <Leaf className="h-3.5 w-3.5 text-primary" /> No credit card
               </span>
             </div>
+            <div className="flex flex-col items-start gap-3 pt-2">
+              <p className="text-sm font-semibold tracking-wide uppercase text-muted-foreground">Socials</p>
+              <div className="flex items-center gap-4">
+                <a
+                  href="https://www.facebook.com/profile.php?id=61591816062382"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="SmartPantry AI on Facebook"
+                  className="flex h-12 w-12 items-center justify-center rounded-full text-white transition-transform hover:scale-110 shadow-md"
+                  style={{ background: "#1877F2" }}
+                >
+                  <Facebook className="h-6 w-6" />
+                </a>
+                <a
+                  href="https://www.instagram.com/smart.pantry.ai"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="SmartPantry AI on Instagram"
+                  className="flex h-12 w-12 items-center justify-center rounded-full text-white transition-transform hover:scale-110 shadow-md"
+                  style={{ background: "linear-gradient(45deg, #F58529 0%, #DD2A7B 55%, #8134AF 80%, #515BD4 100%)" }}
+                >
+                  <Instagram className="h-6 w-6" />
+                </a>
+              </div>
+              <p className="text-xs text-muted-foreground">Follow SmartPantry AI for waste-saving tips</p>
+            </div>
           </motion.div>
+
 
           <motion.div
             initial={{ opacity: 0, scale: 0.96 }}
@@ -197,33 +224,8 @@ export default function Landing() {
             </div>
           </motion.div>
         </div>
-        <div className="relative container max-w-6xl mx-auto px-4 pb-16 sm:pb-20 flex flex-col items-center gap-3">
-          <p className="text-sm font-semibold tracking-wide uppercase text-muted-foreground">Socials</p>
-          <div className="flex items-center gap-4">
-            <a
-              href="https://www.facebook.com/profile.php?id=61591816062382"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="SmartPantry AI on Facebook"
-              className="flex h-12 w-12 items-center justify-center rounded-full text-white transition-transform hover:scale-110 shadow-md"
-              style={{ background: "#1877F2" }}
-            >
-              <Facebook className="h-6 w-6" />
-            </a>
-            <a
-              href="https://www.instagram.com/smart.pantry.ai"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="SmartPantry AI on Instagram"
-              className="flex h-12 w-12 items-center justify-center rounded-full text-white transition-transform hover:scale-110 shadow-md"
-              style={{ background: "linear-gradient(45deg, #F58529 0%, #DD2A7B 55%, #8134AF 80%, #515BD4 100%)" }}
-            >
-              <Instagram className="h-6 w-6" />
-            </a>
-          </div>
-          <p className="text-xs text-muted-foreground">Follow SmartPantry AI for waste-saving tips</p>
-        </div>
       </section>
+
 
       {/* Features */}
       <section id="features" className="container max-w-6xl mx-auto px-4 py-20 sm:py-28">
