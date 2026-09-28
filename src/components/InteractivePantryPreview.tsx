@@ -161,6 +161,7 @@ export function InteractivePantryPreview() {
           </span>
         </div>
       </div>
+      </div>
       <Dialog open={addOpen} onOpenChange={setAddOpen}>
         <DialogContent className="max-w-sm rounded-lg">
           <DialogHeader><DialogTitle>Add a demo item</DialogTitle><DialogDescription>This is sample data and won't be saved to an account.</DialogDescription></DialogHeader>
