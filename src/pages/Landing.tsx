@@ -287,24 +287,26 @@ export default function Landing() {
 
       <footer className="border-t border-border/40 py-6 text-center text-xs text-muted-foreground">
         <p>© {new Date().getFullYear()} SmartPantry AI · Built with Lovable Cloud</p>
-        <div className="flex items-center justify-center gap-3 mt-2">
+        <div className="flex items-center justify-center gap-4 mt-2">
           <a
             href="https://www.facebook.com/profile.php?id=61591816062382"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="SmartPantry AI on Facebook"
-            className="flex h-8 w-8 items-center justify-center rounded-full border border-border/50 text-muted-foreground transition-colors hover:text-foreground hover:border-foreground/30"
+            className="flex h-12 w-12 items-center justify-center rounded-full text-white transition-transform hover:scale-110 shadow-md"
+            style={{ background: "#1877F2" }}
           >
-            <Facebook className="h-4 w-4" />
+            <Facebook className="h-6 w-6" />
           </a>
           <a
             href="https://www.instagram.com/smart.pantry.ai"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="SmartPantry AI on Instagram"
-            className="flex h-8 w-8 items-center justify-center rounded-full border border-border/50 text-muted-foreground transition-colors hover:text-foreground hover:border-foreground/30"
+            className="flex h-12 w-12 items-center justify-center rounded-full text-white transition-transform hover:scale-110 shadow-md"
+            style={{ background: "linear-gradient(45deg, #F58529 0%, #DD2A7B 55%, #8134AF 80%, #515BD4 100%)" }}
           >
-            <Instagram className="h-4 w-4" />
+            <Instagram className="h-6 w-6" />
           </a>
         </div>
         <p className="flex items-center justify-center gap-4 mt-2">
