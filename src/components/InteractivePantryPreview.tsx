@@ -72,7 +72,7 @@ export function InteractivePantryPreview() {
           Try the live demo
           <span className="absolute -bottom-1 left-4 h-2 w-2 rotate-45 bg-primary" aria-hidden="true" />
         </div>
-        <div className="relative w-72 h-[580px] bg-foreground rounded-[3rem] p-3 shadow-2xl shadow-primary/25 border-2 border-primary/70">
+        <div className="relative w-72 h-[580px] bg-foreground rounded-[3rem] p-3 shadow-2xl border border-border/60 ring-8 ring-border/20">
         <div className="w-full h-full bg-background rounded-[2.2rem] overflow-hidden flex flex-col relative">
           <div className="h-8 shrink-0 w-full flex justify-between items-center px-6 pt-2" aria-hidden="true">
             <span className="text-[10px] font-bold text-foreground">9:41</span>
