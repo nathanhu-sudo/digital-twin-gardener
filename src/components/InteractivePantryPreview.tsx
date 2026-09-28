@@ -1,5 +1,5 @@
 import { useMemo, useState, type FormEvent } from "react";
-import { Apple, ArrowLeft, BarChart2, ChefHat, Circle, CupSoda, Home, Leaf, Plus, ScanLine, Sparkles, Trophy, User, Check, RotateCcw } from "lucide-react";
+import { Apple, BarChart2, ChefHat, Circle, CupSoda, Home, Leaf, Plus, ScanLine, Sparkles, Trophy, User, Check, RotateCcw } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
