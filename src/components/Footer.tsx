@@ -3,7 +3,9 @@ import { Link } from "react-router-dom";
 const Footer = () => (
   <footer className="w-full py-6 px-4 text-center text-xs text-muted-foreground border-t bg-background/80 backdrop-blur-sm space-y-2">
     <p>© {new Date().getFullYear()} SmartPantry AI. All rights reserved.</p>
-    <p className="flex items-center justify-center gap-4">
+    <p className="flex items-center justify-center gap-4 flex-wrap">
+      <Link to="/pantry-inventory-app" className="hover:text-foreground transition-colors">Pantry Inventory App</Link>
+      <Link to="/food-waste-app" className="hover:text-foreground transition-colors">Food Waste App</Link>
       <Link to="/guides" className="hover:text-foreground transition-colors">Guides</Link>
       <Link to="/terms" className="hover:text-foreground transition-colors">Terms</Link>
       <Link to="/privacy" className="hover:text-foreground transition-colors">Privacy</Link>
