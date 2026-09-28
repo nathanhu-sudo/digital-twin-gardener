@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { ArrowLeft, ArrowRight, Clock3, Leaf } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { BrandLogo } from "@/components/BrandLogo";
-import { type Guide } from "@/lib/guides";
+import { guides, type Guide } from "@/lib/guides";
 
 function faqJsonLd(guide: Guide) {
   return {
