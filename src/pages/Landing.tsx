@@ -231,8 +231,8 @@ export default function Landing() {
           <h2 className="text-3xl sm:text-4xl font-bold font-serif tracking-tight">
             Everything your kitchen needs
           </h2>
-          <p className="text-muted-foreground mt-3 max-w-xl mx-auto">
-            Six connected tools — one calm, beautiful app.
+          <p className="text-primary font-medium mt-3">
+            Six connected tools
           </p>
         </div>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
