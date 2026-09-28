@@ -303,9 +303,8 @@ export default function Landing() {
         </section>
 
 
-      <footer className="border-t border-border/40 py-6 text-center text-xs text-muted-foreground">
-        <p>© {new Date().getFullYear()} SmartPantry AI · Built with Lovable Cloud</p>
-        <div className="flex items-center justify-center gap-4 mt-2">
+      <footer className="border-t border-border/40 py-8 text-center text-sm text-muted-foreground">
+        <div className="flex items-center justify-center gap-5">
           <a
             href="https://www.facebook.com/profile.php?id=61591816062382"
             target="_blank"
@@ -327,12 +326,13 @@ export default function Landing() {
             <Instagram className="h-6 w-6" />
           </a>
         </div>
-        <p className="flex items-center justify-center gap-4 mt-2">
-          <Link to="/guides" className="hover:text-foreground transition-colors">Guides</Link>
-          <Link to="/terms" className="hover:text-foreground transition-colors">Terms</Link>
-          <Link to="/privacy" className="hover:text-foreground transition-colors">Privacy</Link>
-          <Link to="/refund" className="hover:text-foreground transition-colors">Refunds</Link>
-        </p>
+        <p className="mt-4">© {new Date().getFullYear()} SmartPantry AI</p>
+        <div className="inline-flex items-center justify-center gap-6 mt-4 px-6 py-3 rounded-2xl border border-border/50 bg-background/70 backdrop-blur-sm">
+          <Link to="/guides" className="text-sm font-medium text-foreground hover:text-primary transition-colors">Guides</Link>
+          <Link to="/terms" className="text-sm font-medium text-foreground hover:text-primary transition-colors">Terms</Link>
+          <Link to="/privacy" className="text-sm font-medium text-foreground hover:text-primary transition-colors">Privacy</Link>
+          <Link to="/refund" className="text-sm font-medium text-foreground hover:text-primary transition-colors">Refunds</Link>
+        </div>
       </footer>
     </div>
   );
