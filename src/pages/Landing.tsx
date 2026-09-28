@@ -18,7 +18,6 @@ import { Button } from "@/components/ui/button";
 import { BrandLogo } from "@/components/BrandLogo";
 import { InteractivePantryPreview } from "@/components/InteractivePantryPreview";
 import { useAuth } from "@/hooks/useAuth";
-import heroImage from "@/assets/hero-illustration.jpg";
 
 const FEATURES = [
   {
@@ -134,10 +133,6 @@ export default function Landing() {
           }}
           aria-hidden="true"
         >
-          <div
-            className="absolute inset-0 opacity-15 bg-cover bg-center"
-            style={{ backgroundImage: `url(${heroImage})` }}
-          />
           <div
             className="absolute inset-0"
             style={{
