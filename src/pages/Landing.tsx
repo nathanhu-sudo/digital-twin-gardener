@@ -279,9 +279,8 @@ export default function Landing() {
         </div>
       </section>
 
-      {/* CTA — plain background, no pattern */}
-      <div className="w-full bg-background">
-        <section className="container max-w-4xl mx-auto px-4 py-20 sm:py-28">
+      {/* CTA — pattern shows through */}
+      <section className="container max-w-4xl mx-auto px-4 py-20 sm:py-28">
         <div
           className="relative overflow-hidden rounded-3xl border border-border/50 p-8 sm:p-12 text-center shadow-elegant"
           style={{ background: "var(--gradient-primary)" }}
