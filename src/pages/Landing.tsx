@@ -125,18 +125,27 @@ export default function Landing() {
       {/* Hero */}
       <section className="relative overflow-hidden">
         <div
-          className="absolute inset-0 opacity-15 bg-cover bg-center"
-          style={{ backgroundImage: `url(${heroImage})` }}
-          aria-hidden="true"
-        />
-        <div
           className="absolute inset-0 pointer-events-none"
           style={{
-            background:
-              "linear-gradient(to bottom, hsl(var(--primary) / 0.06), hsl(var(--background) / 0.7) 60%, hsl(var(--background) / 0.3) 92%, transparent)",
+            maskImage:
+              "linear-gradient(to bottom, black 62%, transparent 97%)",
+            WebkitMaskImage:
+              "linear-gradient(to bottom, black 62%, transparent 97%)",
           }}
           aria-hidden="true"
-        />
+        >
+          <div
+            className="absolute inset-0 opacity-15 bg-cover bg-center"
+            style={{ backgroundImage: `url(${heroImage})` }}
+          />
+          <div
+            className="absolute inset-0"
+            style={{
+              background:
+                "linear-gradient(to bottom, hsl(var(--primary) / 0.06), hsl(var(--background) / 0.7) 60%, hsl(var(--background) / 0.3) 92%, transparent)",
+            }}
+          />
+        </div>
         <div className="relative container max-w-6xl mx-auto px-4 py-20 sm:py-28 grid md:grid-cols-2 gap-10 items-center">
           <motion.div
             initial={{ opacity: 0, y: 12 }}
