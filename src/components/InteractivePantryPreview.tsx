@@ -1,0 +1,156 @@
+import { useMemo, useState, type FormEvent } from "react";
+import { Apple, ArrowLeft, BarChart2, ChefHat, Circle, CupSoda, Home, Leaf, Plus, ScanLine, Sparkles, Trophy, User, Check, RotateCcw } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+
+const starterItems = [
+  { id: 1, name: "Spinach", days: 3, icon: Leaf },
+  { id: 2, name: "Milk", days: 1, icon: CupSoda },
+  { id: 3, name: "Eggs", days: 5, icon: Circle },
+];
+type PantryItem = (typeof starterItems)[number];
+type PreviewTab = "pantry" | "recipes" | "impact" | "profile";
+
+export function InteractivePantryPreview() {
+  const [tab, setTab] = useState<PreviewTab>("pantry");
+  const [items, setItems] = useState<PantryItem[]>(starterItems);
+  const [consumed, setConsumed] = useState(0);
+  const [addOpen, setAddOpen] = useState(false);
+  const [name, setName] = useState("");
+  const [days, setDays] = useState("3");
+  const [recipe, setRecipe] = useState<string | null>(null);
+  const [notice, setNotice] = useState("");
+  const [selectedItem, setSelectedItem] = useState<number | null>(null);
+
+  const urgent = useMemo(() => [...items].sort((a, b) => a.days - b.days)[0], [items]);
+  const saved = (1.2 + consumed * 0.25).toFixed(2);
+
+  const addItem = (event: FormEvent) => {
+    event.preventDefault();
+    const trimmed = name.trim();
+    if (!trimmed) return;
+    setItems(current => [...current, { id: Date.now(), name: trimmed, days: Math.max(1, Math.min(30, Number(days) || 1)), icon: Apple }]);
+    setName("");
+    setDays("3");
+    setAddOpen(false);
+    setTab("pantry");
+    setNotice(`${trimmed} added to your demo pantry`);
+  };
+
+  const eatItem = (item: PantryItem) => {
+    setItems(current => current.filter(entry => entry.id !== item.id));
+    setConsumed(current => current + 1);
+    setSelectedItem(null);
+    setNotice(`${item.name} used — your impact grew!`);
+  };
+
+  const reset = () => {
+    setItems(starterItems);
+    setConsumed(0);
+    setRecipe(null);
+    setTab("pantry");
+    setNotice("Demo reset");
+  };
+
+  const nav: { key: PreviewTab; label: string; icon: typeof Home }[] = [
+    { key: "pantry", label: "Pantry", icon: Home },
+    { key: "recipes", label: "Recipes", icon: ChefHat },
+    { key: "impact", label: "Impact", icon: BarChart2 },
+    { key: "profile", label: "Profile", icon: User },
+  ];
+
+  return (
+    <>
+      <div className="relative w-72 h-[580px] bg-foreground rounded-[3rem] p-3 shadow-2xl border border-border/60 ring-8 ring-border/20">
+        <div className="w-full h-full bg-background rounded-[2.2rem] overflow-hidden flex flex-col relative">
+          <div className="h-8 shrink-0 w-full flex justify-between items-center px-6 pt-2" aria-hidden="true">
+            <span className="text-[10px] font-bold text-foreground">9:41</span>
+            <div className="flex gap-1.5 items-center"><div className="w-3 h-3 rounded-full border border-foreground" /><div className="w-3 h-3 rounded-full bg-foreground" /></div>
+          </div>
+
+          <div className="px-5 pt-4 pb-2 flex justify-between items-center shrink-0">
+            <div>
+              <h2 className="text-xl font-bold text-foreground">{tab === "pantry" ? "My Pantry" : tab === "recipes" ? "Recipes" : tab === "impact" ? "My Impact" : "My Profile"}</h2>
+              <p className="text-[10px] text-primary font-semibold">Interactive demo · sample data</p>
+            </div>
+            <Button type="button" size="icon" aria-label="Add a pantry item" title="Add a pantry item" onClick={() => setAddOpen(true)} className="rounded-full h-10 w-10 shadow-lg">
+              <ScanLine className="h-5 w-5" />
+            </Button>
+          </div>
+
+          <div className="flex-1 min-h-0 overflow-y-auto px-4 py-3 space-y-3" aria-live="polite">
+            {notice && <div role="status" className="text-[10px] text-primary font-semibold px-1">{notice}</div>}
+            {tab === "pantry" && <>
+              <div className="p-3 rounded-lg bg-primary text-primary-foreground shadow-md">
+                <p className="text-[9px] opacity-80 uppercase font-bold">Weekly Impact</p>
+                <p className="text-sm font-semibold">{saved} kg food saved</p>
+                <p className="text-[10px] opacity-90">{consumed} items used in this demo</p>
+              </div>
+              <div className="bg-card border border-border p-3 rounded-lg flex items-center gap-3">
+                <div className="w-9 h-9 shrink-0 bg-primary/10 rounded-lg flex items-center justify-center"><Trophy className="h-5 w-5 text-primary" /></div>
+                <div><p className="text-[10px] text-muted-foreground">Weekly Challenge</p><p className="text-xs font-bold">Use {Math.max(0, 2 - consumed)} more items</p></div>
+              </div>
+              <div className="flex justify-between items-center px-1"><h3 className="text-[10px] font-bold text-muted-foreground uppercase">Items · {items.length}</h3><span className="text-[10px] text-muted-foreground">Tap to use</span></div>
+              {items.length === 0 && <p className="text-xs text-muted-foreground text-center py-6">All used up! Add an item to keep going.</p>}
+              {items.map(item => {
+                const Icon = item.icon;
+                return <Button key={item.id} type="button" variant="outline" onClick={() => setSelectedItem(item.id)} className="w-full h-auto min-h-14 px-3 py-2 justify-between text-left bg-card whitespace-normal rounded-lg">
+                  <span className="flex items-center gap-2 min-w-0"><span className="w-8 h-8 bg-secondary rounded-lg flex items-center justify-center shrink-0"><Icon className="h-4 w-4 text-primary" /></span><span className="min-w-0"><span className="block text-xs font-bold truncate">{item.name}</span><span className="block text-[10px] text-muted-foreground">{item.days === 1 ? "Expiring tomorrow" : `Fresh for ${item.days} days`}</span></span></span>
+                  <span className={`text-[9px] font-semibold shrink-0 ${item.days <= 1 ? "text-warning" : "text-success"}`}>{item.days <= 1 ? "Use soon" : "Fresh"}</span>
+                </Button>;
+              })}
+              {selectedItem !== null && (() => {
+                const item = items.find(entry => entry.id === selectedItem);
+                return item ? <div className="bg-secondary rounded-lg p-3 flex items-center justify-between gap-2"><span className="text-xs font-medium">Used {item.name}?</span><Button type="button" size="sm" className="h-7 text-xs" onClick={() => eatItem(item)}><Check /> Mark used</Button></div> : null;
+              })()}
+            </>}
+            {tab === "recipes" && <>
+              <p className="text-xs text-muted-foreground">Ideas from your demo pantry</p>
+              {items.length === 0 ? <p className="text-xs text-muted-foreground py-6">Add an item to see a recipe idea.</p> : <>
+                <div className="rounded-lg bg-secondary p-3 space-y-2">
+                  <span className="text-[10px] uppercase text-primary font-bold">Use first · {urgent.name}</span>
+                  <h3 className="text-sm font-bold">{urgent.name} kitchen bowl</h3>
+                  <p className="text-[11px] text-muted-foreground">A quick idea using {items.slice(0, 3).map(item => item.name.toLowerCase()).join(", ")}.</p>
+                  <Button type="button" size="sm" className="h-8 text-xs" onClick={() => setRecipe(`${urgent.name} kitchen bowl`)}><Sparkles /> See idea</Button>
+                </div>
+                {recipe && <div className="bg-card border border-border rounded-lg p-3 space-y-1 text-xs"><p className="font-bold">{recipe}</p><p>Cook the ingredients you have, season to taste, and serve warm. Check that everything is fresh before cooking.</p><p className="text-muted-foreground text-[10px]">Sample idea, not AI-generated</p></div>}
+              </>}
+            </>}
+            {tab === "impact" && <>
+              <div className="rounded-lg bg-primary text-primary-foreground p-4"><Leaf className="h-5 w-5 mb-2" /><p className="text-2xl font-bold">{saved} kg</p><p className="text-xs">Food saved in this demo</p></div>
+              <div className="grid grid-cols-2 gap-2"><div className="bg-card border border-border rounded-lg p-3"><p className="text-lg font-bold">{consumed}</p><p className="text-[10px] text-muted-foreground">Items consumed</p></div><div className="bg-card border border-border rounded-lg p-3"><p className="text-lg font-bold">{Math.min(consumed, 2)}/2</p><p className="text-[10px] text-muted-foreground">Challenge progress</p></div></div>
+              <p className="text-[11px] text-muted-foreground">Mark pantry items as used to see these numbers grow.</p>
+            </>}
+            {tab === "profile" && <>
+              <div className="flex items-center gap-3 p-3 bg-card border border-border rounded-lg"><span className="w-10 h-10 rounded-full bg-secondary flex items-center justify-center"><User className="h-5 w-5 text-primary" /></span><div><p className="text-sm font-bold">Demo Explorer</p><p className="text-[10px] text-muted-foreground">Sample profile</p></div></div>
+              <p className="text-xs text-muted-foreground">Your real pantry, progress and rewards are saved when you create an account.</p>
+              <Button type="button" variant="outline" size="sm" className="w-full text-xs" onClick={reset}><RotateCcw /> Reset demo</Button>
+            </>}
+          </div>
+
+          <Button type="button" size="icon" aria-label="Add a pantry item" title="Add a pantry item" onClick={() => setAddOpen(true)} className="absolute bottom-20 right-4 w-11 h-11 rounded-full shadow-lg ring-4 ring-background"><Plus className="h-5 w-5" /></Button>
+          <nav className="h-16 shrink-0 w-full bg-card border-t border-border/50 flex justify-around items-center px-2" aria-label="Demo navigation">
+            {nav.map(entry => {
+              const Icon = entry.icon;
+              return <Button key={entry.key} type="button" variant="ghost" size="icon" aria-label={`Demo ${entry.label}`} aria-current={tab === entry.key ? "page" : undefined} title={entry.label} onClick={() => { setTab(entry.key); setNotice(""); }} className={`w-12 h-12 rounded-lg ${tab === entry.key ? "text-primary bg-primary/10" : "text-muted-foreground"}`}><Icon className="h-5 w-5" /></Button>;
+            })}
+          </nav>
+          <div className="h-1.5 w-24 bg-muted-foreground/20 rounded-full mx-auto mb-2 shrink-0" aria-hidden="true" />
+        </div>
+      </div>
+      <Dialog open={addOpen} onOpenChange={setAddOpen}>
+        <DialogContent className="max-w-sm rounded-lg">
+          <DialogHeader><DialogTitle>Add a demo item</DialogTitle><DialogDescription>This is sample data and won't be saved to an account.</DialogDescription></DialogHeader>
+          <form onSubmit={addItem} className="space-y-4">
+            <label className="block text-sm font-medium" htmlFor="demo-item">Item name</label>
+            <Input id="demo-item" value={name} onChange={e => setName(e.target.value)} placeholder="e.g. Tomatoes" maxLength={40} required />
+            <label className="block text-sm font-medium" htmlFor="demo-days">Days until expiry</label>
+            <Input id="demo-days" type="number" min="1" max="30" value={days} onChange={e => setDays(e.target.value)} required />
+            <Button type="submit" className="w-full">Add item</Button>
+          </form>
+        </DialogContent>
+      </Dialog>
+    </>
+  );
+}
