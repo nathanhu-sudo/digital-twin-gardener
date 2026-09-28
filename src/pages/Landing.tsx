@@ -260,6 +260,7 @@ export default function Landing() {
       <footer className="border-t border-border/40 py-6 text-center text-xs text-muted-foreground">
         <p>© {new Date().getFullYear()} SmartPantry AI · Built with Lovable Cloud</p>
         <p className="flex items-center justify-center gap-4 mt-1">
+          <Link to="/guides" className="hover:text-foreground transition-colors">Guides</Link>
           <Link to="/terms" className="hover:text-foreground transition-colors">Terms</Link>
           <Link to="/privacy" className="hover:text-foreground transition-colors">Privacy</Link>
           <Link to="/refund" className="hover:text-foreground transition-colors">Refunds</Link>
