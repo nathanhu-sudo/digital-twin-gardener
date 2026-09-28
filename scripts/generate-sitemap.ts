@@ -20,6 +20,7 @@ const entries: SitemapEntry[] = [
   { path: "/guides/how-to-reduce-food-waste-at-home", changefreq: "monthly", priority: "0.7" },
   { path: "/guides/best-pantry-inventory-app-2026", changefreq: "monthly", priority: "0.7" },
   { path: "/guides/pantry-organization-ideas", changefreq: "monthly", priority: "0.7" },
+  { path: "/guides/best-food-waste-app-2026", changefreq: "monthly", priority: "0.7" },
   { path: "/terms", changefreq: "yearly", priority: "0.3" },
   { path: "/privacy", changefreq: "yearly", priority: "0.3" },
   { path: "/refund", changefreq: "yearly", priority: "0.3" },
