@@ -301,7 +301,7 @@ export default function Landing() {
           </div>
         </div>
         </section>
-      </div>
+
 
       <footer className="border-t border-border/40 py-6 text-center text-xs text-muted-foreground">
         <p>© {new Date().getFullYear()} SmartPantry AI · Built with Lovable Cloud</p>
