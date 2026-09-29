@@ -150,7 +150,7 @@ export function InteractivePantryPreview() {
                   <div className="w-9 h-9 shrink-0 bg-primary/10 rounded-lg flex items-center justify-center"><Trophy className="h-5 w-5 text-primary" /></div>
                   <div><p className="text-[10px] text-muted-foreground">Weekly Challenge</p><p className="text-xs font-bold">Use {Math.max(0, 2 - consumed)} more items</p></div>
                 </div>
-                <p className="text-[10px] text-muted-foreground px-1">This is a sample pantry. Changes stay in this demo only.</p>
+                <p className="text-[10px] text-muted-foreground px-1">Sample pantry, demo only.</p>
               </div>
             </div>
           </div>
