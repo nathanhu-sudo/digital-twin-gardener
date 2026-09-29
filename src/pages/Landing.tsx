@@ -22,31 +22,21 @@ import { BrandLogo } from "@/components/BrandLogo";
 import { InteractivePantryPreview } from "@/components/InteractivePantryPreview";
 import { useAuth } from "@/hooks/useAuth";
 
-const FEATURES = [
+const FREE_FEATURES = [
+  {
+    icon: Bell,
+    title: "Expiry Alerts",
+    desc: "Track every item's shelf life and get nudged in-app before food goes to waste.",
+  },
   {
     icon: ScanLine,
     title: "AI Scanner",
     desc: "Snap your fridge, receipt or a barcode — vision AI extracts every item, weight and shelf life in seconds.",
   },
   {
-    icon: Bot,
-    title: "Pantry Assistant",
-    desc: "Ask anything about your food. Gemini 2.5 Pro answers with what's actually in your kitchen right now.",
-  },
-  {
-    icon: ChefHat,
-    title: "Smart Recipes",
-    desc: "Get recipe ideas that prioritise what's about to expire — cook first, shop later.",
-  },
-  {
-    icon: TrendingUp,
-    title: "Predictive Insights",
-    desc: "AI spots waste risk before it happens and tells you exactly what to use tonight.",
-  },
-  {
     icon: Trophy,
     title: "Rewards & Streaks",
-    desc: "Level up, earn badges, tackle weekly challenges and climb the community leaderboard.",
+    desc: "Level up, earn badges, tackle weekly challenges and keep your waste-saving streak alive.",
   },
   {
     icon: BarChart2,
@@ -54,6 +44,79 @@ const FEATURES = [
     desc: "Track every kilogram saved and CO₂ prevented — for you and the SmartPantry community.",
   },
 ];
+
+const EXCLUSIVE_FEATURES = [
+  {
+    icon: TrendingUp,
+    plan: "Lite",
+    title: "Analytics & History",
+    desc: "See charts of your pantry over time — what you used, saved and tossed.",
+  },
+  {
+    icon: Mail,
+    plan: "Lite",
+    title: "Email Reminders",
+    desc: "Get expiry warnings straight to your inbox, even when the app is closed.",
+  },
+  {
+    icon: Bot,
+    plan: "Pro",
+    title: "Pantry Assistant",
+    desc: "Ask anything about your food. Gemini 2.5 Pro answers with what's actually in your kitchen right now.",
+  },
+  {
+    icon: ChefHat,
+    plan: "Pro",
+    title: "Smart Recipes",
+    desc: "Get recipe ideas that prioritise what's about to expire — cook first, shop later.",
+  },
+  {
+    icon: Sparkles,
+    plan: "Pro",
+    title: "Predictive Insights",
+    desc: "AI spots waste risk before it happens and tells you exactly what to use tonight.",
+  },
+  {
+    icon: Users,
+    plan: "Pro",
+    title: "Friends & Leaderboards",
+    desc: "Add friends, compare impact and climb the community leaderboard together.",
+  },
+];
+
+const FeatureCard = ({
+  icon: Icon,
+  title,
+  desc,
+  plan,
+}: {
+  icon: typeof Bell;
+  title: string;
+  desc: string;
+  plan?: string;
+}) => (
+  <motion.div
+    initial={{ opacity: 0, y: 12 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true, margin: "-40px" }}
+    transition={{ duration: 0.35, delay: 0.05 }}
+    className="glass rounded-2xl border border-border/50 p-5 hover:shadow-elegant transition-shadow flex flex-col items-center text-center relative"
+  >
+    {plan && (
+      <span className="absolute top-3 right-3 rounded-full border border-primary/30 bg-primary/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-primary">
+        {plan}
+      </span>
+    )}
+    <div
+      className="rounded-xl p-2.5 shadow-md mb-3"
+      style={{ background: "var(--gradient-primary)" }}
+    >
+      <Icon className="h-5 w-5 text-primary-foreground" />
+    </div>
+    <div className="font-semibold text-lg mb-1">{title}</div>
+    <div className="text-sm text-muted-foreground leading-relaxed">{desc}</div>
+  </motion.div>
+);
 
 const STEPS = [
   { n: "01", title: "Add your groceries", desc: "Scan, snap or type. It takes seconds." },
