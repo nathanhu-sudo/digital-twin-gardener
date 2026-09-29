@@ -272,7 +272,7 @@ export default function Landing() {
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.2 }}
-          className="relative mt-12 w-full flex flex-col items-center gap-6 text-center"
+          className="relative mt-4 w-full flex flex-col items-center gap-6 text-center"
         >
           <p className="text-sm font-semibold tracking-wide uppercase text-muted-foreground">Socials</p>
           <div className="flex w-full items-start justify-center gap-12 sm:gap-24 lg:gap-40">
