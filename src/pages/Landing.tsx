@@ -89,31 +89,33 @@ const FeatureCard = ({
   title,
   desc,
   plan,
+  index = 0,
 }: {
   icon: typeof Bell;
   title: string;
   desc: string;
   plan?: string;
+  index?: number;
 }) => (
   <motion.div
     initial={{ opacity: 0, y: 12 }}
     whileInView={{ opacity: 1, y: 0 }}
     viewport={{ once: true, margin: "-40px" }}
-    transition={{ duration: 0.35, delay: 0.05 }}
-    className="glass rounded-2xl border border-border/50 p-5 hover:shadow-elegant transition-shadow flex flex-col items-center text-center relative"
+    transition={{ duration: 0.35, delay: 0.05 + index * 0.07 }}
+    className="glass rounded-2xl border border-border/50 p-6 pt-7 hover:shadow-elegant hover:-translate-y-1 transition-all duration-300 flex flex-col items-center text-center h-full"
   >
+    <div
+      className="rounded-2xl p-3.5 shadow-md mb-4"
+      style={{ background: "var(--gradient-primary)" }}
+    >
+      <Icon className="h-6 w-6 text-primary-foreground" />
+    </div>
+    <div className="font-semibold text-lg mb-1.5">{title}</div>
     {plan && (
-      <span className="absolute top-3 right-3 rounded-full border border-primary/30 bg-primary/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-primary">
+      <span className="mb-3 rounded-full border border-primary/30 bg-primary/10 px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-primary">
         {plan}
       </span>
     )}
-    <div
-      className="rounded-xl p-2.5 shadow-md mb-3"
-      style={{ background: "var(--gradient-primary)" }}
-    >
-      <Icon className="h-5 w-5 text-primary-foreground" />
-    </div>
-    <div className="font-semibold text-lg mb-1">{title}</div>
     <div className="text-sm text-muted-foreground leading-relaxed">{desc}</div>
   </motion.div>
 );
@@ -303,9 +305,9 @@ export default function Landing() {
             Included with your free account
           </p>
         </div>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {FREE_FEATURES.map((f) => (
-            <FeatureCard key={f.title} {...f} />
+        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4 items-stretch">
+          {FREE_FEATURES.map((f, i) => (
+            <FeatureCard key={f.title} {...f} index={i} />
           ))}
         </div>
       </section>
@@ -320,9 +322,9 @@ export default function Landing() {
             Unlock with Lite or Pro
           </p>
         </div>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {EXCLUSIVE_FEATURES.map((f) => (
-            <FeatureCard key={f.title} {...f} />
+        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 items-stretch">
+          {EXCLUSIVE_FEATURES.map((f, i) => (
+            <FeatureCard key={f.title} {...f} index={i} />
           ))}
         </div>
       </section>
