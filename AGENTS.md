@@ -1,3 +1,3 @@
 - Keep the landing-page pantry preview as a local-state, self-contained demo; it must not write sample data to real accounts or call paid AI services.
-- Keep landing section navigation fixed on the left after the first section enters view, with a compact mobile back-to-top control; this preserves quick navigation without crowding the hero or mobile content.
+- Keep landing section navigation as a small floating left rail after the first section enters view, draggable by its handle without shifting page content, with a compact mobile back-to-top control; this preserves quick navigation without crowding content.
 - Keep the landing section rail's green/citrus colors and Outfit/Figtree typography in dedicated theme tokens rather than changing global page styles; this keeps its floating treatment consistent without restyling the rest of the app.
