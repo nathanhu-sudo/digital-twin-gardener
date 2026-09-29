@@ -16,6 +16,8 @@ export default {
       fontFamily: {
         sans: ["-apple-system", "BlinkMacSystemFont", "SF Pro Display", "SF Pro Text", "Segoe UI", "Roboto", "system-ui", "sans-serif"],
         serif: ["-apple-system", "BlinkMacSystemFont", "SF Pro Display", "Segoe UI", "Roboto", "system-ui", "sans-serif"],
+        landingNav: ["Figtree", "sans-serif"],
+        landingNavHeading: ["Outfit", "sans-serif"],
       },
       colors: {
         border: "hsl(var(--border))",
@@ -42,6 +44,12 @@ export default {
         accent: {
           DEFAULT: "hsl(var(--accent))",
           foreground: "hsl(var(--accent-foreground))",
+        },
+        landingNav: {
+          surface: "hsl(var(--landing-nav-surface))",
+          border: "hsl(var(--landing-nav-border))",
+          ink: "hsl(var(--landing-nav-ink))",
+          citrus: "hsl(var(--landing-nav-citrus))",
         },
         popover: {
           DEFAULT: "hsl(var(--popover))",

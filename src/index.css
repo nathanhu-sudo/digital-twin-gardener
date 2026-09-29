@@ -1,3 +1,7 @@
+@import "@fontsource/outfit/600.css";
+@import "@fontsource/figtree/500.css";
+@import "@fontsource/figtree/600.css";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -25,6 +29,12 @@
 
     --accent: 38 65% 55%;
     --accent-foreground: 38 80% 15%;
+
+    --landing-nav-surface: 88 100% 97%;
+    --landing-nav-border: 102 51% 86%;
+    --landing-nav-ink: 143 47% 37%;
+    --landing-nav-citrus: 38 73% 61%;
+    --landing-nav-shadow: 143 47% 37% / 0.08;
 
     --destructive: 4 60% 52%;
     --destructive-foreground: 0 0% 100%;
@@ -85,6 +95,12 @@
 
     --accent: 38 70% 60%;
     --accent-foreground: 38 80% 95%;
+
+    --landing-nav-surface: 150 22% 11%;
+    --landing-nav-border: 150 22% 25%;
+    --landing-nav-ink: 152 65% 70%;
+    --landing-nav-citrus: 38 73% 61%;
+    --landing-nav-shadow: 0 0% 0% / 0.28;
 
     --destructive: 4 65% 55%;
     --destructive-foreground: 0 0% 100%;
