@@ -275,38 +275,34 @@ export default function Landing() {
           className="relative mt-4 w-full flex flex-col items-center gap-6 text-center"
         >
           <p className="text-sm font-semibold tracking-wide uppercase text-muted-foreground">Socials</p>
-          <div className="flex w-full max-w-4xl items-start justify-between px-6 sm:px-12">
+          <div className="flex w-full max-w-4xl flex-col items-center gap-4 px-6 sm:flex-row sm:items-stretch sm:justify-between sm:gap-8 sm:px-12">
             <a
               href="https://www.facebook.com/profile.php?id=61591816062382"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex flex-col items-center gap-3 group"
+              className="group flex w-full sm:w-auto min-w-[240px] items-center gap-3 rounded-full px-6 py-3.5 text-white shadow-lg transition-transform duration-300 hover:scale-[1.03]"
+              style={{ background: "#1877F2" }}
               aria-label="SmartPantry AI on Facebook"
             >
-              <span
-                className="flex h-14 w-14 sm:h-16 sm:w-16 items-center justify-center rounded-full text-white shadow-lg transition-transform duration-300 group-hover:scale-110"
-                style={{ background: "#1877F2" }}
-              >
-                <Facebook className="h-7 w-7 sm:h-8 sm:w-8" />
+              <Facebook className="h-6 w-6 shrink-0" />
+              <span className="flex flex-col items-start leading-tight">
+                <span className="text-base font-semibold">Follow us on Facebook</span>
+                <span className="text-sm text-white/80">Waste-saving tips and product updates</span>
               </span>
-              <span className="text-lg font-semibold text-foreground">Facebook</span>
-              <span className="max-w-[220px] text-sm text-muted-foreground">Waste-saving tips and product updates</span>
             </a>
             <a
               href="https://www.instagram.com/smart.pantry.ai"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex flex-col items-center gap-3 group"
+              className="group flex w-full sm:w-auto min-w-[240px] items-center gap-3 rounded-full px-6 py-3.5 text-white shadow-lg transition-transform duration-300 hover:scale-[1.03]"
+              style={{ background: "linear-gradient(45deg, #F58529 0%, #DD2A7B 55%, #8134AF 80%, #515BD4 100%)" }}
               aria-label="SmartPantry AI on Instagram"
             >
-              <span
-                className="flex h-14 w-14 sm:h-16 sm:w-16 items-center justify-center rounded-full text-white shadow-lg transition-transform duration-300 group-hover:scale-110"
-                style={{ background: "linear-gradient(45deg, #F58529 0%, #DD2A7B 55%, #8134AF 80%, #515BD4 100%)" }}
-              >
-                <Instagram className="h-7 w-7 sm:h-8 sm:w-8" />
+              <Instagram className="h-6 w-6 shrink-0" />
+              <span className="flex flex-col items-start leading-tight">
+                <span className="text-base font-semibold">Follow us on Instagram</span>
+                <span className="text-sm text-white/80">Kitchen inspiration and pantry makeovers</span>
               </span>
-              <span className="text-lg font-semibold text-foreground">Instagram</span>
-              <span className="max-w-[220px] text-sm text-muted-foreground">Kitchen inspiration and pantry makeovers</span>
             </a>
           </div>
           <p className="text-sm text-muted-foreground text-center">Follow SmartPantry AI for waste-saving tips</p>
