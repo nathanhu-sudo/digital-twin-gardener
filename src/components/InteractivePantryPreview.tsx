@@ -49,8 +49,12 @@ export function InteractivePantryPreview() {
     setItems(starterItems);
     setConsumed(0);
     setRecipe(null);
+    setSelectedItem(null);
+    setAddOpen(false);
+    setName("");
+    setDays("3");
     setTab("pantry");
-    setNotice("Demo reset");
+    setNotice("Demo pantry restored");
   };
 
   const nav: { key: PreviewTab; label: string; icon: typeof Home }[] = [
@@ -92,9 +96,14 @@ export function InteractivePantryPreview() {
                 <h2 className="text-lg font-bold text-foreground">{tab === "pantry" ? "My Pantry" : tab === "recipes" ? "Recipes" : tab === "impact" ? "My Impact" : "My Profile"}</h2>
                 <p className="text-[10px] text-primary font-semibold">Interactive demo · sample data</p>
               </div>
-              <Button type="button" size="icon" aria-label="Add a pantry item" title="Add a pantry item" onClick={() => setAddOpen(true)} className="rounded-full h-9 w-9 shadow-lg">
-                <ScanLine className="h-4.5 w-4.5" />
-              </Button>
+              <div className="flex items-center gap-1 shrink-0">
+                <Button type="button" variant="ghost" size="icon" aria-label="Reset demo pantry" title="Reset demo pantry" onClick={reset} className="rounded-full h-9 w-9 text-muted-foreground hover:text-primary">
+                  <RotateCcw className="h-4 w-4" />
+                </Button>
+                <Button type="button" size="icon" aria-label="Add a pantry item" title="Add a pantry item" onClick={() => setAddOpen(true)} className="rounded-full h-9 w-9 shadow-lg">
+                  <ScanLine className="h-4.5 w-4.5" />
+                </Button>
+              </div>
             </div>
 
             <div className="flex-1 min-h-0 overflow-y-auto px-4 pb-3 pt-1 md:grid md:grid-cols-5 md:gap-4" aria-live="polite">
