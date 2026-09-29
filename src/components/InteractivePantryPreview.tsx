@@ -97,7 +97,7 @@ export function InteractivePantryPreview() {
                 <p className="text-[10px] text-primary font-semibold">Interactive demo · sample data</p>
               </div>
               <div className="flex items-center gap-1 shrink-0">
-                <Button type="button" variant="ghost" size="icon" aria-label="Reset demo pantry" title="Reset demo pantry" onClick={reset} className="rounded-full h-9 w-9 text-muted-foreground hover:text-primary">
+                <Button type="button" variant="ghost" size="icon" aria-label="Reset demo pantry" title="Reset demo pantry" onClick={reset} className="rounded-full h-9 w-9 bg-secondary text-primary hover:bg-primary/10 hover:text-primary">
                   <RotateCcw className="h-4 w-4" />
                 </Button>
                 <Button type="button" size="icon" aria-label="Add a pantry item" title="Add a pantry item" onClick={() => setAddOpen(true)} className="rounded-full h-9 w-9 shadow-lg">
