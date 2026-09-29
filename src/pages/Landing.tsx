@@ -305,7 +305,7 @@ export default function Landing() {
               </span>
             </a>
           </div>
-          <p className="text-sm text-foreground text-center">Follow SmartPantry AI for waste-saving tips</p>
+          <p className="text-sm font-bold text-[hsl(var(--foreground))] text-center">Follow SmartPantry AI for waste-saving tips</p>
         </motion.div>
       </section>
 
