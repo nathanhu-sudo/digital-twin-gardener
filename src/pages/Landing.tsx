@@ -396,20 +396,22 @@ export default function Landing() {
             target="_blank"
             rel="noopener noreferrer"
             aria-label="SmartPantry AI on Facebook"
-            className="flex h-12 w-12 items-center justify-center rounded-full text-white transition-transform hover:scale-110 shadow-md"
+            className="flex items-center gap-2.5 rounded-full px-6 py-3.5 text-white shadow-lg transition-transform duration-300 hover:scale-[1.03]"
             style={{ background: "#1877F2" }}
           >
-            <Facebook className="h-6 w-6" />
+            <Facebook className="h-6 w-6 shrink-0" />
+            <span className="text-base font-semibold">Facebook</span>
           </a>
           <a
             href="https://www.instagram.com/smart.pantry.ai"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="SmartPantry AI on Instagram"
-            className="flex h-12 w-12 items-center justify-center rounded-full text-white transition-transform hover:scale-110 shadow-md"
+            className="flex items-center gap-2.5 rounded-full px-6 py-3.5 text-white shadow-lg transition-transform duration-300 hover:scale-[1.03]"
             style={{ background: "linear-gradient(45deg, #F58529 0%, #DD2A7B 55%, #8134AF 80%, #515BD4 100%)" }}
           >
-            <Instagram className="h-6 w-6" />
+            <Instagram className="h-6 w-6 shrink-0" />
+            <span className="text-base font-semibold">Instagram</span>
           </a>
         </div>
         <p className="mt-4">© {new Date().getFullYear()} SmartPantry AI</p>
