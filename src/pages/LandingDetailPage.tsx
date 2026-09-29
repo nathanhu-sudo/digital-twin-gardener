@@ -15,8 +15,7 @@ export default function LandingDetailPage({ kind }: { kind: "features" | "how" }
     return () => { document.title = "SmartPantry AI"; };
   }, [features]);
   return (
-    <div id="top" className="relative min-h-screen overflow-x-hidden bg-background">
-      <div className="fixed inset-0 -z-10 pointer-events-none opacity-80 bg-[url('/auth-bg.jpg')] bg-repeat [background-size:480px_480px]" aria-hidden="true" />
+    <div id="top" className="relative min-h-screen overflow-x-hidden bg-background bg-[url('/auth-bg.jpg')] bg-repeat [background-size:480px_480px]">
       <LandingPageNav />
       <main className="pt-8 sm:pt-12">
         <div className="container max-w-6xl mx-auto px-4 text-center">

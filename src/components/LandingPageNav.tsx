@@ -76,6 +76,11 @@ export function LandingPageNav({ home = false }: { home?: boolean }) {
           </nav>
         </div>
       </header>
+      <nav aria-label="Explore pages" className="relative z-20 flex items-center justify-center gap-1 border-b border-border/40 bg-background/80 px-2 py-2 sm:hidden">
+        {pages.map(page => <Button key={page.to} asChild variant={pathname === page.to ? "secondary" : "ghost"} size="sm" className="min-w-0 flex-1 px-1 text-xs">
+          <Link to={page.to} aria-current={pathname === page.to ? "page" : undefined}>{page.label}</Link>
+        </Button>)}
+      </nav>
       {showRail && <nav ref={railRef} aria-label="Page navigation"
         className={`fixed z-40 hidden w-40 flex-col gap-1 rounded-2xl border border-landingNav-border bg-landingNav-surface/90 p-2 font-landingNav shadow-[0_8px_30px_hsl(var(--landing-nav-shadow))] backdrop-blur-xl md:flex animate-fade-in ${railPosition ? "" : "left-3 top-1/2 -translate-y-1/2"}`}
         style={railPosition ? { left: railPosition.x, top: railPosition.y } : undefined}>
