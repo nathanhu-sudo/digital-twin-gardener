@@ -11,6 +11,7 @@ import { useAuth } from "@/hooks/useAuth";
 import { usePaddleCheckout } from "@/hooks/usePaddleCheckout";
 import { PaymentTestModeBanner } from "@/components/PaymentTestModeBanner";
 import { BrandLogo } from "@/components/BrandLogo";
+import { LandingPageNav } from "@/components/LandingPageNav";
 import { useDetectedCurrency, formatFromUsd, formatMoney } from "@/lib/currency";
 
 const PRICE_IDS: Record<string, string> = {
@@ -95,15 +96,7 @@ export default function Pricing() {
       />
       <div className="fixed inset-0 -z-10 bg-mesh pointer-events-none" aria-hidden="true" />
 
-      <header className="border-b border-border/50 glass sticky top-0 z-20">
-        <div className="container max-w-5xl px-4 py-3 flex items-center gap-2">
-          <Button variant="ghost" size="sm" onClick={() => navigate(-1)} className="gap-1">
-            <ArrowLeft className="h-4 w-4" />
-            Back
-          </Button>
-          <h1 className="font-serif font-bold text-lg ml-2">Plans & Pricing</h1>
-        </div>
-      </header>
+      <LandingPageNav />
 
       <main className="container max-w-5xl px-4 py-12 pb-24">
         <div className="text-center flex flex-col items-center gap-3 mb-10">
