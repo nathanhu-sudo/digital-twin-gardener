@@ -1,4 +1,3 @@
-import { motion } from "framer-motion";
 import { Bell, ScanLine, Trophy, BarChart2, TrendingUp, Mail, Bot, ChefHat, Sparkles, Users } from "lucide-react";
 
 const FREE_FEATURES = [
@@ -68,19 +67,13 @@ const FeatureCard = ({
   title,
   desc,
   plan,
-  index = 0,
 }: {
   icon: typeof Bell;
   title: string;
   desc: string;
   plan?: string;
-  index?: number;
 }) => (
-  <motion.div
-    initial={{ opacity: 0, y: 12 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    viewport={{ once: true, margin: "-40px" }}
-    transition={{ duration: 0.35, delay: 0.05 + index * 0.07 }}
+  <div
     className="glass rounded-2xl border border-border/50 p-6 pt-7 hover:shadow-elegant hover:-translate-y-1 transition-all duration-300 flex flex-col items-center text-center h-full"
   >
     <div
@@ -96,7 +89,7 @@ const FeatureCard = ({
       </span>
     )}
     <div className="text-sm text-muted-foreground leading-relaxed">{desc}</div>
-  </motion.div>
+  </div>
 );
 
 const STEPS = [
@@ -118,8 +111,8 @@ export function FeaturesContent() {
           </p>
         </div>
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4 items-stretch">
-          {FREE_FEATURES.map((f, i) => (
-            <FeatureCard key={f.title} {...f} index={i} />
+          {FREE_FEATURES.map((f) => (
+            <FeatureCard key={f.title} {...f} />
           ))}
         </div>
       </section>
@@ -135,8 +128,8 @@ export function FeaturesContent() {
           </p>
         </div>
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 items-stretch">
-          {EXCLUSIVE_FEATURES.map((f, i) => (
-            <FeatureCard key={f.title} {...f} index={i} />
+          {EXCLUSIVE_FEATURES.map((f) => (
+            <FeatureCard key={f.title} {...f} />
           ))}
         </div>
       </section>
