@@ -133,11 +133,14 @@ export default function Landing() {
   const ctaTo = user ? "/app" : "/auth";
   const ctaLabel = user ? "Open your pantry" : "Get started free";
   const [showSideNav, setShowSideNav] = useState(false);
+  const [activeSection, setActiveSection] = useState<"features" | "how">("features");
 
   useEffect(() => {
     const updateSideNav = () => {
       const features = document.getElementById("features");
+      const how = document.getElementById("how");
       setShowSideNav(Boolean(features && features.getBoundingClientRect().top <= window.innerHeight * 0.9));
+      setActiveSection(how && how.getBoundingClientRect().top <= window.innerHeight * 0.55 ? "how" : "features");
     };
     updateSideNav();
     window.addEventListener("scroll", updateSideNav, { passive: true });
@@ -171,19 +174,19 @@ export default function Landing() {
           <nav className="flex items-center gap-2 sm:gap-3">
             <a
               href="#features"
-              className={`${showSideNav ? "sm:hidden" : "sm:inline-block"} hidden text-sm text-muted-foreground hover:text-foreground transition-colors px-2`}
+              className={`hidden sm:inline-block ${showSideNav ? "md:hidden" : ""} text-sm text-muted-foreground hover:text-foreground transition-colors px-2`}
             >
               What you get
             </a>
             <a
               href="#how"
-              className={`${showSideNav ? "sm:hidden" : "sm:inline-block"} hidden text-sm text-muted-foreground hover:text-foreground transition-colors px-2`}
+              className={`hidden sm:inline-block ${showSideNav ? "md:hidden" : ""} text-sm text-muted-foreground hover:text-foreground transition-colors px-2`}
             >
               See it work
             </a>
             <Link
               to="/pricing"
-              className={`${showSideNav ? "sm:hidden" : "sm:inline-block"} hidden text-sm text-muted-foreground hover:text-foreground transition-colors px-2`}
+              className={`hidden sm:inline-block ${showSideNav ? "md:hidden" : ""} text-sm text-muted-foreground hover:text-foreground transition-colors px-2`}
             >
               Plans
             </Link>
@@ -208,20 +211,27 @@ export default function Landing() {
 
       {showSideNav && (
         <>
-          <nav aria-label="Page sections" className="fixed left-3 top-1/2 z-40 hidden -translate-y-1/2 flex-col gap-1 rounded-lg border border-border bg-card/95 p-2 shadow-elegant backdrop-blur-sm md:flex animate-fade-in">
-            <Button asChild variant="ghost" size="sm" className="justify-start text-foreground">
-              <a href="#features">What you get</a>
+          <nav aria-label="Page sections" className="fixed left-3 top-1/2 z-40 hidden w-40 -translate-y-1/2 flex-col border-l border-border bg-background/70 py-3 pl-3 pr-1 backdrop-blur-sm md:flex animate-fade-in">
+            <Button asChild variant="ghost" size="sm" className={`relative h-10 justify-start px-2 hover:bg-transparent hover:text-primary ${activeSection === "features" ? "font-semibold text-foreground" : "text-muted-foreground"}`}>
+              <a href="#features" aria-current={activeSection === "features" ? "location" : undefined}>
+                <span aria-hidden="true" className={`absolute -left-3 top-1/2 h-1.5 w-1.5 -translate-x-1/2 -translate-y-1/2 rounded-full transition-colors ${activeSection === "features" ? "bg-primary" : "bg-transparent"}`} />
+                What you get
+              </a>
             </Button>
-            <Button asChild variant="ghost" size="sm" className="justify-start text-foreground">
-              <a href="#how">See it work</a>
+            <Button asChild variant="ghost" size="sm" className={`relative h-10 justify-start px-2 hover:bg-transparent hover:text-primary ${activeSection === "how" ? "font-semibold text-foreground" : "text-muted-foreground"}`}>
+              <a href="#how" aria-current={activeSection === "how" ? "location" : undefined}>
+                <span aria-hidden="true" className={`absolute -left-3 top-1/2 h-1.5 w-1.5 -translate-x-1/2 -translate-y-1/2 rounded-full transition-colors ${activeSection === "how" ? "bg-primary" : "bg-transparent"}`} />
+                See it work
+              </a>
             </Button>
-            <Button asChild variant="ghost" size="sm" className="justify-start text-foreground">
+            <Button asChild variant="ghost" size="sm" className="h-10 justify-start px-2 text-muted-foreground hover:bg-transparent hover:text-primary">
               <Link to="/pricing">Plans</Link>
             </Button>
-            <div className="my-1 border-t border-border" />
-            <Button asChild variant="outline" size="sm" className="justify-start gap-2">
-              <a href="#top"><ArrowUp className="h-4 w-4" /> Back to top</a>
-            </Button>
+            <div className="mt-4 border-t border-border/70 pt-3">
+              <Button asChild variant="outline" size="sm" className="h-9 gap-2 rounded-full border-border bg-background px-3 text-xs font-semibold text-muted-foreground shadow-sm hover:text-foreground">
+                <a href="#top"><ArrowUp className="h-3.5 w-3.5" /> Back to top</a>
+              </Button>
+            </div>
           </nav>
           <Button asChild size="icon" className="fixed bottom-5 left-4 z-40 shadow-elegant md:hidden" title="Back to top" aria-label="Back to top">
             <a href="#top"><ArrowUp className="h-5 w-5" /></a>
