@@ -1,192 +1,22 @@
-import { useEffect, useRef, useState, type PointerEvent as ReactPointerEvent } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import {
   Leaf,
-  ScanLine,
   Sparkles,
-  TrendingUp,
-  Trophy,
-  ChefHat,
-  Bot,
   ArrowRight,
-  BarChart2,
   ShieldCheck,
   Facebook,
   Instagram,
-  Bell,
-  Mail,
-  Users,
-  ArrowUp,
-  GripVertical,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { BrandLogo } from "@/components/BrandLogo";
+import { LandingPageNav } from "@/components/LandingPageNav";
 import { InteractivePantryPreview } from "@/components/InteractivePantryPreview";
 import { useAuth } from "@/hooks/useAuth";
-
-const FREE_FEATURES = [
-  {
-    icon: Bell,
-    title: "Expiry Alerts",
-    desc: "Track every item's shelf life and get nudged in-app before food goes to waste.",
-  },
-  {
-    icon: ScanLine,
-    title: "AI Scanner",
-    desc: "Snap your fridge, receipt or a barcode and vision AI pulls out every item, weight and shelf life in seconds.",
-  },
-  {
-    icon: Trophy,
-    title: "Rewards & Streaks",
-    desc: "Level up, earn badges, tackle weekly challenges and keep your waste-saving streak alive.",
-  },
-  {
-    icon: BarChart2,
-    title: "Green Impact",
-    desc: "Track the kilograms saved and the CO₂ you prevented, for yourself and the whole community.",
-  },
-];
-
-const EXCLUSIVE_FEATURES = [
-  {
-    icon: TrendingUp,
-    plan: "Lite",
-    title: "Analytics & History",
-    desc: "See charts of your pantry over time, from what you used to what you saved and tossed.",
-  },
-  {
-    icon: Mail,
-    plan: "Lite",
-    title: "Email Reminders",
-    desc: "Get expiry warnings straight to your inbox, even when the app is closed.",
-  },
-  {
-    icon: Bot,
-    plan: "Pro",
-    title: "Pantry Assistant",
-    desc: "Ask anything about your food. Gemini 2.5 Pro answers with what's actually in your kitchen right now.",
-  },
-  {
-    icon: ChefHat,
-    plan: "Pro",
-    title: "Smart Recipes",
-    desc: "Get recipe ideas that prioritise what's about to expire, so you cook first and shop later.",
-  },
-  {
-    icon: Sparkles,
-    plan: "Pro",
-    title: "Predictive Insights",
-    desc: "AI spots waste risk before it happens and tells you exactly what to use tonight.",
-  },
-  {
-    icon: Users,
-    plan: "Pro",
-    title: "Friends & Leaderboards",
-    desc: "Add friends, compare impact and climb the community leaderboard together.",
-  },
-];
-
-const FeatureCard = ({
-  icon: Icon,
-  title,
-  desc,
-  plan,
-  index = 0,
-}: {
-  icon: typeof Bell;
-  title: string;
-  desc: string;
-  plan?: string;
-  index?: number;
-}) => (
-  <motion.div
-    initial={{ opacity: 0, y: 12 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    viewport={{ once: true, margin: "-40px" }}
-    transition={{ duration: 0.35, delay: 0.05 + index * 0.07 }}
-    className="glass rounded-2xl border border-border/50 p-6 pt-7 hover:shadow-elegant hover:-translate-y-1 transition-all duration-300 flex flex-col items-center text-center h-full"
-  >
-    <div
-      className="rounded-2xl p-3.5 shadow-md mb-4"
-      style={{ background: "var(--gradient-primary)" }}
-    >
-      <Icon className="h-6 w-6 text-primary-foreground" />
-    </div>
-    <div className="font-semibold text-lg mb-1.5">{title}</div>
-    {plan && (
-      <span className="mb-3 rounded-full border border-primary/30 bg-primary/10 px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-primary">
-        {plan}
-      </span>
-    )}
-    <div className="text-sm text-muted-foreground leading-relaxed">{desc}</div>
-  </motion.div>
-);
-
-const STEPS = [
-  { n: "01", title: "Add your groceries", desc: "Scan, snap or type. It takes seconds." },
-  { n: "02", title: "Cook & consume", desc: "Get nudged before food goes bad." },
-  { n: "03", title: "Watch your impact grow", desc: "Kg saved, CO₂ prevented, streaks unlocked." },
-];
 
 export default function Landing() {
   const { user } = useAuth();
   const ctaTo = user ? "/app" : "/auth";
   const ctaLabel = user ? "Open your pantry" : "Get started free";
-  const [showSideNav, setShowSideNav] = useState(false);
-  const [activeSection, setActiveSection] = useState<"features" | "how">("features");
-  const [railPosition, setRailPosition] = useState<{ x: number; y: number } | null>(null);
-  const railRef = useRef<HTMLElement>(null);
-  const dragOffset = useRef<{ x: number; y: number } | null>(null);
-
-  const startRailDrag = (event: ReactPointerEvent<HTMLButtonElement>) => {
-    const rect = railRef.current?.getBoundingClientRect();
-    if (!rect) return;
-    dragOffset.current = { x: event.clientX - rect.left, y: event.clientY - rect.top };
-    event.currentTarget.setPointerCapture(event.pointerId);
-  };
-
-  const moveRail = (event: ReactPointerEvent<HTMLButtonElement>) => {
-    const rect = railRef.current?.getBoundingClientRect();
-    const offset = dragOffset.current;
-    if (!rect || !offset) return;
-    setRailPosition({
-      x: Math.max(0, Math.min(window.innerWidth - rect.width, event.clientX - offset.x)),
-      y: Math.max(0, Math.min(window.innerHeight - rect.height, event.clientY - offset.y)),
-    });
-  };
-
-  const stopRailDrag = () => { dragOffset.current = null; };
-
-  useEffect(() => {
-    const updateSideNav = () => {
-      const features = document.getElementById("features");
-      const how = document.getElementById("how");
-      setShowSideNav(Boolean(features && features.getBoundingClientRect().top <= window.innerHeight * 0.9));
-      setActiveSection(how && how.getBoundingClientRect().top <= window.innerHeight * 0.55 ? "how" : "features");
-    };
-    updateSideNav();
-    window.addEventListener("scroll", updateSideNav, { passive: true });
-    window.addEventListener("resize", updateSideNav);
-    return () => {
-      window.removeEventListener("scroll", updateSideNav);
-      window.removeEventListener("resize", updateSideNav);
-    };
-  }, []);
-
-  useEffect(() => {
-    const keepRailVisible = () => {
-      const rect = railRef.current?.getBoundingClientRect();
-      if (!rect) return;
-      setRailPosition((position) => position && ({
-        x: Math.max(0, Math.min(window.innerWidth - rect.width, position.x)),
-        y: Math.max(0, Math.min(window.innerHeight - rect.height, position.y)),
-      }));
-    };
-    window.addEventListener("resize", keepRailVisible);
-    return () => window.removeEventListener("resize", keepRailVisible);
-  }, []);
-
   return (
     <div id="top" className="min-h-screen flex flex-col relative overflow-x-hidden">
       {/* Page-wide fruit & veg pattern, hidden behind the final CTA */}
@@ -201,84 +31,7 @@ export default function Landing() {
       />
       <div className="fixed inset-0 -z-10 bg-mesh pointer-events-none" aria-hidden="true" />
 
-      {/* Nav */}
-      <header className="sticky top-0 z-30 glass border-b border-border/40">
-        <div className="container max-w-6xl mx-auto flex items-center justify-between px-4 py-3">
-          <Link to="/" className="flex items-center gap-2">
-            <BrandLogo showName className="h-9 w-9" nameClassName="text-lg" />
-          </Link>
-          <nav className="flex items-center gap-2 sm:gap-3">
-            <a
-              href="#features"
-              className={`hidden sm:inline-block ${showSideNav ? "md:hidden" : ""} text-sm text-muted-foreground hover:text-foreground transition-colors px-2`}
-            >
-              What you get
-            </a>
-            <a
-              href="#how"
-              className={`hidden sm:inline-block ${showSideNav ? "md:hidden" : ""} text-sm text-muted-foreground hover:text-foreground transition-colors px-2`}
-            >
-              See it work
-            </a>
-            <Link
-              to="/pricing"
-              className={`hidden sm:inline-block ${showSideNav ? "md:hidden" : ""} text-sm text-muted-foreground hover:text-foreground transition-colors px-2`}
-            >
-              Plans
-            </Link>
-
-            {user ? (
-              <Button asChild size="sm">
-                <Link to="/app">Open app</Link>
-              </Button>
-            ) : (
-              <>
-                <Button asChild variant="ghost" size="sm">
-                  <Link to="/auth">Sign in</Link>
-                </Button>
-                <Button asChild size="sm">
-                  <Link to="/auth">Get started</Link>
-                </Button>
-              </>
-            )}
-          </nav>
-        </div>
-      </header>
-
-      {showSideNav && (
-        <>
-          <nav ref={railRef} aria-label="Page sections" className={`fixed z-40 hidden w-40 flex-col gap-1 rounded-2xl border border-landingNav-border bg-landingNav-surface/90 p-2 font-landingNav shadow-[0_8px_30px_hsl(var(--landing-nav-shadow))] backdrop-blur-xl md:flex animate-fade-in ${railPosition ? "" : "left-3 top-1/2 -translate-y-1/2"}`} style={railPosition ? { left: railPosition.x, top: railPosition.y } : undefined}>
-            <div className="flex items-center justify-between pl-3">
-              <span className="font-landingNavHeading text-xs font-semibold uppercase text-landingNav-ink">Menu</span>
-              <Button variant="ghost" size="icon" className="h-8 w-8 cursor-grab touch-none text-landingNav-ink/70 active:cursor-grabbing hover:bg-landingNav-border/40 hover:text-landingNav-ink" aria-label="Move section menu" title="Drag to move menu" onPointerDown={startRailDrag} onPointerMove={moveRail} onPointerUp={stopRailDrag} onPointerCancel={stopRailDrag}>
-                <GripVertical className="h-4 w-4" />
-              </Button>
-            </div>
-            <Button asChild variant="ghost" size="sm" className={`h-9 justify-start gap-2 rounded-lg px-3 text-sm font-medium transition-colors hover:bg-landingNav-border/40 hover:text-landingNav-ink ${activeSection === "features" ? "text-landingNav-ink" : "text-landingNav-ink/70"}`}>
-              <a href="#features" aria-current={activeSection === "features" ? "location" : undefined}>
-                <span aria-hidden="true" className={`h-1.5 w-1.5 shrink-0 rounded-full transition-colors ${activeSection === "features" ? "bg-landingNav-citrus" : "bg-landingNav-ink/0"}`} />
-                What you get
-              </a>
-            </Button>
-            <Button asChild variant="ghost" size="sm" className={`h-9 justify-start gap-2 rounded-lg px-3 text-sm font-medium transition-colors hover:bg-landingNav-border/40 hover:text-landingNav-ink ${activeSection === "how" ? "text-landingNav-ink" : "text-landingNav-ink/70"}`}>
-              <a href="#how" aria-current={activeSection === "how" ? "location" : undefined}>
-                <span aria-hidden="true" className={`h-1.5 w-1.5 shrink-0 rounded-full transition-colors ${activeSection === "how" ? "bg-landingNav-citrus" : "bg-landingNav-ink/0"}`} />
-                See it work
-              </a>
-            </Button>
-            <Button asChild variant="ghost" size="sm" className="h-9 justify-start gap-2 rounded-lg px-3 text-sm font-medium text-landingNav-ink/70 transition-colors hover:bg-landingNav-border/40 hover:text-landingNav-ink">
-              <Link to="/pricing"><span aria-hidden="true" className="h-1.5 w-1.5 shrink-0 rounded-full bg-landingNav-ink/0" />Plans</Link>
-            </Button>
-            <div className="mx-3 my-1 border-t border-landingNav-border/60" />
-            <Button asChild variant="ghost" size="sm" className="group h-9 justify-between rounded-lg px-3 text-sm font-medium text-landingNav-ink transition-colors hover:bg-landingNav-ink hover:text-primary-foreground">
-              <a href="#top">Back to top <ArrowUp className="h-4 w-4 transition-transform group-hover:-translate-y-1" /></a>
-            </Button>
-          </nav>
-          <Button asChild size="icon" className="fixed bottom-5 left-4 z-40 rounded-full bg-landingNav-ink text-primary-foreground shadow-elegant hover:bg-landingNav-ink/90 md:hidden" title="Back to top" aria-label="Back to top">
-            <a href="#top"><ArrowUp className="h-5 w-5" /></a>
-          </Button>
-        </>
-      )}
+      <LandingPageNav home />
 
       {/* Hero */}
       <section className="relative overflow-hidden">
@@ -328,7 +81,7 @@ export default function Landing() {
                 </Link>
               </Button>
               <Button asChild variant="outline" size="lg">
-                <a href="#features">See features</a>
+                <Link to="/features">See features</Link>
               </Button>
             </div>
             <div className="flex items-center gap-4 text-xs text-muted-foreground pt-2">
@@ -400,61 +153,6 @@ export default function Landing() {
         </motion.div>
       </section>
 
-
-      {/* Free features */}
-      <section id="features" className="container max-w-6xl mx-auto px-4 py-20 sm:py-28 scroll-mt-16">
-        <div className="text-center mb-8 sm:mb-12">
-          <h2 className="text-3xl sm:text-4xl font-bold font-serif tracking-tight">
-            Everything your kitchen needs
-          </h2>
-          <p className="text-primary font-medium mt-3">
-            Included with your free account
-          </p>
-        </div>
-        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4 items-stretch">
-          {FREE_FEATURES.map((f, i) => (
-            <FeatureCard key={f.title} {...f} index={i} />
-          ))}
-        </div>
-      </section>
-
-      {/* Paid exclusives */}
-      <section className="container max-w-6xl mx-auto px-4 pb-20 sm:pb-28">
-        <div className="text-center mb-8 sm:mb-12">
-          <h2 className="text-3xl sm:text-4xl font-bold font-serif tracking-tight">
-            Exclusives
-          </h2>
-          <p className="text-primary font-medium mt-3">
-            Unlock with Lite or Pro
-          </p>
-        </div>
-        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 items-stretch">
-          {EXCLUSIVE_FEATURES.map((f, i) => (
-            <FeatureCard key={f.title} {...f} index={i} />
-          ))}
-        </div>
-      </section>
-
-      {/* How it works */}
-      <section id="how" className="container max-w-6xl mx-auto px-4 py-20 sm:py-28 scroll-mt-16">
-        <div className="text-center mb-8 sm:mb-12">
-          <h2 className="text-3xl sm:text-4xl font-bold font-serif tracking-tight">
-            Three steps to a smarter kitchen
-          </h2>
-        </div>
-        <div className="grid md:grid-cols-3 gap-5">
-          {STEPS.map((s) => (
-            <div
-              key={s.n}
-              className="glass rounded-2xl border border-border/50 p-6 flex flex-col gap-2"
-            >
-              <div className="text-xs font-mono text-primary">{s.n}</div>
-              <div className="text-lg font-semibold">{s.title}</div>
-              <div className="text-sm text-muted-foreground">{s.desc}</div>
-            </div>
-          ))}
-        </div>
-      </section>
 
       {/* CTA — pattern shows through */}
       <section className="container max-w-4xl mx-auto px-4 py-20 sm:py-28">

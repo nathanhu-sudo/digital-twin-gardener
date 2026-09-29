@@ -7,6 +7,7 @@ import { useAuth } from "@/hooks/useAuth";
 import { PantryDataProvider } from "@/context/PantryDataContext";
 import Index from "./pages/Index";
 import Landing from "./pages/Landing";
+import LandingDetailPage from "./pages/LandingDetailPage";
 import Auth from "./pages/Auth";
 import ResetPassword from "./pages/ResetPassword";
 import NotFound from "./pages/NotFound";
@@ -46,6 +47,8 @@ const App = () => (
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Landing />} />
+          <Route path="/features" element={<LandingDetailPage kind="features" />} />
+          <Route path="/how-it-works" element={<LandingDetailPage kind="how" />} />
           <Route path="/auth" element={<Auth />} />
           <Route path="/reset-password" element={<ResetPassword />} />
           <Route path="/pricing" element={<Pricing />} />

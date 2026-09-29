@@ -15,6 +15,8 @@ interface SitemapEntry {
 // sit behind sign-in; /auth, /reset-password, /admin and /lovable/* are excluded.
 const entries: SitemapEntry[] = [
   { path: "/", changefreq: "weekly", priority: "1.0" },
+  { path: "/features", changefreq: "monthly", priority: "0.8" },
+  { path: "/how-it-works", changefreq: "monthly", priority: "0.8" },
   { path: "/pricing", changefreq: "monthly", priority: "0.8" },
   { path: "/pantry-inventory-app", changefreq: "monthly", priority: "0.9" },
   { path: "/food-waste-app", changefreq: "monthly", priority: "0.9" },
