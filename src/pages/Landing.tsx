@@ -156,19 +156,19 @@ export default function Landing() {
               href="#features"
               className="hidden sm:inline-block text-sm text-muted-foreground hover:text-foreground transition-colors px-2"
             >
-              Features
+              What you get
             </a>
             <a
               href="#how"
               className="hidden sm:inline-block text-sm text-muted-foreground hover:text-foreground transition-colors px-2"
             >
-              How it works
+              See it work
             </a>
             <Link
               to="/pricing"
               className="hidden sm:inline-block text-sm text-muted-foreground hover:text-foreground transition-colors px-2"
             >
-              Pricing
+              Plans
             </Link>
 
             {user ? (
