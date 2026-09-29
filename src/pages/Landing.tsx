@@ -13,6 +13,9 @@ import {
   ShieldCheck,
   Facebook,
   Instagram,
+  Bell,
+  Mail,
+  Users,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { BrandLogo } from "@/components/BrandLogo";
