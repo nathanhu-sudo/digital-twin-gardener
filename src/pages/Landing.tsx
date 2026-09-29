@@ -272,9 +272,9 @@ export default function Landing() {
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.2 }}
-          className="relative -mt-4 sm:-mt-8 w-full flex flex-col items-center gap-5 text-center"
+          className="relative -mt-10 sm:-mt-16 w-full flex flex-col items-center gap-5 text-center"
         >
-          <p className="text-2xl sm:text-3xl font-bold font-serif tracking-tight text-foreground">Socials</p>
+          <p className="text-3xl sm:text-4xl font-bold font-serif tracking-tight text-[hsl(var(--foreground))]">Socials</p>
           <div className="flex w-full max-w-4xl flex-col items-center gap-4 px-6 sm:flex-row sm:items-stretch sm:justify-between sm:gap-8 sm:px-12">
             <a
               href="https://www.facebook.com/profile.php?id=61591816062382"
