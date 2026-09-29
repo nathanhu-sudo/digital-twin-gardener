@@ -31,7 +31,7 @@ const FREE_FEATURES = [
   {
     icon: ScanLine,
     title: "AI Scanner",
-    desc: "Snap your fridge, receipt or a barcode — vision AI extracts every item, weight and shelf life in seconds.",
+    desc: "Snap your fridge, receipt or a barcode and vision AI pulls out every item, weight and shelf life in seconds.",
   },
   {
     icon: Trophy,
@@ -41,7 +41,7 @@ const FREE_FEATURES = [
   {
     icon: BarChart2,
     title: "Green Impact",
-    desc: "Track every kilogram saved and CO₂ prevented — for you and the SmartPantry community.",
+    desc: "Track the kilograms saved and the CO₂ you prevented, for yourself and the whole community.",
   },
 ];
 
@@ -50,7 +50,7 @@ const EXCLUSIVE_FEATURES = [
     icon: TrendingUp,
     plan: "Lite",
     title: "Analytics & History",
-    desc: "See charts of your pantry over time — what you used, saved and tossed.",
+    desc: "See charts of your pantry over time, from what you used to what you saved and tossed.",
   },
   {
     icon: Mail,
@@ -68,7 +68,7 @@ const EXCLUSIVE_FEATURES = [
     icon: ChefHat,
     plan: "Pro",
     title: "Smart Recipes",
-    desc: "Get recipe ideas that prioritise what's about to expire — cook first, shop later.",
+    desc: "Get recipe ideas that prioritise what's about to expire, so you cook first and shop later.",
   },
   {
     icon: Sparkles,
