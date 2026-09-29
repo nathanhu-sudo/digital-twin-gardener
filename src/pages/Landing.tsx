@@ -272,9 +272,9 @@ export default function Landing() {
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.2 }}
-          className="relative mt-0 w-full flex flex-col items-center gap-5 text-center"
+          className="relative -mt-4 sm:-mt-8 w-full flex flex-col items-center gap-5 text-center"
         >
-          <p className="text-sm font-semibold tracking-wide uppercase text-muted-foreground">Socials</p>
+          <p className="text-2xl sm:text-3xl font-bold font-serif tracking-tight text-foreground">Socials</p>
           <div className="flex w-full max-w-4xl flex-col items-center gap-4 px-6 sm:flex-row sm:items-stretch sm:justify-between sm:gap-8 sm:px-12">
             <a
               href="https://www.facebook.com/profile.php?id=61591816062382"
@@ -305,7 +305,7 @@ export default function Landing() {
               </span>
             </a>
           </div>
-          <p className="text-sm text-muted-foreground text-center">Follow SmartPantry AI for waste-saving tips</p>
+          <p className="text-sm text-foreground text-center">Follow SmartPantry AI for waste-saving tips</p>
         </motion.div>
       </section>
 
