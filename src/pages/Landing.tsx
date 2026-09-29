@@ -17,25 +17,6 @@ export default function Landing() {
   const { user } = useAuth();
   const ctaTo = user ? "/app" : "/auth";
   const ctaLabel = user ? "Open your pantry" : "Get started free";
-  return () => {
-      window.removeEventListener("scroll", updateSideNav);
-      window.removeEventListener("resize", updateSideNav);
-    };
-  }, []);
-
-  useEffect(() => {
-    const keepRailVisible = () => {
-      const rect = railRef.current?.getBoundingClientRect();
-      if (!rect) return;
-      setRailPosition((position) => position && ({
-        x: Math.max(0, Math.min(window.innerWidth - rect.width, position.x)),
-        y: Math.max(0, Math.min(window.innerHeight - rect.height, position.y)),
-      }));
-    };
-    window.addEventListener("resize", keepRailVisible);
-    return () => window.removeEventListener("resize", keepRailVisible);
-  }, []);
-
   return (
     <div id="top" className="min-h-screen flex flex-col relative overflow-x-hidden">
       {/* Page-wide fruit & veg pattern, hidden behind the final CTA */}
