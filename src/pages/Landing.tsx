@@ -266,6 +266,49 @@ export default function Landing() {
             </div>
           </motion.div>
         </div>
+
+        {/* Full-width socials band */}
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          className="relative mt-10 flex flex-col items-center gap-4 text-center"
+        >
+          <p className="text-sm font-semibold tracking-wide uppercase text-muted-foreground">Socials</p>
+          <div className="flex items-center justify-center gap-10 sm:gap-16">
+            <a
+              href="https://www.facebook.com/profile.php?id=61591816062382"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex flex-col items-center gap-2 group"
+              aria-label="SmartPantry AI on Facebook"
+            >
+              <span
+                className="flex h-16 w-16 items-center justify-center rounded-full text-white shadow-lg transition-transform duration-300 group-hover:scale-110"
+                style={{ background: "#1877F2" }}
+              >
+                <Facebook className="h-8 w-8" />
+              </span>
+              <span className="text-xs font-medium text-muted-foreground group-hover:text-foreground transition-colors">Facebook</span>
+            </a>
+            <a
+              href="https://www.instagram.com/smart.pantry.ai"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex flex-col items-center gap-2 group"
+              aria-label="SmartPantry AI on Instagram"
+            >
+              <span
+                className="flex h-16 w-16 items-center justify-center rounded-full text-white shadow-lg transition-transform duration-300 group-hover:scale-110"
+                style={{ background: "linear-gradient(45deg, #F58529 0%, #DD2A7B 55%, #8134AF 80%, #515BD4 100%)" }}
+              >
+                <Instagram className="h-8 w-8" />
+              </span>
+              <span className="text-xs font-medium text-muted-foreground group-hover:text-foreground transition-colors">Instagram</span>
+            </a>
+          </div>
+          <p className="text-xs text-muted-foreground text-center">Follow SmartPantry AI for waste-saving tips</p>
+        </motion.div>
       </section>
 
 
