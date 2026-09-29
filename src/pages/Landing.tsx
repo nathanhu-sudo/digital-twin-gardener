@@ -248,32 +248,6 @@ export default function Landing() {
                 <Leaf className="h-3.5 w-3.5 text-primary" /> No card needed to sign up
               </span>
             </div>
-            <div className="flex flex-col items-center gap-3 pt-2 self-center w-full">
-              <p className="text-sm font-semibold tracking-wide uppercase text-muted-foreground">Socials</p>
-              <div className="flex items-center gap-4">
-                <a
-                  href="https://www.facebook.com/profile.php?id=61591816062382"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="SmartPantry AI on Facebook"
-                  className="flex h-12 w-12 items-center justify-center rounded-full text-white transition-transform hover:scale-110 shadow-md"
-                  style={{ background: "#1877F2" }}
-                >
-                  <Facebook className="h-6 w-6" />
-                </a>
-                <a
-                  href="https://www.instagram.com/smart.pantry.ai"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="SmartPantry AI on Instagram"
-                  className="flex h-12 w-12 items-center justify-center rounded-full text-white transition-transform hover:scale-110 shadow-md"
-                  style={{ background: "linear-gradient(45deg, #F58529 0%, #DD2A7B 55%, #8134AF 80%, #515BD4 100%)" }}
-                >
-                  <Instagram className="h-6 w-6" />
-                </a>
-              </div>
-              <p className="text-xs text-muted-foreground text-center">Follow SmartPantry AI for waste-saving tips</p>
-            </div>
           </motion.div>
 
 
