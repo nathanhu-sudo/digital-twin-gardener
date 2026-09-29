@@ -211,29 +211,29 @@ export default function Landing() {
 
       {showSideNav && (
         <>
-          <nav aria-label="Page sections" className="fixed left-3 top-1/2 z-40 hidden w-40 -translate-y-1/2 flex-col border-l border-border bg-background/70 py-3 pl-3 pr-1 backdrop-blur-sm md:flex animate-fade-in">
-            <Button asChild variant="ghost" size="sm" className={`relative h-10 justify-start px-2 hover:bg-transparent hover:text-primary ${activeSection === "features" ? "font-semibold text-foreground" : "text-muted-foreground"}`}>
+          <nav aria-label="Page sections" className="fixed left-3 top-1/2 z-40 hidden w-52 -translate-y-1/2 flex-col gap-2 rounded-3xl border border-landingNav-border bg-landingNav-surface/80 p-3 font-landingNav shadow-[0_8px_30px_hsl(var(--landing-nav-shadow))] backdrop-blur-xl md:flex animate-fade-in">
+            <span className="mb-2 px-4 py-3 font-landingNavHeading text-sm font-semibold uppercase text-landingNav-ink">Menu</span>
+            <Button asChild variant="ghost" size="sm" className={`h-10 justify-start gap-3 rounded-xl px-4 text-[15px] font-medium transition-colors hover:bg-landingNav-border/40 hover:text-landingNav-ink ${activeSection === "features" ? "text-landingNav-ink" : "text-landingNav-ink/70"}`}>
               <a href="#features" aria-current={activeSection === "features" ? "location" : undefined}>
-                <span aria-hidden="true" className={`absolute -left-3 top-1/2 h-1.5 w-1.5 -translate-x-1/2 -translate-y-1/2 rounded-full transition-colors ${activeSection === "features" ? "bg-primary" : "bg-transparent"}`} />
+                <span aria-hidden="true" className={`h-1.5 w-1.5 shrink-0 rounded-full transition-colors ${activeSection === "features" ? "bg-landingNav-citrus" : "bg-landingNav-ink/0"}`} />
                 What you get
               </a>
             </Button>
-            <Button asChild variant="ghost" size="sm" className={`relative h-10 justify-start px-2 hover:bg-transparent hover:text-primary ${activeSection === "how" ? "font-semibold text-foreground" : "text-muted-foreground"}`}>
+            <Button asChild variant="ghost" size="sm" className={`h-10 justify-start gap-3 rounded-xl px-4 text-[15px] font-medium transition-colors hover:bg-landingNav-border/40 hover:text-landingNav-ink ${activeSection === "how" ? "text-landingNav-ink" : "text-landingNav-ink/70"}`}>
               <a href="#how" aria-current={activeSection === "how" ? "location" : undefined}>
-                <span aria-hidden="true" className={`absolute -left-3 top-1/2 h-1.5 w-1.5 -translate-x-1/2 -translate-y-1/2 rounded-full transition-colors ${activeSection === "how" ? "bg-primary" : "bg-transparent"}`} />
+                <span aria-hidden="true" className={`h-1.5 w-1.5 shrink-0 rounded-full transition-colors ${activeSection === "how" ? "bg-landingNav-citrus" : "bg-landingNav-ink/0"}`} />
                 See it work
               </a>
             </Button>
-            <Button asChild variant="ghost" size="sm" className="h-10 justify-start px-2 text-muted-foreground hover:bg-transparent hover:text-primary">
-              <Link to="/pricing">Plans</Link>
+            <Button asChild variant="ghost" size="sm" className="h-10 justify-start gap-3 rounded-xl px-4 text-[15px] font-medium text-landingNav-ink/70 transition-colors hover:bg-landingNav-border/40 hover:text-landingNav-ink">
+              <Link to="/pricing"><span aria-hidden="true" className="h-1.5 w-1.5 shrink-0 rounded-full bg-landingNav-ink/0" />Plans</Link>
             </Button>
-            <div className="mt-4 border-t border-border/70 pt-3">
-              <Button asChild variant="outline" size="sm" className="h-9 gap-2 rounded-full border-border bg-background px-3 text-xs font-semibold text-muted-foreground shadow-sm hover:text-foreground">
-                <a href="#top"><ArrowUp className="h-3.5 w-3.5" /> Back to top</a>
-              </Button>
-            </div>
+            <div className="mx-4 my-2 border-t border-landingNav-border/60" />
+            <Button asChild variant="ghost" size="sm" className="h-10 justify-between rounded-xl px-4 text-[15px] font-medium text-landingNav-ink transition-colors hover:bg-landingNav-ink hover:text-primary-foreground">
+              <a href="#top">Back to top <ArrowUp className="h-4 w-4 transition-transform group-hover:-translate-y-1" /></a>
+            </Button>
           </nav>
-          <Button asChild size="icon" className="fixed bottom-5 left-4 z-40 shadow-elegant md:hidden" title="Back to top" aria-label="Back to top">
+          <Button asChild size="icon" className="fixed bottom-5 left-4 z-40 rounded-full bg-landingNav-ink text-primary-foreground shadow-elegant hover:bg-landingNav-ink/90 md:hidden" title="Back to top" aria-label="Back to top">
             <a href="#top"><ArrowUp className="h-5 w-5" /></a>
           </Button>
         </>
@@ -361,7 +361,7 @@ export default function Landing() {
 
 
       {/* Free features */}
-      <section id="features" className="container max-w-6xl mx-auto px-4 py-20 sm:py-28 scroll-mt-16 md:pl-48 2xl:pl-4">
+      <section id="features" className="container max-w-6xl mx-auto px-4 py-20 sm:py-28 scroll-mt-16 md:pl-56 2xl:pl-4">
         <div className="text-center mb-8 sm:mb-12">
           <h2 className="text-3xl sm:text-4xl font-bold font-serif tracking-tight">
             Everything your kitchen needs
@@ -378,7 +378,7 @@ export default function Landing() {
       </section>
 
       {/* Paid exclusives */}
-      <section className="container max-w-6xl mx-auto px-4 pb-20 sm:pb-28 md:pl-48 2xl:pl-4">
+      <section className="container max-w-6xl mx-auto px-4 pb-20 sm:pb-28 md:pl-56 2xl:pl-4">
         <div className="text-center mb-8 sm:mb-12">
           <h2 className="text-3xl sm:text-4xl font-bold font-serif tracking-tight">
             Exclusives
@@ -395,7 +395,7 @@ export default function Landing() {
       </section>
 
       {/* How it works */}
-      <section id="how" className="container max-w-6xl mx-auto px-4 py-20 sm:py-28 scroll-mt-16 md:pl-48 2xl:pl-4">
+      <section id="how" className="container max-w-6xl mx-auto px-4 py-20 sm:py-28 scroll-mt-16 md:pl-56 2xl:pl-4">
         <div className="text-center mb-8 sm:mb-12">
           <h2 className="text-3xl sm:text-4xl font-bold font-serif tracking-tight">
             Three steps to a smarter kitchen
@@ -416,7 +416,7 @@ export default function Landing() {
       </section>
 
       {/* CTA — pattern shows through */}
-      <section className="container max-w-4xl mx-auto px-4 py-20 sm:py-28 md:pl-48 2xl:pl-4">
+      <section className="container max-w-4xl mx-auto px-4 py-20 sm:py-28 md:pl-56 2xl:pl-4">
         <div
           className="relative overflow-hidden rounded-3xl border border-border/50 p-8 sm:p-12 text-center shadow-elegant"
           style={{ background: "var(--gradient-primary)" }}
