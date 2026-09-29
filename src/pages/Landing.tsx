@@ -261,7 +261,7 @@ export default function Landing() {
               <InteractivePantryPreview />
 
               <p className="text-xs text-muted-foreground text-center">
-                Explore the sample pantry — changes stay in this demo
+                Explore the sample pantry. Warning: changes stay in this demo
               </p>
             </div>
           </motion.div>
