@@ -180,7 +180,7 @@ export default function Landing() {
                 <Leaf className="h-3.5 w-3.5 text-primary" /> No credit card
               </span>
             </div>
-            <div className="flex flex-col items-start gap-3 pt-2">
+            <div className="flex flex-col items-center gap-3 pt-2 self-center w-full">
               <p className="text-sm font-semibold tracking-wide uppercase text-muted-foreground">Socials</p>
               <div className="flex items-center gap-4">
                 <a
@@ -204,7 +204,7 @@ export default function Landing() {
                   <Instagram className="h-6 w-6" />
                 </a>
               </div>
-              <p className="text-xs text-muted-foreground">Follow SmartPantry AI for waste-saving tips</p>
+              <p className="text-xs text-muted-foreground text-center">Follow SmartPantry AI for waste-saving tips</p>
             </div>
           </motion.div>
 
