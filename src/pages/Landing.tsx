@@ -50,7 +50,7 @@ const EXCLUSIVE_FEATURES = [
     icon: TrendingUp,
     plan: "Lite",
     title: "Analytics & History",
-    desc: "See charts of your pantry over time — what you used, saved and tossed.",
+    desc: "See charts of your pantry over time, from what you used to what you saved and tossed.",
   },
   {
     icon: Mail,
@@ -68,7 +68,7 @@ const EXCLUSIVE_FEATURES = [
     icon: ChefHat,
     plan: "Pro",
     title: "Smart Recipes",
-    desc: "Get recipe ideas that prioritise what's about to expire — cook first, shop later.",
+    desc: "Get recipe ideas that prioritise what's about to expire, so you cook first and shop later.",
   },
   {
     icon: Sparkles,
