@@ -229,7 +229,7 @@ export default function Landing() {
               <Link to="/pricing"><span aria-hidden="true" className="h-1.5 w-1.5 shrink-0 rounded-full bg-landingNav-ink/0" />Plans</Link>
             </Button>
             <div className="mx-4 my-2 border-t border-landingNav-border/60" />
-            <Button asChild variant="ghost" size="sm" className="h-10 justify-between rounded-xl px-4 text-[15px] font-medium text-landingNav-ink transition-colors hover:bg-landingNav-ink hover:text-primary-foreground">
+            <Button asChild variant="ghost" size="sm" className="group h-10 justify-between rounded-xl px-4 text-[15px] font-medium text-landingNav-ink transition-colors hover:bg-landingNav-ink hover:text-primary-foreground">
               <a href="#top">Back to top <ArrowUp className="h-4 w-4 transition-transform group-hover:-translate-y-1" /></a>
             </Button>
           </nav>
