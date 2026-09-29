@@ -31,7 +31,7 @@ const FREE_FEATURES = [
   {
     icon: ScanLine,
     title: "AI Scanner",
-    desc: "Snap your fridge, receipt or a barcode — vision AI extracts every item, weight and shelf life in seconds.",
+    desc: "Snap your fridge, receipt or a barcode and vision AI pulls out every item, weight and shelf life in seconds.",
   },
   {
     icon: Trophy,
@@ -41,7 +41,7 @@ const FREE_FEATURES = [
   {
     icon: BarChart2,
     title: "Green Impact",
-    desc: "Track every kilogram saved and CO₂ prevented — for you and the SmartPantry community.",
+    desc: "Track the kilograms saved and the CO₂ you prevented, for yourself and the whole community.",
   },
 ];
 
