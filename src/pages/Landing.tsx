@@ -351,7 +351,7 @@ export default function Landing() {
 
 
       {/* Free features */}
-      <section id="features" className="container max-w-6xl mx-auto px-4 py-20 sm:py-28 scroll-mt-16 md:pl-40 2xl:pl-4">
+      <section id="features" className="container max-w-6xl mx-auto px-4 py-20 sm:py-28 scroll-mt-16 md:pl-48 2xl:pl-4">
         <div className="text-center mb-8 sm:mb-12">
           <h2 className="text-3xl sm:text-4xl font-bold font-serif tracking-tight">
             Everything your kitchen needs
@@ -368,7 +368,7 @@ export default function Landing() {
       </section>
 
       {/* Paid exclusives */}
-      <section className="container max-w-6xl mx-auto px-4 pb-20 sm:pb-28 md:pl-40 2xl:pl-4">
+      <section className="container max-w-6xl mx-auto px-4 pb-20 sm:pb-28 md:pl-48 2xl:pl-4">
         <div className="text-center mb-8 sm:mb-12">
           <h2 className="text-3xl sm:text-4xl font-bold font-serif tracking-tight">
             Exclusives
@@ -385,7 +385,7 @@ export default function Landing() {
       </section>
 
       {/* How it works */}
-      <section id="how" className="container max-w-6xl mx-auto px-4 py-20 sm:py-28 scroll-mt-16 md:pl-40 2xl:pl-4">
+      <section id="how" className="container max-w-6xl mx-auto px-4 py-20 sm:py-28 scroll-mt-16 md:pl-48 2xl:pl-4">
         <div className="text-center mb-8 sm:mb-12">
           <h2 className="text-3xl sm:text-4xl font-bold font-serif tracking-tight">
             Three steps to a smarter kitchen
@@ -406,7 +406,7 @@ export default function Landing() {
       </section>
 
       {/* CTA — pattern shows through */}
-      <section className="container max-w-4xl mx-auto px-4 py-20 sm:py-28 md:pl-40 2xl:pl-4">
+      <section className="container max-w-4xl mx-auto px-4 py-20 sm:py-28 md:pl-48 2xl:pl-4">
         <div
           className="relative overflow-hidden rounded-3xl border border-border/50 p-8 sm:p-12 text-center shadow-elegant"
           style={{ background: "var(--gradient-primary)" }}

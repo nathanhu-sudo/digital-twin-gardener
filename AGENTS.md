@@ -1,1 +1,2 @@
 - Keep the landing-page pantry preview as a local-state, self-contained demo; it must not write sample data to real accounts or call paid AI services.
+- Keep landing section navigation fixed on the left after the first section enters view, with a compact mobile back-to-top control; this preserves quick navigation without crowding the hero or mobile content.
