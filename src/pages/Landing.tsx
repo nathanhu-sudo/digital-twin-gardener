@@ -242,10 +242,10 @@ export default function Landing() {
             </div>
             <div className="flex items-center gap-4 text-xs text-muted-foreground pt-2">
               <span className="inline-flex items-center gap-1">
-                <ShieldCheck className="h-3.5 w-3.5 text-primary" /> Free to use
+                <ShieldCheck className="h-3.5 w-3.5 text-primary" /> Free plan available
               </span>
               <span className="inline-flex items-center gap-1">
-                <Leaf className="h-3.5 w-3.5 text-primary" /> No credit card
+                <Leaf className="h-3.5 w-3.5 text-primary" /> No card needed to sign up
               </span>
             </div>
             <div className="flex flex-col items-center gap-3 pt-2 self-center w-full">
