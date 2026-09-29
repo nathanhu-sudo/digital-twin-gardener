@@ -248,32 +248,6 @@ export default function Landing() {
                 <Leaf className="h-3.5 w-3.5 text-primary" /> No card needed to sign up
               </span>
             </div>
-            <div className="flex flex-col items-center gap-3 pt-2 self-center w-full">
-              <p className="text-sm font-semibold tracking-wide uppercase text-muted-foreground">Socials</p>
-              <div className="flex items-center gap-4">
-                <a
-                  href="https://www.facebook.com/profile.php?id=61591816062382"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="SmartPantry AI on Facebook"
-                  className="flex h-12 w-12 items-center justify-center rounded-full text-white transition-transform hover:scale-110 shadow-md"
-                  style={{ background: "#1877F2" }}
-                >
-                  <Facebook className="h-6 w-6" />
-                </a>
-                <a
-                  href="https://www.instagram.com/smart.pantry.ai"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="SmartPantry AI on Instagram"
-                  className="flex h-12 w-12 items-center justify-center rounded-full text-white transition-transform hover:scale-110 shadow-md"
-                  style={{ background: "linear-gradient(45deg, #F58529 0%, #DD2A7B 55%, #8134AF 80%, #515BD4 100%)" }}
-                >
-                  <Instagram className="h-6 w-6" />
-                </a>
-              </div>
-              <p className="text-xs text-muted-foreground text-center">Follow SmartPantry AI for waste-saving tips</p>
-            </div>
           </motion.div>
 
 
@@ -292,6 +266,51 @@ export default function Landing() {
             </div>
           </motion.div>
         </div>
+
+        {/* Full-width socials band */}
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          className="relative mt-4 w-full flex flex-col items-center gap-6 text-center"
+        >
+          <p className="text-sm font-semibold tracking-wide uppercase text-muted-foreground">Socials</p>
+          <div className="flex w-full items-start justify-center gap-12 sm:gap-24 lg:gap-40">
+            <a
+              href="https://www.facebook.com/profile.php?id=61591816062382"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex flex-col items-center gap-3 group"
+              aria-label="SmartPantry AI on Facebook"
+            >
+              <span
+                className="flex h-20 w-20 sm:h-24 sm:w-24 items-center justify-center rounded-full text-white shadow-lg transition-transform duration-300 group-hover:scale-110"
+                style={{ background: "#1877F2" }}
+              >
+                <Facebook className="h-10 w-10 sm:h-12 sm:w-12" />
+              </span>
+              <span className="text-sm font-semibold text-foreground">Facebook</span>
+              <span className="max-w-[180px] text-xs text-muted-foreground">Waste-saving tips and product updates</span>
+            </a>
+            <a
+              href="https://www.instagram.com/smart.pantry.ai"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex flex-col items-center gap-3 group"
+              aria-label="SmartPantry AI on Instagram"
+            >
+              <span
+                className="flex h-20 w-20 sm:h-24 sm:w-24 items-center justify-center rounded-full text-white shadow-lg transition-transform duration-300 group-hover:scale-110"
+                style={{ background: "linear-gradient(45deg, #F58529 0%, #DD2A7B 55%, #8134AF 80%, #515BD4 100%)" }}
+              >
+                <Instagram className="h-10 w-10 sm:h-12 sm:w-12" />
+              </span>
+              <span className="text-sm font-semibold text-foreground">Instagram</span>
+              <span className="max-w-[180px] text-xs text-muted-foreground">Kitchen inspiration and pantry makeovers</span>
+            </a>
+          </div>
+          <p className="text-sm text-muted-foreground text-center">Follow SmartPantry AI for waste-saving tips</p>
+        </motion.div>
       </section>
 
 
