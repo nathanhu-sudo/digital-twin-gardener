@@ -293,35 +293,36 @@ export default function Landing() {
       </section>
 
 
-      {/* Features */}
+      {/* Free features */}
       <section id="features" className="container max-w-6xl mx-auto px-4 py-20 sm:py-28">
         <div className="text-center mb-8 sm:mb-12">
           <h2 className="text-3xl sm:text-4xl font-bold font-serif tracking-tight">
             Everything your kitchen needs
           </h2>
           <p className="text-primary font-medium mt-3">
-            Six connected tools
+            Included with your free account
           </p>
         </div>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {FEATURES.map((f, i) => (
-            <motion.div
-              key={f.title}
-              initial={{ opacity: 0, y: 12 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-40px" }}
-              transition={{ duration: 0.35, delay: i * 0.05 }}
-              className="glass rounded-2xl border border-border/50 p-5 hover:shadow-elegant transition-shadow flex flex-col items-center text-center"
-            >
-              <div
-                className="rounded-xl p-2.5 shadow-md mb-3"
-                style={{ background: "var(--gradient-primary)" }}
-              >
-                <f.icon className="h-5 w-5 text-primary-foreground" />
-              </div>
-              <div className="font-semibold text-lg mb-1">{f.title}</div>
-              <div className="text-sm text-muted-foreground leading-relaxed">{f.desc}</div>
-            </motion.div>
+          {FREE_FEATURES.map((f) => (
+            <FeatureCard key={f.title} {...f} />
+          ))}
+        </div>
+      </section>
+
+      {/* Paid exclusives */}
+      <section className="container max-w-6xl mx-auto px-4 pb-20 sm:pb-28">
+        <div className="text-center mb-8 sm:mb-12">
+          <h2 className="text-3xl sm:text-4xl font-bold font-serif tracking-tight">
+            Exclusives
+          </h2>
+          <p className="text-primary font-medium mt-3">
+            Unlock with Lite or Pro
+          </p>
+        </div>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          {EXCLUSIVE_FEATURES.map((f) => (
+            <FeatureCard key={f.title} {...f} />
           ))}
         </div>
       </section>
