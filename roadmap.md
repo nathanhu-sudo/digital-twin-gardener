@@ -1,2 +1,2 @@
-- [ ] Make What you get and See it work separate pages, retaining the draggable menu and linking all three destinations.
-- [ ] Check page navigation and layouts on desktop and mobile.
+- [x] Make What you get and See it work separate pages, retaining the draggable menu and linking all three destinations.
+- [x] Check page navigation and layouts on desktop and mobile.
