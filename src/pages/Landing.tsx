@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState, type PointerEvent as ReactPointerEvent } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import {
@@ -18,6 +18,7 @@ import {
   Mail,
   Users,
   ArrowUp,
+  GripVertical,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { BrandLogo } from "@/components/BrandLogo";
@@ -134,6 +135,28 @@ export default function Landing() {
   const ctaLabel = user ? "Open your pantry" : "Get started free";
   const [showSideNav, setShowSideNav] = useState(false);
   const [activeSection, setActiveSection] = useState<"features" | "how">("features");
+  const [railPosition, setRailPosition] = useState<{ x: number; y: number } | null>(null);
+  const railRef = useRef<HTMLElement>(null);
+  const dragOffset = useRef<{ x: number; y: number } | null>(null);
+
+  const startRailDrag = (event: ReactPointerEvent<HTMLButtonElement>) => {
+    const rect = railRef.current?.getBoundingClientRect();
+    if (!rect) return;
+    dragOffset.current = { x: event.clientX - rect.left, y: event.clientY - rect.top };
+    event.currentTarget.setPointerCapture(event.pointerId);
+  };
+
+  const moveRail = (event: ReactPointerEvent<HTMLButtonElement>) => {
+    const rect = railRef.current?.getBoundingClientRect();
+    const offset = dragOffset.current;
+    if (!rect || !offset) return;
+    setRailPosition({
+      x: Math.max(0, Math.min(window.innerWidth - rect.width, event.clientX - offset.x)),
+      y: Math.max(0, Math.min(window.innerHeight - rect.height, event.clientY - offset.y)),
+    });
+  };
+
+  const stopRailDrag = () => { dragOffset.current = null; };
 
   useEffect(() => {
     const updateSideNav = () => {
@@ -149,6 +172,19 @@ export default function Landing() {
       window.removeEventListener("scroll", updateSideNav);
       window.removeEventListener("resize", updateSideNav);
     };
+  }, []);
+
+  useEffect(() => {
+    const keepRailVisible = () => {
+      const rect = railRef.current?.getBoundingClientRect();
+      if (!rect) return;
+      setRailPosition((position) => position && ({
+        x: Math.max(0, Math.min(window.innerWidth - rect.width, position.x)),
+        y: Math.max(0, Math.min(window.innerHeight - rect.height, position.y)),
+      }));
+    };
+    window.addEventListener("resize", keepRailVisible);
+    return () => window.removeEventListener("resize", keepRailVisible);
   }, []);
 
   return (
@@ -211,25 +247,30 @@ export default function Landing() {
 
       {showSideNav && (
         <>
-          <nav aria-label="Page sections" className="fixed left-3 top-1/2 z-40 hidden w-52 -translate-y-1/2 flex-col gap-2 rounded-3xl border border-landingNav-border bg-landingNav-surface/80 p-3 font-landingNav shadow-[0_8px_30px_hsl(var(--landing-nav-shadow))] backdrop-blur-xl md:flex animate-fade-in">
-            <span className="mb-2 px-4 py-3 font-landingNavHeading text-sm font-semibold uppercase text-landingNav-ink">Menu</span>
-            <Button asChild variant="ghost" size="sm" className={`h-10 justify-start gap-3 rounded-xl px-4 text-[15px] font-medium transition-colors hover:bg-landingNav-border/40 hover:text-landingNav-ink ${activeSection === "features" ? "text-landingNav-ink" : "text-landingNav-ink/70"}`}>
+          <nav ref={railRef} aria-label="Page sections" className={`fixed z-40 hidden w-40 flex-col gap-1 rounded-2xl border border-landingNav-border bg-landingNav-surface/90 p-2 font-landingNav shadow-[0_8px_30px_hsl(var(--landing-nav-shadow))] backdrop-blur-xl md:flex animate-fade-in ${railPosition ? "" : "left-3 top-1/2 -translate-y-1/2"}`} style={railPosition ? { left: railPosition.x, top: railPosition.y } : undefined}>
+            <div className="flex items-center justify-between pl-3">
+              <span className="font-landingNavHeading text-xs font-semibold uppercase text-landingNav-ink">Menu</span>
+              <Button variant="ghost" size="icon" className="h-8 w-8 cursor-grab touch-none text-landingNav-ink/70 active:cursor-grabbing hover:bg-landingNav-border/40 hover:text-landingNav-ink" aria-label="Move section menu" title="Drag to move menu" onPointerDown={startRailDrag} onPointerMove={moveRail} onPointerUp={stopRailDrag} onPointerCancel={stopRailDrag}>
+                <GripVertical className="h-4 w-4" />
+              </Button>
+            </div>
+            <Button asChild variant="ghost" size="sm" className={`h-9 justify-start gap-2 rounded-lg px-3 text-sm font-medium transition-colors hover:bg-landingNav-border/40 hover:text-landingNav-ink ${activeSection === "features" ? "text-landingNav-ink" : "text-landingNav-ink/70"}`}>
               <a href="#features" aria-current={activeSection === "features" ? "location" : undefined}>
                 <span aria-hidden="true" className={`h-1.5 w-1.5 shrink-0 rounded-full transition-colors ${activeSection === "features" ? "bg-landingNav-citrus" : "bg-landingNav-ink/0"}`} />
                 What you get
               </a>
             </Button>
-            <Button asChild variant="ghost" size="sm" className={`h-10 justify-start gap-3 rounded-xl px-4 text-[15px] font-medium transition-colors hover:bg-landingNav-border/40 hover:text-landingNav-ink ${activeSection === "how" ? "text-landingNav-ink" : "text-landingNav-ink/70"}`}>
+            <Button asChild variant="ghost" size="sm" className={`h-9 justify-start gap-2 rounded-lg px-3 text-sm font-medium transition-colors hover:bg-landingNav-border/40 hover:text-landingNav-ink ${activeSection === "how" ? "text-landingNav-ink" : "text-landingNav-ink/70"}`}>
               <a href="#how" aria-current={activeSection === "how" ? "location" : undefined}>
                 <span aria-hidden="true" className={`h-1.5 w-1.5 shrink-0 rounded-full transition-colors ${activeSection === "how" ? "bg-landingNav-citrus" : "bg-landingNav-ink/0"}`} />
                 See it work
               </a>
             </Button>
-            <Button asChild variant="ghost" size="sm" className="h-10 justify-start gap-3 rounded-xl px-4 text-[15px] font-medium text-landingNav-ink/70 transition-colors hover:bg-landingNav-border/40 hover:text-landingNav-ink">
+            <Button asChild variant="ghost" size="sm" className="h-9 justify-start gap-2 rounded-lg px-3 text-sm font-medium text-landingNav-ink/70 transition-colors hover:bg-landingNav-border/40 hover:text-landingNav-ink">
               <Link to="/pricing"><span aria-hidden="true" className="h-1.5 w-1.5 shrink-0 rounded-full bg-landingNav-ink/0" />Plans</Link>
             </Button>
-            <div className="mx-4 my-2 border-t border-landingNav-border/60" />
-            <Button asChild variant="ghost" size="sm" className="group h-10 justify-between rounded-xl px-4 text-[15px] font-medium text-landingNav-ink transition-colors hover:bg-landingNav-ink hover:text-primary-foreground">
+            <div className="mx-3 my-1 border-t border-landingNav-border/60" />
+            <Button asChild variant="ghost" size="sm" className="group h-9 justify-between rounded-lg px-3 text-sm font-medium text-landingNav-ink transition-colors hover:bg-landingNav-ink hover:text-primary-foreground">
               <a href="#top">Back to top <ArrowUp className="h-4 w-4 transition-transform group-hover:-translate-y-1" /></a>
             </Button>
           </nav>
@@ -361,7 +402,7 @@ export default function Landing() {
 
 
       {/* Free features */}
-      <section id="features" className="container max-w-6xl mx-auto px-4 py-20 sm:py-28 scroll-mt-16 md:pl-56 2xl:pl-4">
+      <section id="features" className="container max-w-6xl mx-auto px-4 py-20 sm:py-28 scroll-mt-16">
         <div className="text-center mb-8 sm:mb-12">
           <h2 className="text-3xl sm:text-4xl font-bold font-serif tracking-tight">
             Everything your kitchen needs
@@ -378,7 +419,7 @@ export default function Landing() {
       </section>
 
       {/* Paid exclusives */}
-      <section className="container max-w-6xl mx-auto px-4 pb-20 sm:pb-28 md:pl-56 2xl:pl-4">
+      <section className="container max-w-6xl mx-auto px-4 pb-20 sm:pb-28">
         <div className="text-center mb-8 sm:mb-12">
           <h2 className="text-3xl sm:text-4xl font-bold font-serif tracking-tight">
             Exclusives
@@ -395,7 +436,7 @@ export default function Landing() {
       </section>
 
       {/* How it works */}
-      <section id="how" className="container max-w-6xl mx-auto px-4 py-20 sm:py-28 scroll-mt-16 md:pl-56 2xl:pl-4">
+      <section id="how" className="container max-w-6xl mx-auto px-4 py-20 sm:py-28 scroll-mt-16">
         <div className="text-center mb-8 sm:mb-12">
           <h2 className="text-3xl sm:text-4xl font-bold font-serif tracking-tight">
             Three steps to a smarter kitchen
@@ -416,7 +457,7 @@ export default function Landing() {
       </section>
 
       {/* CTA — pattern shows through */}
-      <section className="container max-w-4xl mx-auto px-4 py-20 sm:py-28 md:pl-56 2xl:pl-4">
+      <section className="container max-w-4xl mx-auto px-4 py-20 sm:py-28">
         <div
           className="relative overflow-hidden rounded-3xl border border-border/50 p-8 sm:p-12 text-center shadow-elegant"
           style={{ background: "var(--gradient-primary)" }}
