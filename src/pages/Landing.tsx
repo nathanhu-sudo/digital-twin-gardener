@@ -305,9 +305,9 @@ export default function Landing() {
             Included with your free account
           </p>
         </div>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {FREE_FEATURES.map((f) => (
-            <FeatureCard key={f.title} {...f} />
+        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4 items-stretch">
+          {FREE_FEATURES.map((f, i) => (
+            <FeatureCard key={f.title} {...f} index={i} />
           ))}
         </div>
       </section>
@@ -322,9 +322,9 @@ export default function Landing() {
             Unlock with Lite or Pro
           </p>
         </div>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {EXCLUSIVE_FEATURES.map((f) => (
-            <FeatureCard key={f.title} {...f} />
+        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 items-stretch">
+          {EXCLUSIVE_FEATURES.map((f, i) => (
+            <FeatureCard key={f.title} {...f} index={i} />
           ))}
         </div>
       </section>
