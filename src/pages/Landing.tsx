@@ -7,6 +7,7 @@ import {
   ShieldCheck,
   Facebook,
   Instagram,
+  RotateCcw,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { LandingPageNav } from "@/components/LandingPageNav";
@@ -26,13 +27,14 @@ const SAVINGS_NOTES = [
 
 function RotatingSavingsNote() {
   const [index, setIndex] = useState(0);
+  const next = () => setIndex((i) => (i + 1) % SAVINGS_NOTES.length);
   useEffect(() => {
-    const timer = setInterval(() => setIndex((i) => (i + 1) % SAVINGS_NOTES.length), 5000);
+    const timer = setInterval(next, 5000);
     return () => clearInterval(timer);
   }, []);
   return (
-    <p className="inline-flex items-start gap-2 rounded-xl border border-primary/25 bg-card/80 px-4 py-3 text-sm text-foreground max-w-lg min-h-[76px]">
-      <PiggyBank className="h-5 w-5 text-primary shrink-0" />
+    <div className="inline-flex items-start gap-2 rounded-xl border border-primary/25 bg-card/80 px-4 py-3 text-sm text-foreground max-w-lg min-h-[76px]">
+      <PiggyBank className="h-5 w-5 text-primary shrink-0 mt-0.5" />
       <AnimatePresence mode="wait">
         <motion.span
           key={index}
@@ -40,11 +42,23 @@ function RotatingSavingsNote() {
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -6 }}
           transition={{ duration: 0.35 }}
+          className="min-w-0"
         >
           {SAVINGS_NOTES[index]}
         </motion.span>
       </AnimatePresence>
-    </p>
+      <Button
+        type="button"
+        variant="ghost"
+        size="icon"
+        aria-label="Show next saving tip"
+        title="Show next tip"
+        onClick={next}
+        className="shrink-0 -mt-1 -mr-1 rounded-full h-7 w-7 text-muted-foreground hover:text-primary hover:bg-primary/10"
+      >
+        <RotateCcw className="h-3.5 w-3.5" />
+      </Button>
+    </div>
   );
 }
 
