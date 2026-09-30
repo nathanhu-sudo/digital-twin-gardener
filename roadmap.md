@@ -1,2 +1,3 @@
 - [x] Make What you get and See it work separate pages, retaining the draggable menu and linking all three destinations.
 - [x] Check page navigation and layouts on desktop and mobile.
+- [ ] (Deferred by user) Separate landing page from app — options: subdomain, cleaner split, or two projects. Revisit later.
