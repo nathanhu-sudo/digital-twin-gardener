@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { Leaf, TrendingDown, TrendingUp } from "lucide-react";
 import { GreenImpact } from "@/types/pantry";
+import { useDetectedCurrency, formatMoney } from "@/lib/currency";
 
 interface DashboardProps {
   impact: GreenImpact;
@@ -8,6 +9,8 @@ interface DashboardProps {
 
 export function Dashboard({ impact }: DashboardProps) {
   const totalKg = impact.savedKg + impact.wastedKg;
+  const currency = useDetectedCurrency();
+  const money = (usd: number) => formatMoney(Math.round(usd * currency.rate), currency);
   const saveRate = totalKg > 0 ? Math.round((impact.savedKg / totalKg) * 100) : 0;
 
   return (
@@ -28,6 +31,7 @@ export function Dashboard({ impact }: DashboardProps) {
         <p className="text-xs text-muted-foreground">
           ≈ {impact.co2SavedKg.toFixed(1)} kg CO₂ prevented
         </p>
+        <p className="text-sm font-semibold text-success">≈ {money(impact.moneySavedUsd)} saved</p>
       </motion.div>
 
       <motion.div
@@ -46,6 +50,7 @@ export function Dashboard({ impact }: DashboardProps) {
         <p className="text-xs text-muted-foreground">
           ≈ {impact.co2WastedKg.toFixed(1)} kg CO₂ emitted
         </p>
+        <p className="text-sm font-semibold text-destructive">≈ {money(impact.moneyWastedUsd)} binned</p>
       </motion.div>
 
       <motion.div
