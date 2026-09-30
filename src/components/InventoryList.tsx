@@ -1,7 +1,7 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { AnimatePresence } from "framer-motion";
 import { Package } from "lucide-react";
-import { PantryItem } from "@/types/pantry";
+import { PantryItem, StorageLocation } from "@/types/pantry";
 import { InventoryItem } from "./InventoryItem";
 
 interface InventoryListProps {
@@ -9,12 +9,24 @@ interface InventoryListProps {
   getDaysRemaining: (item: PantryItem) => number;
   onConsume: (id: string) => void;
   onToss: (id: string, tossedKg?: number) => void;
+  onMove?: (id: string, location: StorageLocation) => void;
 }
 
-export function InventoryList({ items, getDaysRemaining, onConsume, onToss }: InventoryListProps) {
+const FILTERS: { id: "all" | StorageLocation; label: string }[] = [
+  { id: "all", label: "All" },
+  { id: "fridge", label: "🧊 Fridge" },
+  { id: "freezer", label: "❄️ Freezer" },
+  { id: "pantry", label: "🥫 Pantry" },
+];
+
+export function InventoryList({ items, getDaysRemaining, onConsume, onToss, onMove }: InventoryListProps) {
+  const [filter, setFilter] = useState<"all" | StorageLocation>("all");
   const sorted = useMemo(
-    () => [...items].sort((a, b) => getDaysRemaining(a) - getDaysRemaining(b)),
-    [items, getDaysRemaining]
+    () =>
+      [...items]
+        .filter((i) => filter === "all" || i.location === filter)
+        .sort((a, b) => getDaysRemaining(a) - getDaysRemaining(b)),
+    [items, getDaysRemaining, filter]
   );
 
   if (items.length === 0) {
@@ -29,17 +41,43 @@ export function InventoryList({ items, getDaysRemaining, onConsume, onToss }: In
 
   return (
     <div className="flex flex-col gap-3">
-      <AnimatePresence mode="popLayout">
-        {sorted.map((item) => (
-          <InventoryItem
-            key={item.id}
-            item={item}
-            daysRemaining={getDaysRemaining(item)}
-            onConsume={onConsume}
-            onToss={onToss}
-          />
-        ))}
-      </AnimatePresence>
+      <div className="flex gap-2 overflow-x-auto pb-1" role="tablist" aria-label="Filter by storage">
+        {FILTERS.map((f) => {
+          const count = f.id === "all" ? items.length : items.filter((i) => i.location === f.id).length;
+          const active = filter === f.id;
+          return (
+            <button
+              key={f.id}
+              role="tab"
+              aria-selected={active}
+              onClick={() => setFilter(f.id)}
+              className={`shrink-0 rounded-full border px-3 py-1 text-xs font-medium transition-colors ${
+                active ? "bg-primary text-primary-foreground border-primary" : "bg-card text-muted-foreground hover:text-foreground"
+              }`}
+            >
+              {f.label} <span className="opacity-70">{count}</span>
+            </button>
+          );
+        })}
+      </div>
+      {sorted.length === 0 ? (
+        <p className="rounded-xl border border-dashed p-6 text-center text-sm text-muted-foreground">
+          Nothing stored here yet.
+        </p>
+      ) : (
+        <AnimatePresence mode="popLayout">
+          {sorted.map((item) => (
+            <InventoryItem
+              key={item.id}
+              item={item}
+              daysRemaining={getDaysRemaining(item)}
+              onConsume={onConsume}
+              onToss={onToss}
+              onMove={onMove}
+            />
+          ))}
+        </AnimatePresence>
+      )}
     </div>
   );
 }

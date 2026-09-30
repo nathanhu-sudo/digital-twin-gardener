@@ -1,0 +1,13 @@
+{
+  "name": "SmartPantry AI",
+  "short_name": "SmartPantry",
+  "description": "Track your pantry, get expiry alerts and waste less food.",
+  "start_url": "/app",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#2f7d4f",
+  "icons": [
+    { "src": "/favicon.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}

@@ -11,6 +11,7 @@ import { useAuth } from "@/hooks/useAuth";
 import { usePaddleCheckout } from "@/hooks/usePaddleCheckout";
 import { PaymentTestModeBanner } from "@/components/PaymentTestModeBanner";
 import { BrandLogo } from "@/components/BrandLogo";
+import { LandingFAQ } from "@/components/LandingFAQ";
 import { LandingPageNav } from "@/components/LandingPageNav";
 import { useDetectedCurrency, formatFromUsd, formatMoney } from "@/lib/currency";
 
@@ -210,6 +211,7 @@ export default function Pricing() {
           Payments are handled securely by Paddle; your plan unlocks automatically once the payment is confirmed.
         </p>
 
+        <LandingFAQ />
       </main>
     </div>
   );

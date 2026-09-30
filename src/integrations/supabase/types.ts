@@ -209,6 +209,56 @@ export type Database = {
         }
         Relationships: []
       }
+      household_members: {
+        Row: {
+          household_id: string
+          joined_at: string
+          user_id: string
+        }
+        Insert: {
+          household_id: string
+          joined_at?: string
+          user_id: string
+        }
+        Update: {
+          household_id?: string
+          joined_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "household_members_household_id_fkey"
+            columns: ["household_id"]
+            isOneToOne: false
+            referencedRelation: "households"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      households: {
+        Row: {
+          created_at: string
+          id: string
+          invite_code: string
+          name: string
+          owner_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          invite_code?: string
+          name?: string
+          owner_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          invite_code?: string
+          name?: string
+          owner_id?: string
+        }
+        Relationships: []
+      }
       notification_preferences: {
         Row: {
           created_at: string
@@ -291,8 +341,10 @@ export type Database = {
           added_at: string
           co2_impact: string
           created_at: string
+          household_id: string | null
           id: string
           image_url: string | null
+          location: string
           name: string
           shelf_life_days: number
           status: string
@@ -303,8 +355,10 @@ export type Database = {
           added_at?: string
           co2_impact?: string
           created_at?: string
+          household_id?: string | null
           id?: string
           image_url?: string | null
+          location?: string
           name: string
           shelf_life_days?: number
           status?: string
@@ -315,8 +369,10 @@ export type Database = {
           added_at?: string
           co2_impact?: string
           created_at?: string
+          household_id?: string | null
           id?: string
           image_url?: string | null
+          location?: string
           name?: string
           shelf_life_days?: number
           status?: string
@@ -348,6 +404,41 @@ export type Database = {
           updated_at?: string
         }
         Relationships: []
+      }
+      shopping_list_items: {
+        Row: {
+          checked: boolean
+          created_at: string
+          household_id: string | null
+          id: string
+          name: string
+          user_id: string
+        }
+        Insert: {
+          checked?: boolean
+          created_at?: string
+          household_id?: string | null
+          id?: string
+          name: string
+          user_id: string
+        }
+        Update: {
+          checked?: boolean
+          created_at?: string
+          household_id?: string | null
+          id?: string
+          name?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "shopping_list_items_household_id_fkey"
+            columns: ["household_id"]
+            isOneToOne: false
+            referencedRelation: "households"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       suppressed_emails: {
         Row: {
@@ -718,6 +809,7 @@ export type Database = {
           week_streak: number
         }[]
       }
+      create_household: { Args: { _name: string }; Returns: string }
       delete_email: {
         Args: { message_id: number; queue_name: string }
         Returns: boolean
@@ -853,6 +945,12 @@ export type Database = {
         Returns: boolean
       }
       is_admin: { Args: never; Returns: boolean }
+      is_household_member: {
+        Args: { _hid: string; _uid: string }
+        Returns: boolean
+      }
+      join_household: { Args: { _code: string }; Returns: string }
+      leave_household: { Args: never; Returns: undefined }
       move_to_dlq: {
         Args: {
           dlq_name: string

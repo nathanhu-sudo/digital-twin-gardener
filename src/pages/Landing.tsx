@@ -12,6 +12,9 @@ import { Button } from "@/components/ui/button";
 import { LandingPageNav } from "@/components/LandingPageNav";
 import { InteractivePantryPreview } from "@/components/InteractivePantryPreview";
 import { useAuth } from "@/hooks/useAuth";
+import { LandingFAQ } from "@/components/LandingFAQ";
+import { InstallAppBanner } from "@/components/InstallAppBanner";
+import { PiggyBank } from "lucide-react";
 
 export default function Landing() {
   const { user } = useAuth();
@@ -72,6 +75,13 @@ export default function Landing() {
               SmartPantry AI tracks what's in your kitchen, warns you before food expires,
               suggests recipes with what you already have, and turns every kilogram saved into
               measurable impact.
+            </p>
+            <p className="inline-flex items-start gap-2 rounded-xl border border-primary/25 bg-card/80 px-4 py-3 text-sm text-foreground max-w-lg">
+              <PiggyBank className="h-5 w-5 text-primary shrink-0" />
+              <span>
+                Households bin roughly <strong>a fifth of the food they buy</strong>. See exactly what you save, in
+                your own currency, every time you use something up.
+              </span>
             </p>
             <div className="flex flex-wrap gap-3 mt-2">
               <Button asChild size="lg" className="gap-2 shadow-lg">
@@ -154,6 +164,8 @@ export default function Landing() {
       </section>
 
 
+      <LandingFAQ />
+
       {/* CTA — pattern shows through */}
       <section className="container max-w-4xl mx-auto px-4 py-20 sm:py-28">
         <div
@@ -211,6 +223,7 @@ export default function Landing() {
           <Link to="/refund" className="text-sm font-medium text-foreground hover:text-primary transition-colors">Refunds</Link>
         </div>
       </footer>
+      <InstallAppBanner />
     </div>
   );
 }

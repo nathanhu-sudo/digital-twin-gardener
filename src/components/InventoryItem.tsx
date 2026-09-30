@@ -1,7 +1,7 @@
 import { forwardRef, useState } from "react";
 import { motion } from "framer-motion";
 import { Clock, Check, Trash2 } from "lucide-react";
-import { PantryItem } from "@/types/pantry";
+import { PantryItem, LOCATION_LABELS, StorageLocation } from "@/types/pantry";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -19,6 +19,7 @@ interface InventoryItemProps {
   daysRemaining: number;
   onConsume: (id: string) => void;
   onToss: (id: string, tossedKg?: number) => void;
+  onMove?: (id: string, location: StorageLocation) => void;
 }
 
 function getUrgencyColor(days: number) {
@@ -36,7 +37,7 @@ function getUrgencyBg(days: number) {
 const co2Labels = { high: "🔴 High", medium: "🟡 Med", low: "🟢 Low" };
 
 export const InventoryItem = forwardRef<HTMLDivElement, InventoryItemProps>(function InventoryItem(
-  { item, daysRemaining, onConsume, onToss },
+  { item, daysRemaining, onConsume, onToss, onMove },
   ref
 ) {
   const [showTossPrompt, setShowTossPrompt] = useState(false);
@@ -76,9 +77,23 @@ export const InventoryItem = forwardRef<HTMLDivElement, InventoryItemProps>(func
 
         <div className="flex-1 min-w-0">
           <p className="font-semibold text-foreground truncate">{item.name}</p>
-          <div className="flex items-center gap-3 text-xs text-muted-foreground mt-0.5">
+          <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-muted-foreground mt-0.5">
             <span>{item.weightKg} kg</span>
             <span>CO₂: {co2Labels[item.co2Impact]}</span>
+            {onMove ? (
+              <select
+                aria-label={`Storage location for ${item.name}`}
+                value={item.location}
+                onChange={(e) => onMove(item.id, e.target.value as StorageLocation)}
+                className="bg-transparent rounded border border-border/60 px-1 py-0.5 text-xs text-muted-foreground"
+              >
+                {(Object.keys(LOCATION_LABELS) as StorageLocation[]).map((k) => (
+                  <option key={k} value={k}>{LOCATION_LABELS[k]}</option>
+                ))}
+              </select>
+            ) : (
+              <span>{LOCATION_LABELS[item.location]}</span>
+            )}
           </div>
         </div>
 

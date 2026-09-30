@@ -18,6 +18,9 @@ import { CommunityImpact } from "@/components/CommunityImpact";
 import { RecipeSuggester } from "@/components/RecipeSuggester";
 import { PredictiveInsights } from "@/components/PredictiveInsights";
 import { KitchenHacks } from "@/components/KitchenHacks";
+import { QuickAddBar } from "@/components/QuickAddBar";
+import { ShoppingListCard } from "@/components/ShoppingListCard";
+import { HouseholdCard } from "@/components/HouseholdCard";
 
 import { WeeklyChallengeCard } from "@/components/WeeklyChallengeCard";
 import { useAdmin } from "@/hooks/useAdmin";
@@ -39,8 +42,8 @@ const TABS: { id: Tab; label: string; icon: typeof Home }[] = [
 
 const Index = () => {
   const [activeTab, setActiveTab] = useState<Tab>("home");
-  const { pantry, gamification, challenges, notifications, subscription } = usePantryData();
-  const { activeItems, impact, loading, getDaysRemaining, addItem, consumeItem, tossItem } = pantry;
+  const { pantry, gamification, challenges, notifications, subscription, shopping } = usePantryData();
+  const { items, activeItems, impact, loading, getDaysRemaining, addItem, consumeItem, tossItem, moveItem } = pantry;
   const { user, signOut } = useAuth();
   const { isAdmin } = useAdmin();
   const refreshGamification = gamification.refresh;
@@ -68,7 +71,16 @@ const Index = () => {
       refreshNotifications();
     }, 0);
   };
-  const wrappedConsume = async (id: string) => { await consumeItem(id); bgRefresh(); };
+  const wrappedConsume = async (id: string) => {
+    const item = activeItems.find((i) => i.id === id);
+    await consumeItem(id);
+    bgRefresh();
+    if (item) {
+      toast.success(`${item.name} used up`, {
+        action: { label: "Add to list", onClick: () => shopping.add(item.name) },
+      });
+    }
+  };
   const wrappedToss = async (id: string, kg?: number) => { await tossItem(id, kg); bgRefresh(); };
   const wrappedAdd: typeof addItem = async (data) => {
     if (atItemLimit) {
@@ -202,6 +214,7 @@ const Index = () => {
                   )}
                 </div>
                 <AddItemForm onAdd={wrappedAdd} />
+                <QuickAddBar items={items} onAdd={wrappedAdd} />
               </section>
 
 
@@ -229,8 +242,17 @@ const Index = () => {
                     getDaysRemaining={getDaysRemaining}
                     onConsume={wrappedConsume}
                     onToss={wrappedToss}
+                    onMove={moveItem}
                   />
                 )}
+              </section>
+
+              <section>
+                <ShoppingListCard />
+              </section>
+
+              <section>
+                <HouseholdCard />
               </section>
 
               {/* Recipe Suggestions */}
