@@ -13,8 +13,11 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 
+import type { NewPantryItem } from "@/hooks/usePantry";
+import { LOCATION_LABELS, StorageLocation } from "@/types/pantry";
+
 interface AddItemFormProps {
-  onAdd: (data: { name: string; weightKg: number; shelfLifeDays: number; co2Impact: "high" | "medium" | "low" }) => Promise<any>;
+  onAdd: (data: NewPantryItem) => Promise<any>;
 }
 
 const CO2_OPTIONS = [
@@ -29,6 +32,7 @@ export function AddItemForm({ onAdd }: AddItemFormProps) {
   const [weightKg, setWeightKg] = useState("0.5");
   const [shelfLifeDays, setShelfLifeDays] = useState("7");
   const [co2Impact, setCo2Impact] = useState<"high" | "medium" | "low">("low");
+  const [location, setLocation] = useState<StorageLocation>("fridge");
   const [saving, setSaving] = useState(false);
 
   const reset = () => {
@@ -36,6 +40,7 @@ export function AddItemForm({ onAdd }: AddItemFormProps) {
     setWeightKg("0.5");
     setShelfLifeDays("7");
     setCo2Impact("low");
+    setLocation("fridge");
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -48,6 +53,7 @@ export function AddItemForm({ onAdd }: AddItemFormProps) {
         weightKg: Math.max(0.01, parseFloat(weightKg) || 0.5),
         shelfLifeDays: Math.max(1, parseInt(shelfLifeDays) || 7),
         co2Impact,
+        location,
       });
       reset();
       setOpen(false);
@@ -119,6 +125,20 @@ export function AddItemForm({ onAdd }: AddItemFormProps) {
                 className="h-10 sm:h-9 text-base sm:text-sm"
               />
             </div>
+          </div>
+
+          <div className="space-y-2">
+            <Label>Stored in</Label>
+            <Select value={location} onValueChange={(v) => setLocation(v as StorageLocation)}>
+              <SelectTrigger className="h-10 sm:h-9 text-base sm:text-sm">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                {(Object.keys(LOCATION_LABELS) as StorageLocation[]).map((k) => (
+                  <SelectItem key={k} value={k}>{LOCATION_LABELS[k]}</SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
           </div>
 
           <div className="space-y-2">
