@@ -16,7 +16,7 @@ import { useAuth } from "@/hooks/useAuth";
 import { LandingFAQ } from "@/components/LandingFAQ";
 import { InstallAppBanner } from "@/components/InstallAppBanner";
 import { PiggyBank } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { AnimatePresence } from "framer-motion";
 
 const SAVINGS_NOTES = [
