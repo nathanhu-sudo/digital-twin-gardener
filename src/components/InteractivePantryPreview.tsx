@@ -1,4 +1,5 @@
 import { useMemo, useState, type FormEvent } from "react";
+import { Link } from "react-router-dom";
 import { Apple, BarChart2, ChefHat, Circle, CupSoda, Home, Leaf, Plus, ScanLine, Sparkles, Trophy, User, Check, RotateCcw } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -145,6 +146,7 @@ export function InteractivePantryPreview() {
                 {tab === "profile" && <>
                   <div className="flex items-center gap-3 p-3 bg-card border border-border rounded-lg"><span className="w-10 h-10 rounded-full bg-secondary flex items-center justify-center"><User className="h-5 w-5 text-primary" /></span><div><p className="text-sm font-bold">Demo Explorer</p><p className="text-[10px] text-muted-foreground">Sample profile</p></div></div>
                   <p className="text-xs text-muted-foreground">Your real pantry, progress and rewards are saved when you create an account.</p>
+                  <Button asChild size="sm" className="w-full text-xs"><Link to="/auth?mode=signup">Create free account</Link></Button>
                   <Button type="button" variant="outline" size="sm" className="w-full text-xs" onClick={reset}><RotateCcw /> Reset demo</Button>
                 </>}
               </div>
@@ -159,7 +161,11 @@ export function InteractivePantryPreview() {
                   <div className="w-9 h-9 shrink-0 bg-primary/10 rounded-lg flex items-center justify-center"><Trophy className="h-5 w-5 text-primary" /></div>
                   <div><p className="text-[10px] text-muted-foreground">Weekly Challenge</p><p className="text-xs font-bold">Use {Math.max(0, 2 - consumed)} more items</p></div>
                 </div>
-                <p className="text-[10px] text-muted-foreground px-1">Sample pantry, demo only.</p>
+                <div className={`rounded-lg border p-3 space-y-2 ${consumed > 0 || items.length > starterItems.length ? "border-primary bg-primary/10" : "border-border bg-card"}`}>
+                  <p className="text-xs font-bold">{consumed > 0 || items.length > starterItems.length ? "Like it? Keep it for real." : "Ready for your own pantry?"}</p>
+                  <p className="text-[10px] text-muted-foreground">Create a free account to save items and progress.</p>
+                  <Button asChild size="sm" className="h-7 w-full text-xs"><Link to="/auth?mode=signup">Create free account</Link></Button>
+                </div>
               </div>
             </div>
           </div>
