@@ -7,6 +7,7 @@ import {
   ShieldCheck,
   Facebook,
   Instagram,
+  RotateCcw,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { LandingPageNav } from "@/components/LandingPageNav";
