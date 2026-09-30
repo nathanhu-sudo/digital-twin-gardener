@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState, type PointerEvent as ReactPointerEvent } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { ArrowUp, GripVertical } from "lucide-react";
+import { ArrowLeft, ArrowUp, GripVertical } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { BrandLogo } from "@/components/BrandLogo";
 import { useAuth } from "@/hooks/useAuth";
@@ -77,6 +77,11 @@ export function LandingPageNav({ home = false }: { home?: boolean }) {
         </div>
       </header>
       <nav aria-label="Explore pages" className="relative z-20 flex items-center justify-center gap-1 border-b border-border/40 bg-background/80 px-2 py-2 sm:hidden">
+        {!home && (
+          <Button asChild variant="ghost" size="sm" className="shrink-0 px-2 text-xs" aria-label="Back to home">
+            <Link to="/"><ArrowLeft className="h-4 w-4" /></Link>
+          </Button>
+        )}
         {pages.map(page => <Button key={page.to} asChild variant={pathname === page.to ? "secondary" : "ghost"} size="sm" className="min-w-0 flex-1 px-1 text-xs">
           <Link to={page.to} aria-current={pathname === page.to ? "page" : undefined}>{page.label}</Link>
         </Button>)}
@@ -99,7 +104,12 @@ export function LandingPageNav({ home = false }: { home?: boolean }) {
           </Button>
         ))}
         <div className="mx-3 my-1 border-t border-landingNav-border/60" />
-        <Button asChild variant="ghost" size="sm" className="group h-9 justify-between rounded-lg px-3 text-sm font-medium text-landingNav-ink hover:bg-landingNav-ink hover:text-primary-foreground">
+        {!home && (
+          <Button asChild variant="ghost" size="sm" className="h-9 justify-between rounded-lg px-3 text-sm font-medium text-landingNav-ink hover:bg-landingNav-ink hover:text-primary-foreground">
+            <Link to="/">Back to home <ArrowLeft className="h-4 w-4" /></Link>
+          </Button>
+        )}
+        <Button asChild variant="ghost" size="sm" className={`group h-9 justify-between rounded-lg px-3 text-sm font-medium ${home ? "text-landingNav-ink hover:bg-landingNav-ink hover:text-primary-foreground" : "text-landingNav-ink hover:bg-landingNav-ink hover:text-primary-foreground"}`}>
           <a href="#top">Back to top <ArrowUp className="h-4 w-4 transition-transform group-hover:-translate-y-1" /></a>
         </Button>
       </nav>}
