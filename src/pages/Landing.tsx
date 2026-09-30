@@ -28,10 +28,6 @@ const SAVINGS_NOTES = [
 function RotatingSavingsNote() {
   const [index, setIndex] = useState(0);
   const next = () => setIndex((i) => (i + 1) % SAVINGS_NOTES.length);
-  useEffect(() => {
-    const timer = setInterval(next, 5000);
-    return () => clearInterval(timer);
-  }, []);
   return (
     <div className="inline-flex items-start gap-2 rounded-xl border border-primary/25 bg-card/80 px-4 py-3 text-sm text-foreground max-w-lg min-h-[76px]">
       <PiggyBank className="h-5 w-5 text-primary shrink-0 mt-0.5" />
