@@ -15,6 +15,38 @@ import { useAuth } from "@/hooks/useAuth";
 import { LandingFAQ } from "@/components/LandingFAQ";
 import { InstallAppBanner } from "@/components/InstallAppBanner";
 import { PiggyBank } from "lucide-react";
+import { useEffect, useState } from "react";
+import { AnimatePresence } from "framer-motion";
+
+const SAVINGS_NOTES = [
+  <>Households bin roughly <strong>a fifth of the food they buy</strong>. See exactly what you save, in your own currency, every time you use something up.</>,
+  <>The average family throws away <strong>hundreds of dollars of food a year</strong>. SmartPantry AI shows your savings adding up, item by item.</>,
+  <>Every item you mark as used turns into <strong>money saved, kilograms kept, and CO₂ avoided</strong> — tracked automatically in your own currency.</>,
+];
+
+function RotatingSavingsNote() {
+  const [index, setIndex] = useState(0);
+  useEffect(() => {
+    const timer = setInterval(() => setIndex((i) => (i + 1) % SAVINGS_NOTES.length), 5000);
+    return () => clearInterval(timer);
+  }, []);
+  return (
+    <p className="inline-flex items-start gap-2 rounded-xl border border-primary/25 bg-card/80 px-4 py-3 text-sm text-foreground max-w-lg min-h-[76px]">
+      <PiggyBank className="h-5 w-5 text-primary shrink-0" />
+      <AnimatePresence mode="wait">
+        <motion.span
+          key={index}
+          initial={{ opacity: 0, y: 6 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -6 }}
+          transition={{ duration: 0.35 }}
+        >
+          {SAVINGS_NOTES[index]}
+        </motion.span>
+      </AnimatePresence>
+    </p>
+  );
+}
 
 export default function Landing() {
   const { user } = useAuth();
@@ -76,13 +108,7 @@ export default function Landing() {
               suggests recipes with what you already have, and turns every kilogram saved into
               measurable impact.
             </p>
-            <p className="inline-flex items-start gap-2 rounded-xl border border-primary/25 bg-card/80 px-4 py-3 text-sm text-foreground max-w-lg">
-              <PiggyBank className="h-5 w-5 text-primary shrink-0" />
-              <span>
-                Households bin roughly <strong>a fifth of the food they buy</strong>. See exactly what you save, in
-                your own currency, every time you use something up.
-              </span>
-            </p>
+            <RotatingSavingsNote />
             <div className="flex flex-wrap gap-3 mt-2">
               <Button asChild size="lg" className="gap-2 shadow-lg">
                 <Link to={ctaTo}>

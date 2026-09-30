@@ -79,6 +79,17 @@ export function InteractivePantryPreview() {
         </div>
         <div className="relative w-[540px] max-w-full h-[400px] bg-foreground rounded-[2.5rem] p-3 shadow-2xl border border-border/60 ring-8 ring-border/20">
         <div className="w-full h-full bg-background rounded-[1.8rem] overflow-hidden flex relative">
+          <Button
+            type="button"
+            variant="ghost"
+            size="icon"
+            aria-label="Reset demo pantry"
+            title="Reset demo pantry"
+            onClick={reset}
+            className="absolute bottom-3 right-3 z-10 rounded-full h-8 w-8 bg-card/90 border border-border/60 text-primary shadow-md hover:bg-primary/10"
+          >
+            <RotateCcw className="h-3.5 w-3.5" />
+          </Button>
           {/* Tablet side rail */}
           <nav className="w-14 shrink-0 bg-card border-r border-border/50 flex flex-col items-center pt-4 pb-4" aria-label="Demo navigation">
             <div className="w-2 h-2 rounded-full bg-muted-foreground/30 mb-4" aria-hidden="true" />
