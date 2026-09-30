@@ -29,6 +29,13 @@
       "when": 1790733422926,
       "tag": "0003_locations_shopping_households",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1790756373207,
+      "tag": "0004_grant_has_role_execute",
+      "breakpoints": true
     }
   ]
 }
