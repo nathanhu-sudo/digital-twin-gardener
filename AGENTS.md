@@ -1,3 +1,4 @@
 - Keep the landing-page pantry preview as a local-state, self-contained demo; it must not write sample data to real accounts or call paid AI services.
 - Keep public landing navigation linking to separate Features, How it works, and Plans pages; its small floating rail appears after scrolling, drags by its handle without shifting content, and has a compact mobile back-to-top control so navigation stays consistent without crowding content.
 - Keep the landing section rail's green/citrus colors and Outfit/Figtree typography in dedicated theme tokens rather than changing global page styles; this keeps its floating treatment consistent without restyling the rest of the app.
+- Shared households: pantry_items/shopping_list_items visibility via household_id + is_household_member(); membership only changes through create/join/leave_household RPCs so users can't self-insert into others' households.
