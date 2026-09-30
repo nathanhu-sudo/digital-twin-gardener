@@ -109,7 +109,7 @@ export function LandingPageNav({ home = false }: { home?: boolean }) {
             <Link to="/">Back to home <ArrowLeft className="h-4 w-4" /></Link>
           </Button>
         )}
-        <Button asChild variant="ghost" size="sm" className={`group h-9 justify-between rounded-lg px-3 text-sm font-medium ${home ? "text-landingNav-ink hover:bg-landingNav-ink hover:text-primary-foreground" : "text-landingNav-ink hover:bg-landingNav-ink hover:text-primary-foreground"}`}>
+        <Button asChild variant="ghost" size="sm" className="group h-9 justify-between rounded-lg px-3 text-sm font-medium text-landingNav-ink hover:bg-landingNav-ink hover:text-primary-foreground">
           <a href="#top">Back to top <ArrowUp className="h-4 w-4 transition-transform group-hover:-translate-y-1" /></a>
         </Button>
       </nav>}
