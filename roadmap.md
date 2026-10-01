@@ -3,3 +3,4 @@
 - [ ] (Deferred by user) Separate landing page from app — options: subdomain, cleaner split, or two projects. Revisit later.
 - [x] Essentials: money saved, FAQ, install prompt, storage filters, shopping list, household sharing, quick restock.
 - [ ] Testimonials — waiting on real customer quotes from Nathan.
+- [x] Extras: weekly summary, meal planner, voice add, receipt scanning (already in Scanner).

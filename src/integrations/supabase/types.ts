@@ -259,6 +259,44 @@ export type Database = {
         }
         Relationships: []
       }
+      meal_plans: {
+        Row: {
+          created_at: string
+          household_id: string | null
+          id: string
+          meal: string
+          plan_date: string
+          title: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          household_id?: string | null
+          id?: string
+          meal?: string
+          plan_date: string
+          title: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          household_id?: string | null
+          id?: string
+          meal?: string
+          plan_date?: string
+          title?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "meal_plans_household_id_fkey"
+            columns: ["household_id"]
+            isOneToOne: false
+            referencedRelation: "households"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       notification_preferences: {
         Row: {
           created_at: string
@@ -348,6 +386,7 @@ export type Database = {
           name: string
           shelf_life_days: number
           status: string
+          status_changed_at: string | null
           user_id: string
           weight_kg: number
         }
@@ -362,6 +401,7 @@ export type Database = {
           name: string
           shelf_life_days?: number
           status?: string
+          status_changed_at?: string | null
           user_id: string
           weight_kg?: number
         }
@@ -376,6 +416,7 @@ export type Database = {
           name?: string
           shelf_life_days?: number
           status?: string
+          status_changed_at?: string | null
           user_id?: string
           weight_kg?: number
         }

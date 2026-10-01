@@ -14,6 +14,7 @@ function dbRowToItem(row: any): PantryItem {
     addedAt: row.added_at,
     status: row.status as "active" | "consumed" | "tossed",
     location: (row.location ?? "fridge") as StorageLocation,
+    statusChangedAt: row.status_changed_at ?? null,
   };
 }
 
@@ -113,7 +114,7 @@ export function usePantry(householdId: string | null = null) {
     async (id: string) => {
       const { error } = await supabase.from("pantry_items").update({ status: "consumed" }).eq("id", id);
       if (error) { toast.error("Failed to update item"); return; }
-      setItems((prev) => prev.map((i) => (i.id === id ? { ...i, status: "consumed" as const } : i)));
+      setItems((prev) => prev.map((i) => (i.id === id ? { ...i, status: "consumed" as const, statusChangedAt: new Date().toISOString() } : i)));
     },
     []
   );
@@ -150,12 +151,13 @@ export function usePantry(householdId: string | null = null) {
           location: item.location,
           status: "tossed",
           added_at: item.addedAt,
+          status_changed_at: new Date().toISOString(),
         });
         await load();
       } else {
         const { error } = await supabase.from("pantry_items").update({ status: "tossed" }).eq("id", id);
         if (error) { toast.error("Failed to update item"); return; }
-        setItems((prev) => prev.map((i) => (i.id === id ? { ...i, status: "tossed" as const } : i)));
+        setItems((prev) => prev.map((i) => (i.id === id ? { ...i, status: "tossed" as const, statusChangedAt: new Date().toISOString() } : i)));
       }
     },
     [items, user, householdId, load]
