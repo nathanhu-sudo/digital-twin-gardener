@@ -21,6 +21,9 @@ import { KitchenHacks } from "@/components/KitchenHacks";
 import { QuickAddBar } from "@/components/QuickAddBar";
 import { ShoppingListCard } from "@/components/ShoppingListCard";
 import { HouseholdCard } from "@/components/HouseholdCard";
+import { WeeklySummaryCard } from "@/components/WeeklySummaryCard";
+import { MealPlannerCard } from "@/components/MealPlannerCard";
+import { VoiceAddButton } from "@/components/VoiceAddButton";
 
 import { WeeklyChallengeCard } from "@/components/WeeklyChallengeCard";
 import { useAdmin } from "@/hooks/useAdmin";
@@ -179,6 +182,10 @@ const Index = () => {
                 <Dashboard impact={impact} />
               </section>
 
+              <section>
+                <WeeklySummaryCard />
+              </section>
+
               {/* AI Predictive Insights */}
               <section>
                 <UpgradeGate
@@ -214,6 +221,7 @@ const Index = () => {
                   )}
                 </div>
                 <AddItemForm onAdd={wrappedAdd} />
+                <VoiceAddButton onAdd={wrappedAdd} />
                 <QuickAddBar items={items} onAdd={wrappedAdd} />
               </section>
 
@@ -249,6 +257,10 @@ const Index = () => {
 
               <section>
                 <ShoppingListCard />
+              </section>
+
+              <section>
+                <MealPlannerCard />
               </section>
 
               <section>
