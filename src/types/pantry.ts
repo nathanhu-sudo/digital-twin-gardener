@@ -9,6 +9,7 @@ export interface PantryItem {
   addedAt: string; // ISO date
   status: "active" | "consumed" | "tossed";
   location: StorageLocation;
+  statusChangedAt?: string | null;
 }
 
 export interface GreenImpact {
