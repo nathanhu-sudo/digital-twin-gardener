@@ -261,6 +261,25 @@ const Auth = () => {
                   </button>
                 )}
 
+                {/* Terms & privacy consent (sign up only) */}
+                {mode === "signup" && (
+                  <div className="flex items-start gap-2.5 mt-1">
+                    <Checkbox
+                      id="terms"
+                      checked={agreed}
+                      onCheckedChange={(v) => setAgreed(v === true)}
+                      className="mt-0.5"
+                    />
+                    <Label htmlFor="terms" className="text-xs font-normal leading-snug text-muted-foreground cursor-pointer">
+                      I agree to the{" "}
+                      <Link to="/terms" className="text-primary hover:underline" onClick={(e) => e.stopPropagation()}>Terms of Service</Link>
+                      {" "}and{" "}
+                      <Link to="/privacy" className="text-primary hover:underline" onClick={(e) => e.stopPropagation()}>Privacy Policy</Link>
+                      .
+                    </Label>
+                  </div>
+                )}
+
                 <Button type="submit" disabled={loading} className="w-full gap-2">
                   {loading
                     ? "Please wait…"
