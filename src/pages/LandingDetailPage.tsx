@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
-import { ArrowRight } from "lucide-react";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { LandingPageNav } from "@/components/LandingPageNav";
 import { FeaturesContent, HowContent } from "@/components/LandingDetails";
