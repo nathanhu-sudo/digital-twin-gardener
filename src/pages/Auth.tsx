@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate, Link, useSearchParams } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
 
 import { motion, AnimatePresence } from "framer-motion";
@@ -9,6 +9,7 @@ import { lovable } from "@/integrations/lovable/index";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Checkbox } from "@/components/ui/checkbox";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { toast } from "@/components/ui/sonner";
 import { BrandLogo } from "@/components/BrandLogo";
@@ -27,6 +28,7 @@ const Auth = () => {
   const [loading, setLoading] = useState(false);
   const [socialLoading, setSocialLoading] = useState<"google" | "apple" | null>(null);
   const [checkEmailType, setCheckEmailType] = useState<"signup" | "forgot">("signup");
+  const [agreed, setAgreed] = useState(false);
 
   // Redirect to home if already authenticated (e.g. after OAuth)
   useEffect(() => {
@@ -36,6 +38,10 @@ const Auth = () => {
   }, [user, authLoading, navigate]);
 
   const handleSocialLogin = async (provider: "google" | "apple") => {
+    if (mode === "signup" && !agreed) {
+      toast.error("Please agree to the Terms and Privacy Policy first");
+      return;
+    }
     setSocialLoading(provider);
     try {
       const result = await lovable.auth.signInWithOAuth(provider, {
@@ -51,6 +57,10 @@ const Auth = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (mode === "signup" && !agreed) {
+      toast.error("Please agree to the Terms and Privacy Policy first");
+      return;
+    }
     setLoading(true);
 
     try {
@@ -251,6 +261,25 @@ const Auth = () => {
                   </button>
                 )}
 
+                {/* Terms & privacy consent (sign up only) */}
+                {mode === "signup" && (
+                  <div className="flex items-start gap-2.5 mt-1">
+                    <Checkbox
+                      id="terms"
+                      checked={agreed}
+                      onCheckedChange={(v) => setAgreed(v === true)}
+                      className="mt-0.5"
+                    />
+                    <Label htmlFor="terms" className="text-xs font-normal leading-snug text-muted-foreground cursor-pointer">
+                      I agree to the{" "}
+                      <Link to="/terms" className="text-primary hover:underline" onClick={(e) => e.stopPropagation()}>Terms of Service</Link>
+                      {" "}and{" "}
+                      <Link to="/privacy" className="text-primary hover:underline" onClick={(e) => e.stopPropagation()}>Privacy Policy</Link>
+                      .
+                    </Label>
+                  </div>
+                )}
+
                 <Button type="submit" disabled={loading} className="w-full gap-2">
                   {loading
                     ? "Please wait…"
@@ -267,6 +296,13 @@ const Auth = () => {
             {/* Social login (hidden on check-email and forgot) */}
             {mode !== "check-email" && mode !== "forgot" && (
               <>
+                {mode === "signup" && (
+                  <p className="text-[11px] text-center text-muted-foreground -mb-1">
+                    Signing up with Google or Apple means you also agree to our{" "}
+                    <Link to="/terms" className="text-primary hover:underline">Terms</Link> and{" "}
+                    <Link to="/privacy" className="text-primary hover:underline">Privacy Policy</Link>.
+                  </p>
+                )}
                 <div className="relative my-5">
                   <div className="absolute inset-0 flex items-center">
                     <span className="w-full border-t border-border" />
