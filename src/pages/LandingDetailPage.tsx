@@ -18,8 +18,11 @@ export default function LandingDetailPage({ kind }: { kind: "features" | "how" }
     <div id="top" className="relative min-h-screen overflow-x-hidden bg-background bg-[url('/auth-bg.jpg')] bg-repeat [background-size:480px_480px]">
       <LandingPageNav />
       <main className="pt-8 sm:pt-12">
-        <div className="container max-w-6xl mx-auto px-4 text-center">
-          <h1 className="text-4xl sm:text-5xl font-bold font-serif">{features ? "What you get" : "See it work"}</h1>
+        <div className="container max-w-6xl mx-auto px-4">
+          <Button asChild variant="outline" size="sm" className="mb-6 gap-1.5">
+            <Link to="/"><ArrowLeft className="h-4 w-4" />Back to home</Link>
+          </Button>
+          <h1 className="text-4xl sm:text-5xl font-bold font-serif text-center">{features ? "What you get" : "See it work"}</h1>
         </div>
         {features ? <FeaturesContent /> : <HowContent />}
         <div className="container max-w-4xl mx-auto px-4 pb-20 flex flex-wrap items-center justify-center gap-3">

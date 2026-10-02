@@ -100,6 +100,9 @@ export default function Pricing() {
       <LandingPageNav />
 
       <main className="container max-w-5xl px-4 py-12 pb-24">
+        <Button asChild variant="outline" size="sm" className="mb-8 gap-1.5">
+          <Link to="/"><ArrowLeft className="h-4 w-4" />Back to home</Link>
+        </Button>
         <div className="text-center flex flex-col items-center gap-3 mb-10">
           <BrandLogo className="h-12 w-12 rounded-2xl shadow-lg glow" />
           <h2 className="text-3xl sm:text-4xl font-bold font-serif tracking-tight text-gradient">
