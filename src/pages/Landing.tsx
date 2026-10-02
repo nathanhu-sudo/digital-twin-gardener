@@ -98,12 +98,12 @@ export default function Landing() {
             }}
           />
         </div>
-        <div className="relative container max-w-6xl mx-auto px-4 py-20 sm:py-28 grid md:grid-cols-2 gap-10 md:items-start">
+        <div className="relative container max-w-6xl mx-auto px-4 py-12 sm:py-20 lg:py-28 grid grid-cols-1 lg:grid-cols-2 gap-10 lg:items-start">
           <motion.div
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="flex flex-col gap-5 md:-mt-[70px]"
+            className="flex flex-col gap-5 min-w-0 lg:-mt-[70px]"
           >
             <span className="inline-flex items-center gap-2 self-start rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-xs font-medium text-primary">
               <Sparkles className="h-3.5 w-3.5" />
@@ -145,7 +145,7 @@ export default function Landing() {
             initial={{ opacity: 0, scale: 0.96 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="relative md:-mt-16"
+            className="relative min-w-0 lg:-mt-16"
           >
             <div className="relative flex flex-col items-center gap-4">
               <InteractivePantryPreview />
