@@ -28,6 +28,7 @@ const Auth = () => {
   const [loading, setLoading] = useState(false);
   const [socialLoading, setSocialLoading] = useState<"google" | "apple" | null>(null);
   const [checkEmailType, setCheckEmailType] = useState<"signup" | "forgot">("signup");
+  const [agreed, setAgreed] = useState(false);
 
   // Redirect to home if already authenticated (e.g. after OAuth)
   useEffect(() => {
