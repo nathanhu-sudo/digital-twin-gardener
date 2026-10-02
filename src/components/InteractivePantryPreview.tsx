@@ -67,7 +67,7 @@ export function InteractivePantryPreview() {
 
   return (
     <>
-      <div className="relative">
+      <div className="relative w-full max-w-[540px] mx-auto">
         {/* Live-demo attention badge */}
         <div className="absolute -top-5 right-0 z-20 flex items-center gap-1.5 rounded-full bg-primary px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider text-primary-foreground shadow-lg animate-bounce">
           <span className="relative flex h-2 w-2">
@@ -77,7 +77,7 @@ export function InteractivePantryPreview() {
           Try the live demo
           <span className="absolute -bottom-1 left-4 h-2 w-2 rotate-45 bg-primary" aria-hidden="true" />
         </div>
-        <div className="relative w-[540px] max-w-full h-[400px] bg-foreground rounded-[2.5rem] p-3 shadow-2xl border border-border/60 ring-8 ring-border/20">
+        <div className="relative w-full h-[440px] sm:h-[400px] bg-foreground rounded-[2.5rem] p-2 sm:p-3 shadow-2xl border border-border/60 ring-8 ring-border/20">
         <div className="w-full h-full bg-background rounded-[1.8rem] overflow-hidden flex relative">
           {/* Tablet side rail */}
           <nav className="w-14 shrink-0 bg-card border-r border-border/50 flex flex-col items-center pt-4 pb-4" aria-label="Demo navigation">

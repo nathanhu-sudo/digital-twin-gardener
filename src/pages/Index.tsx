@@ -117,9 +117,9 @@ const Index = () => {
         />
         <div className="absolute inset-0 bg-gradient-to-b from-primary/5 to-background/60" />
 
-        <div className="relative container max-w-2xl py-8 px-4 flex flex-col items-center text-center gap-2">
+        <div className="relative container max-w-2xl pt-3 pb-6 sm:py-8 px-4 flex flex-col items-center text-center gap-2">
           {/* Top bar */}
-          <div className="absolute top-4 right-4 flex items-center gap-1 sm:gap-2">
+          <div className="self-end -mb-2 sm:mb-0 sm:absolute sm:top-4 sm:right-4 flex items-center gap-1 sm:gap-2">
             <NotificationBell />
             <Button variant="ghost" size="sm" onClick={signOut} className="gap-1 text-muted-foreground">
               <LogOut className="h-4 w-4" />
@@ -134,7 +134,7 @@ const Index = () => {
             className="flex items-center gap-3"
           >
             <BrandLogo className="h-12 w-12 rounded-2xl shadow-lg glow animate-glow-pulse" />
-            <h1 className="text-3xl font-bold font-serif tracking-tight text-gradient">SmartPantry AI</h1>
+            <h1 className="text-2xl sm:text-3xl font-bold font-serif tracking-tight text-gradient">SmartPantry AI</h1>
           </motion.div>
 
           <motion.p
@@ -162,7 +162,7 @@ const Index = () => {
       </header>
 
       {/* Page content */}
-      <main className="flex-1 container max-w-2xl px-4 py-8 mx-auto">
+      <main className="flex-1 container max-w-2xl px-4 pt-6 pb-36 sm:py-8 sm:pb-36 mx-auto">
         <AnimatePresence mode="wait">
           {activeTab === "home" && (
             <motion.div
