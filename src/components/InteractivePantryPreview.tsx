@@ -174,15 +174,6 @@ export function InteractivePantryPreview() {
             <span className="absolute inset-0 rounded-full bg-primary animate-ping opacity-25 pointer-events-none" aria-hidden="true" />
             <Plus className="relative h-5 w-5" />
           </Button>
-          {/* Floating tap hotspot near the add button */}
-          <div className="pointer-events-none absolute bottom-14 right-3.5 z-20 flex flex-col items-end animate-bounce" aria-hidden="true">
-            <span className="flex h-8 w-8 items-center justify-center rounded-full bg-primary/15 border border-primary/40 backdrop-blur-sm shadow-lg">
-              <span className="h-3.5 w-3.5 rounded-full bg-primary animate-pulse" />
-            </span>
-            <span className="mt-1.5 rounded-md bg-foreground px-2 py-1 text-[9px] font-semibold text-background shadow-lg">
-              Click to add an item
-            </span>
-          </div>
         </div>
       </div>
       </div>
