@@ -296,6 +296,13 @@ const Auth = () => {
             {/* Social login (hidden on check-email and forgot) */}
             {mode !== "check-email" && mode !== "forgot" && (
               <>
+                {mode === "signup" && (
+                  <p className="text-[11px] text-center text-muted-foreground -mb-1">
+                    Signing up with Google or Apple means you also agree to our{" "}
+                    <Link to="/terms" className="text-primary hover:underline">Terms</Link> and{" "}
+                    <Link to="/privacy" className="text-primary hover:underline">Privacy Policy</Link>.
+                  </p>
+                )}
                 <div className="relative my-5">
                   <div className="absolute inset-0 flex items-center">
                     <span className="w-full border-t border-border" />
