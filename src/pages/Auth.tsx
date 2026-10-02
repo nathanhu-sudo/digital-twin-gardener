@@ -38,6 +38,10 @@ const Auth = () => {
   }, [user, authLoading, navigate]);
 
   const handleSocialLogin = async (provider: "google" | "apple") => {
+    if (mode === "signup" && !agreed) {
+      toast.error("Please agree to the Terms and Privacy Policy first");
+      return;
+    }
     setSocialLoading(provider);
     try {
       const result = await lovable.auth.signInWithOAuth(provider, {
